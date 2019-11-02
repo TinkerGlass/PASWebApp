@@ -3,11 +3,17 @@ package com.jaba.webapp.domain.item;
 import com.jaba.webapp.domain.audit.AuditInfo;
 import com.jaba.webapp.domain.user.User;
 
+import javax.persistence.*;
 import java.time.Instant;
 import java.util.Date;
 
+@Entity
 public abstract class Item {
+    @Id
+    @GeneratedValue
     private long id;
+
+    @OneToOne(fetch = FetchType.EAGER)
     private AuditInfo auditInfo;
 
     public Item() {

@@ -3,14 +3,21 @@ package com.jaba.webapp.domain.audit;
 import com.jaba.webapp.domain.user.RootUser;
 import com.jaba.webapp.domain.user.User;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
 public class AuditInfo {
+    @Id
+    @GeneratedValue
     private Date creationDate;
+    @OneToOne(fetch = FetchType.EAGER)
     private User creationUser;
     private Date modificationDate;
+    @OneToOne(fetch = FetchType.EAGER)
     private User modificationUser;
     private Date deletionDate;
+    @OneToOne(fetch = FetchType.EAGER)
     private User deletionUser;
 
     public AuditInfo() {

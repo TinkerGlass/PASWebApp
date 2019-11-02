@@ -3,8 +3,10 @@ package com.jaba.webapp.domain.item;
 import com.jaba.webapp.domain.audit.AuditInfo;
 import com.jaba.webapp.domain.user.User;
 
+import javax.persistence.Entity;
 import java.util.Date;
 
+@Entity
 public class Album extends Item {
     private String title;
     private String author;
