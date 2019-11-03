@@ -22,4 +22,8 @@ public class AlbumService {
     public Album getAlbumById(int id){
         return albumRepository.findById(id).get();
     }
+
+    public void saveAlbum(){
+        albumRepository.save(new Album());
+    }
 }
