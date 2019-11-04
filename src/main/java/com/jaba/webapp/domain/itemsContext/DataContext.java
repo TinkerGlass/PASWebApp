@@ -38,6 +38,10 @@ public class DataContext {
         albums.add(album);
     }
 
+    public void removeAlbum(int id){
+        albums.remove(id);
+    }
+
 
     //Videos operations
     public List<Video> getAllVideos(){
@@ -59,5 +63,9 @@ public class DataContext {
 
     public void insertVideo(Video video){
         videos.add(video);
+    }
+
+    public void removeVideo(int id){
+        videos.remove(id);
     }
 }

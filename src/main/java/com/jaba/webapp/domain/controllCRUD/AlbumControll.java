@@ -21,6 +21,8 @@ public class AlbumControll {
 
     DataContext dataContext = new DataContext();
 
+
+    //Albums
     @GetMapping("/albums")
     private List<Album> getAllAlbums(){
         return dataContext.getAllAlbums();
@@ -44,7 +46,12 @@ public class AlbumControll {
         dataContext.insertAlbum(new Album(1, new AuditInfo(), "title", "author", Album.Genre.CLASSICAL, new Date(), 1));
     }
 
+    @GetMapping("/albums/remove/{id}")
+    private void removeAlbum(@PathVariable("id") int id){
+        dataContext.removeAlbum(id);
+    }
 
+    //Videos
     @GetMapping("/videos")
     private List<Video> getAllVideos(){
         return dataContext.getAllVideos();
@@ -66,5 +73,10 @@ public class AlbumControll {
     @GetMapping("/videostest")
     private void insertVideo(){
         dataContext.insertVideo(new Video());
+    }
+
+    @GetMapping("/videos/remove/{id}")
+    private void removeVideo(@PathVariable("id") int id){
+        dataContext.removeVideo(id);
     }
 }
