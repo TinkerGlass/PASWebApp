@@ -1,29 +1,36 @@
 package com.jaba.webapp.domain.controllCRUD;
 
+import com.jaba.webapp.domain.audit.AuditInfo;
+import com.jaba.webapp.domain.user.ClientUser;
+
+import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
+
+import com.jaba.webapp.domain.audit.AuditInfo;
 import com.jaba.webapp.domain.item.Album;
 
+import com.jaba.webapp.domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AlbumService {
-
-    @Autowired
-    AlbumRepository albumRepository;
-
-    public List<Album> getAllPersons() {
-        List<Album> persons = new ArrayList<Album>();
-        albumRepository.findAll().forEach(person -> persons.add(person));
-        return persons;
-    }
-
-    public Album getAlbumById(int id){
-        return albumRepository.findById(id).get();
-    }
-
-    public void saveAlbum(){
-        albumRepository.save(new Album());
-    }
+//
+//    @Autowired
+//    AlbumRepository albumRepository;
+//
+//    public List<Album> getAllPersons() {
+//        List<Album> persons = new ArrayList<Album>();
+//        albumRepository.findAll().forEach(person -> persons.add(person));
+//        return persons;
+//    }
+//
+//    public Album getAlbumById(int id){
+//        return albumRepository.findById(id).get();
+//    }
+//
+//    public void saveAlbum(){
+//        albumRepository.save(new Album(1, new AuditInfo(), "tytul", "autor", Album.Genre.CLASSICAL, new Date(), 12));
+//    }
 }

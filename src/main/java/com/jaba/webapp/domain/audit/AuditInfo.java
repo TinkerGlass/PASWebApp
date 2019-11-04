@@ -6,32 +6,31 @@ import com.jaba.webapp.domain.user.User;
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity
 public class AuditInfo {
     @Id
     @GeneratedValue
+    private long id;
     private Date creationDate;
-    @OneToOne(fetch = FetchType.EAGER)
     private User creationUser;
     private Date modificationDate;
-    @OneToOne(fetch = FetchType.EAGER)
     private User modificationUser;
     private Date deletionDate;
-    @OneToOne(fetch = FetchType.EAGER)
     private User deletionUser;
 
     public AuditInfo() {
 
     }
 
-    public AuditInfo(Date creationDate)
+    public AuditInfo(long id, Date creationDate)
     {
+        this.id = id;
         this.creationDate = creationDate;
         this.creationUser = RootUser.getRootUser();
     }
 
-    public AuditInfo(Date creationDate, User creationUser)
+    public AuditInfo(long id, Date creationDate, User creationUser)
     {
+        this.id = id;
         this.creationDate = creationDate;
         this.creationUser = creationUser;
     }

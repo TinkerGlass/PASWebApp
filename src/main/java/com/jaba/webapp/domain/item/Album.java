@@ -6,7 +6,7 @@ import com.jaba.webapp.domain.user.User;
 import javax.persistence.Entity;
 import java.util.Date;
 
-@Entity
+
 public class Album extends Item {
     private String title;
     private String author;
@@ -28,11 +28,20 @@ public class Album extends Item {
         this.tracks = tracks;
     }
 
+    public String getTitle(){
+        return this.title;
+    }
+
+
     public enum Genre {
         POP,
         ROCK,
         HIPHOP,
         CLASSICAL,
         EDM
+    }
+
+    public String toString(){
+        return this.getId() + " " + this.getAuditInfo() + " " + this.title + " " + this.author + " " + this.genre;
     }
 }
