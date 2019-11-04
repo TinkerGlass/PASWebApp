@@ -7,7 +7,8 @@ import java.util.List;
 
 import com.jaba.webapp.domain.audit.AuditInfo;
 import com.jaba.webapp.domain.item.Album;
-import com.jaba.webapp.domain.itemsContext.AlbumContext;
+import com.jaba.webapp.domain.item.Video;
+import com.jaba.webapp.domain.itemsContext.DataContext;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,21 +19,52 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AlbumControll {
 
-    AlbumContext albumContext = new AlbumContext();
+    DataContext dataContext = new DataContext();
 
     @GetMapping("/albums")
     private List<Album> getAllAlbums(){
-        return albumContext.getAllAlbums();
+        return dataContext.getAllAlbums();
     }
 
     @GetMapping("/albums/{id}")
-    private String getPerson(@PathVariable("id") int id) {
-        return albumContext.getAlbum(id).toString();
+    private String getAlbumById(@PathVariable("id") int id) {
+        return dataContext.getAlbum(id).toString();
+    }
+
+    @GetMapping("/albumsTitle/{title}")
+    private String getAlbum(@PathVariable("title") String title) {
+        if(dataContext.getAlbum(title) == null)
+            return "error";
+        else
+            return dataContext.getAlbum(title).toString();
     }
 
     @GetMapping("/albumstest")
-    private void setPerson(){
-        albumContext.insertAlbum(new Album(1, new AuditInfo(), "title", "author", Album.Genre.CLASSICAL, new Date(), 1));
+    private void insertAlbum(){
+        dataContext.insertAlbum(new Album(1, new AuditInfo(), "title", "author", Album.Genre.CLASSICAL, new Date(), 1));
     }
 
+
+    @GetMapping("/videos")
+    private List<Video> getAllVideos(){
+        return dataContext.getAllVideos();
+    }
+
+    @GetMapping("/videos/{id}")
+    private String getVideoById(@PathVariable("id") int id){
+        return dataContext.getVideo(id).toString();
+    }
+
+    @GetMapping("/videosTitle/{title}")
+    private String getVideo(@PathVariable("title") String title){
+        if(dataContext.getVideo(title) == null)
+            return "error";
+        else
+            return dataContext.getVideo(title).toString();
+    }
+
+    @GetMapping("/videostest")
+    private void insertVideo(){
+        dataContext.insertVideo(new Video());
+    }
 }

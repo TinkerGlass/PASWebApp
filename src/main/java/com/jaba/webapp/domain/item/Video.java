@@ -64,6 +64,10 @@ public class Video extends Item {
         this.minutes = minutes;
     }
 
+    public String toString(){
+        return this.getId() + " " + this.getAuditInfo() + " " + this.title + " " + this.director + " " + this.genre;
+    }
+
     public enum Genre {
         COMEDY,
         DRAMA,
