@@ -28,10 +28,49 @@ public class Album extends Item {
         this.tracks = tracks;
     }
 
+    public String toString(){
+        return this.getId() + " " + this.getAuditInfo() + " " + this.title + " " + this.author + " " + this.genre;
+    }
+
     public String getTitle(){
         return this.title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
+
+    public Date getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public int getTracks() {
+        return tracks;
+    }
+
+    public void setTracks(int tracks) {
+        this.tracks = tracks;
+    }
 
     public enum Genre {
         POP,
@@ -39,9 +78,5 @@ public class Album extends Item {
         HIPHOP,
         CLASSICAL,
         EDM
-    }
-
-    public String toString(){
-        return this.getId() + " " + this.getAuditInfo() + " " + this.title + " " + this.author + " " + this.genre;
     }
 }
