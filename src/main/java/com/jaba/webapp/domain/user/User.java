@@ -2,14 +2,8 @@ package com.jaba.webapp.domain.user;
 
 import com.jaba.webapp.domain.audit.AuditInfo;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-
 
 public abstract class User {
-    @Id
     private long id;
     private AuditInfo auditInfo;
     private String username;

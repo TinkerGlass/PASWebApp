@@ -1,14 +1,10 @@
 package com.jaba.webapp.domain.audit;
 
 import com.jaba.webapp.domain.user.RootUser;
-import com.jaba.webapp.domain.user.User;
-
-import javax.persistence.*;
+import com.jaba.webapp.domain.user.User;;
 import java.util.Date;
 
 public class AuditInfo {
-    @Id
-    @GeneratedValue
     private long id;
     private Date creationDate;
     private User creationUser;

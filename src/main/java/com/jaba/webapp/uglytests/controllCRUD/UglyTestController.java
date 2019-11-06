@@ -28,12 +28,12 @@ public class UglyTestController {
         return albumRepository.find(AlbumSpecification.all());
     }
 
-    @GetMapping("/albums/{id}")
+    @GetMapping("/album/{id}")
     private Album getAlbumById(@PathVariable("id") int id) {
         return albumRepository.find(AlbumSpecification.byId(id)).get(0);
     }
 
-    @GetMapping("/albums")
+    @GetMapping("/album")
     private List<Album> getAlbum(@RequestParam String title) {
         return albumRepository.find(AlbumSpecification.byTitle(title));
     }
@@ -43,7 +43,7 @@ public class UglyTestController {
         //dataContext.insertAlbum(new Album(1, new AuditInfo(), "title", "author", Album.Genre.CLASSICAL, new Date(), 1));
     }
 
-    @DeleteMapping("/albums/{id}")
+    @DeleteMapping("/album/{id}")
     private void removeAlbum(@PathVariable("id") int id){
         albumRepository.removeItem(albumRepository.find(AlbumSpecification.byId(id)).get(0));
     }
@@ -54,12 +54,12 @@ public class UglyTestController {
         return videoRepository.find(VideoSpecification.all());
     }
 
-    @GetMapping("/videos/{id}")
+    @GetMapping("/video/{id}")
     private Video getVideoById(@PathVariable("id") int id){
         return videoRepository.find(VideoSpecification.byId(id)).get(0);
     }
 
-    @GetMapping("/videos")
+    @GetMapping("/video")
     private List<Video> getVideo(@RequestParam String title){
         return videoRepository.find(VideoSpecification.byTitle(title));
     }
@@ -69,7 +69,7 @@ public class UglyTestController {
         //dataContext.insertVideo(new Video());
     }
 
-    @DeleteMapping("/videos/{id}")
+    @DeleteMapping("/video/{id}")
     private void removeVideo(@PathVariable("id") int id){
         videoRepository.removeItem(videoRepository.find(VideoSpecification.byId(id)).get(0));
     }

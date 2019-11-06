@@ -2,7 +2,6 @@ package com.jaba.webapp.domain.audit;
 
 import com.jaba.webapp.domain.item.Item;
 import com.jaba.webapp.domain.user.User;
-import com.jaba.webapp.domain.item.Video;
 
 import java.util.Date;
 
