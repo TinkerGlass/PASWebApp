@@ -1,5 +1,6 @@
 package com.jaba.webapp.datacontext;
 
+import com.jaba.webapp.datacontext.datafiller.UserDataFiller;
 import com.jaba.webapp.domain.user.AdministratorUser;
 import com.jaba.webapp.domain.user.ClientUser;
 import com.jaba.webapp.domain.user.ResourceManagerUser;
@@ -17,6 +18,12 @@ public class UserDataContext {
 
     public UserDataContext() {
 
+    }
+
+    public UserDataContext(UserDataFiller filler) {
+        filler.fillAdministrators(administratorUsers);
+        filler.fillClients(clientUsers);
+        filler.fillResourceManagers(resourceManagerUsers);
     }
 
     public List<AdministratorUser> getAdministratorUsers() {

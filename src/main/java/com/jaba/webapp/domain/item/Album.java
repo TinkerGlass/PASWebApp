@@ -1,6 +1,5 @@
 package com.jaba.webapp.domain.item;
 
-import com.jaba.webapp.domain.audit.AuditInfo;
 import java.util.Date;
 
 
@@ -15,9 +14,8 @@ public class Album extends Item {
 
     }
 
-    public Album(long id, AuditInfo auditInfo, String title, String author, Genre genre, Date releaseDate, int tracks) {
-        this.setId(id);
-        this.setAuditInfo(auditInfo);
+    public Album(String title, String author, Genre genre, Date releaseDate, int tracks) {
+        this.setId(getNextID());
         this.title = title;
         this.author = author;
         this.genre = genre;

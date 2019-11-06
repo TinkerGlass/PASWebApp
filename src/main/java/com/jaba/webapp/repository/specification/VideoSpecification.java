@@ -2,6 +2,8 @@ package com.jaba.webapp.repository.specification;
 
 import com.jaba.webapp.domain.item.Video;
 
+import java.util.Arrays;
+
 public class VideoSpecification {
     public static Specification<Video> all() {
         return item -> true;
@@ -15,7 +17,7 @@ public class VideoSpecification {
         return item -> item.getTitle().equals(title);
     }
 
-    public static Specification<Video> byGenre(Video.Genre genre) { return item -> item.getGenre().equals(genre); }
+    public static Specification<Video> byGenre(Video.Genre genre) { return item -> Arrays.stream(item.getGenres()).filter(g -> g.equals(genre)).count() > 0; }
 
     public static Specification<Video> byDirector(String director) { return item -> item.getDirector().equals(director); }
 

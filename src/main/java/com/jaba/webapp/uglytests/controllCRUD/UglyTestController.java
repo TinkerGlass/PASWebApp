@@ -6,6 +6,7 @@ import com.jaba.webapp.domain.item.Album;
 import com.jaba.webapp.domain.item.Video;
 
 
+import com.jaba.webapp.domain.user.RootUser;
 import com.jaba.webapp.repository.AlbumRepository;
 import com.jaba.webapp.repository.VideoRepository;
 import com.jaba.webapp.repository.specification.AlbumSpecification;
@@ -45,7 +46,7 @@ public class UglyTestController {
 
     @DeleteMapping("/album/{id}")
     private void removeAlbum(@PathVariable("id") int id){
-        albumRepository.removeItem(albumRepository.find(AlbumSpecification.byId(id)).get(0));
+        albumRepository.removeItem(albumRepository.find(AlbumSpecification.byId(id)).get(0), RootUser.getRootUser());
     }
 
     //Videos
@@ -71,6 +72,6 @@ public class UglyTestController {
 
     @DeleteMapping("/video/{id}")
     private void removeVideo(@PathVariable("id") int id){
-        videoRepository.removeItem(videoRepository.find(VideoSpecification.byId(id)).get(0));
+        videoRepository.removeItem(videoRepository.find(VideoSpecification.byId(id)).get(0), RootUser.getRootUser());
     }
 }

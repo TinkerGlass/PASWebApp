@@ -1,12 +1,12 @@
 package com.jaba.webapp.domain.item;
 
-import com.jaba.webapp.domain.audit.AuditInfo;
-
+import java.util.Arrays;
 import java.util.Date;
+
 public class Video extends Item {
     private String title;
     private Date releaseDate;
-    private Genre genre;
+    private Genre[] genres;
     private String director;
     private int minutes;
 
@@ -14,12 +14,11 @@ public class Video extends Item {
 
     }
 
-    public Video(long id, AuditInfo auditInfo, String title, Date releaseDate, Genre genre, String director, int minutes) {
-        this.setId(id);
-        this.setAuditInfo(auditInfo);
+    public Video(String title, String director, Genre[] genres, Date releaseDate, int minutes) {
+        this.setId(getNextID());
         this.title = title;
         this.releaseDate = releaseDate;
-        this.genre = genre;
+        this.genres = genres;
         this.director = director;
         this.minutes = minutes;
     }
@@ -40,12 +39,12 @@ public class Video extends Item {
         this.releaseDate = releaseDate;
     }
 
-    public Genre getGenre() {
-        return genre;
+    public Genre[] getGenres() {
+        return genres;
     }
 
-    public void setGenre(Genre genre) {
-        this.genre = genre;
+    public void setGenres(Genre[] genres) {
+        this.genres = genres;
     }
 
     public String getDirector() {
@@ -65,7 +64,7 @@ public class Video extends Item {
     }
 
     public String toString(){
-        return this.getId() + " " + this.getAuditInfo() + " " + this.title + " " + this.director + " " + this.genre;
+        return this.getId() + " " + this.getAuditInfo() + " " + this.title + " " + this.director + " " + Arrays.toString(genres);
     }
 
     public enum Genre {
@@ -73,6 +72,10 @@ public class Video extends Item {
         DRAMA,
         SCIFI,
         HORROR,
-        ANIME
+        ANIME,
+        FANTASY,
+        MUSICAL,
+        THRILLER,
+        ACTION
     }
 }

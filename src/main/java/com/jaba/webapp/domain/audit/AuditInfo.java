@@ -1,8 +1,9 @@
 package com.jaba.webapp.domain.audit;
 
-import com.jaba.webapp.domain.user.RootUser;
 import com.jaba.webapp.domain.user.User;;
+import java.time.Instant;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class AuditInfo {
     private long id;
@@ -17,18 +18,20 @@ public class AuditInfo {
 
     }
 
-    public AuditInfo(long id, Date creationDate)
-    {
-        this.id = id;
-        this.creationDate = creationDate;
-        this.creationUser = RootUser.getRootUser();
+    public AuditInfo(User creationUser) {
+        this.id = getNextID();
+        this.creationDate = Date.from(Instant.now());
+        this.creationUser = creationUser;
     }
 
-    public AuditInfo(long id, Date creationDate, User creationUser)
-    {
-        this.id = id;
-        this.creationDate = creationDate;
-        this.creationUser = creationUser;
+    public void updateExecuted(User modificationUser) {
+        this.modificationDate = Date.from(Instant.now());
+        this.modificationUser = modificationUser;
+    }
+
+    public void deleteExecuted(User deletionUser) {
+        this.deletionDate = Date.from(Instant.now());
+        this.deletionUser = deletionUser;
     }
 
     public Date getCreationDate() {
@@ -77,5 +80,16 @@ public class AuditInfo {
 
     public void setDeletionUser(User deletionUser) {
         this.deletionUser = deletionUser;
+    }
+
+
+    private static AtomicLong _nextID = new AtomicLong(0);
+
+    public static long getNextID() {
+        return _nextID.getAndIncrement();
+    }
+
+    private void setNextID(long value) {
+        _nextID.set(value);
     }
 }
