@@ -1,5 +1,7 @@
 package com.jaba.webapp.repository.specification;
 
-public interface Specification<T> {
-    boolean matches(T item);
+import com.jaba.webapp.domain.item.Item;
+
+public interface Specification {
+    boolean matches(Item item);
 }

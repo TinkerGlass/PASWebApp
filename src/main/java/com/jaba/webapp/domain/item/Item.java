@@ -3,12 +3,22 @@ package com.jaba.webapp.domain.item;
 import com.jaba.webapp.domain.audit.AuditInfo;
 import com.jaba.webapp.domain.user.User;
 
-import java.util.concurrent.atomic.AtomicLong;
+import java.math.BigDecimal;
+import java.util.Date;
 
 
 public abstract class Item {
-    private long id;
+    private Long id;
+    private BigDecimal price;
+    private String title;
+    private Date releaseDate;
     private AuditInfo auditInfo;
+
+    public Item(String title, BigDecimal price, Date releaseDate) {
+        this.title = title;
+        this.price = price;
+        this.releaseDate = releaseDate;
+    }
 
     public Item() {
 
@@ -26,11 +36,11 @@ public abstract class Item {
         auditInfo.deleteExecuted(user);
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -42,13 +52,32 @@ public abstract class Item {
         this.auditInfo = auditInfo;
     }
 
-    private static AtomicLong _nextID = new AtomicLong(0);
-
-    public static long getNextID() {
-        return _nextID.getAndIncrement();
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    private void setNextID(long value) {
-        _nextID.set(value);
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Date getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return (o instanceof Item) && getId() != null && ((Item)o).getId().equals(getId());
     }
 }

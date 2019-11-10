@@ -1,77 +1,43 @@
 package com.jaba.webapp.uglytests.controllCRUD;
 
-import java.util.List;
-
-import com.jaba.webapp.domain.item.Album;
-import com.jaba.webapp.domain.item.Video;
-
-
+import com.jaba.webapp.domain.item.Item;
 import com.jaba.webapp.domain.user.RootUser;
-import com.jaba.webapp.repository.AlbumRepository;
-import com.jaba.webapp.repository.VideoRepository;
-import com.jaba.webapp.repository.specification.AlbumSpecification;
-import com.jaba.webapp.repository.specification.VideoSpecification;
+import com.jaba.webapp.repository.ItemRepository;
+import com.jaba.webapp.repository.specification.ItemSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class UglyTestController {
 
     @Autowired
-    AlbumRepository albumRepository;
+    ItemRepository itemRepository;
 
-    @Autowired
-    VideoRepository videoRepository;
-
-    //Albums
-    @GetMapping("/albums")
-    private List<Album> getAllAlbums(){
-        return albumRepository.find(AlbumSpecification.all());
+    //Items
+    @GetMapping("/items")
+    private List<Item> getAllItems(){
+        return itemRepository.find(ItemSpecification.all());
     }
 
-    @GetMapping("/album/{id}")
-    private Album getAlbumById(@PathVariable("id") int id) {
-        return albumRepository.find(AlbumSpecification.byId(id)).get(0);
+    @GetMapping("/item/{id}")
+    private Item getItemById(@PathVariable("id") Long id) {
+        return itemRepository.find(ItemSpecification.byId(id)).get(0);
     }
 
-    @GetMapping("/album")
-    private List<Album> getAlbum(@RequestParam String title) {
-        return albumRepository.find(AlbumSpecification.byTitle(title));
+    @GetMapping("/item")
+    private List<Item> getItem(@RequestParam String title) {
+        return itemRepository.find(ItemSpecification.byTitle(title));
     }
 
-    @GetMapping("/albumstest")
-    private void insertAlbum(){
-        //dataContext.insertAlbum(new Album(1, new AuditInfo(), "title", "author", Album.Genre.CLASSICAL, new Date(), 1));
+    @GetMapping("/itemstest")
+    private void insertItem(){
+        //dataContext.insertItem(new Item(1, new AuditInfo(), "title", "author", Item.Genre.CLASSICAL, new Date(), 1));
     }
 
-    @DeleteMapping("/album/{id}")
-    private void removeAlbum(@PathVariable("id") int id){
-        albumRepository.removeItem(albumRepository.find(AlbumSpecification.byId(id)).get(0), RootUser.getRootUser());
-    }
-
-    //Videos
-    @GetMapping("/videos")
-    private List<Video> getAllVideos(){
-        return videoRepository.find(VideoSpecification.all());
-    }
-
-    @GetMapping("/video/{id}")
-    private Video getVideoById(@PathVariable("id") int id){
-        return videoRepository.find(VideoSpecification.byId(id)).get(0);
-    }
-
-    @GetMapping("/video")
-    private List<Video> getVideo(@RequestParam String title){
-        return videoRepository.find(VideoSpecification.byTitle(title));
-    }
-
-    @GetMapping("/videostest")
-    private void insertVideo(){
-        //dataContext.insertVideo(new Video());
-    }
-
-    @DeleteMapping("/video/{id}")
-    private void removeVideo(@PathVariable("id") int id){
-        videoRepository.removeItem(videoRepository.find(VideoSpecification.byId(id)).get(0), RootUser.getRootUser());
+    @DeleteMapping("/item/{id}")
+    private void removeItem(@PathVariable("id") Long id){
+        itemRepository.removeItem(itemRepository.find(ItemSpecification.byId(id)).get(0), RootUser.getRootUser());
     }
 }

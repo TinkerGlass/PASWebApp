@@ -1,11 +1,10 @@
 package com.jaba.webapp.domain.item;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Date;
 
 public class Video extends Item {
-    private String title;
-    private Date releaseDate;
     private Genre[] genres;
     private String director;
     private int minutes;
@@ -14,29 +13,11 @@ public class Video extends Item {
 
     }
 
-    public Video(String title, String director, Genre[] genres, Date releaseDate, int minutes) {
-        this.setId(getNextID());
-        this.title = title;
-        this.releaseDate = releaseDate;
+    public Video(String title, String director, Genre[] genres, Date releaseDate, int minutes, BigDecimal price) {
+        super(title, price, releaseDate);
         this.genres = genres;
         this.director = director;
         this.minutes = minutes;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Date getReleaseDate() {
-        return releaseDate;
-    }
-
-    public void setReleaseDate(Date releaseDate) {
-        this.releaseDate = releaseDate;
     }
 
     public Genre[] getGenres() {
@@ -64,7 +45,7 @@ public class Video extends Item {
     }
 
     public String toString(){
-        return this.getId() + " " + this.getAuditInfo() + " " + this.title + " " + this.director + " " + Arrays.toString(genres);
+        return this.getId() + " " + this.getAuditInfo() + " " + this.getTitle() + " " + this.director + " " + Arrays.toString(genres) + " " + this.getPrice();
     }
 
     public enum Genre {

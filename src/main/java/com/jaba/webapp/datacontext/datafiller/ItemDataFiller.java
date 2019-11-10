@@ -1,11 +1,7 @@
 package com.jaba.webapp.datacontext.datafiller;
 
-import com.jaba.webapp.domain.item.Album;
-import com.jaba.webapp.domain.item.Video;
-
-import java.util.List;
+import com.jaba.webapp.repository.ItemRepository;
 
 public interface ItemDataFiller {
-    public void fillAlbums(List<Album> list);
-    public void fillVideos(List<Video> list);
+    public void fillItems(ItemRepository repository);
 }
