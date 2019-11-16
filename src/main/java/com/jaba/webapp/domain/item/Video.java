@@ -13,8 +13,8 @@ public class Video extends Item {
 
     }
 
-    public Video(String title, String director, Genre[] genres, Date releaseDate, int minutes, BigDecimal price) {
-        super(title, price, releaseDate);
+    public Video(String title, String director, Genre[] genres, Date releaseDate, int minutes, BigDecimal price, FanSticker sticker) {
+        super(title, price, releaseDate, sticker);
         this.genres = genres;
         this.director = director;
         this.minutes = minutes;

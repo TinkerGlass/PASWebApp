@@ -4,7 +4,7 @@ public class ResourceManagerUser extends User {
     public ResourceManagerUser() {
     }
 
-    public ResourceManagerUser(long id, String username, String passwordHash, boolean active) {
-        super(id, username, passwordHash, active);
+    public ResourceManagerUser(String username, String passwordHash, boolean active) {
+        super(username, passwordHash, active);
     }
 }

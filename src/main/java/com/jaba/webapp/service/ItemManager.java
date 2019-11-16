@@ -8,6 +8,6 @@ public interface ItemManager {
     List<Item> getAllItems();
     Item getItemById(Long id);
     void deleteItem(Long id);
-    void updateItem(Long id);
+    void updateItem(Item item);
 
 }

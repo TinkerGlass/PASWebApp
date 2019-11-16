@@ -1,7 +1,9 @@
 package com.jaba.webapp.configuration;
 
-import com.jaba.webapp.datacontext.datafiller.ConstantItemDataFiller;
-import com.jaba.webapp.datacontext.datafiller.ItemDataFiller;
+import com.jaba.webapp.datafiller.item.ConstantItemDataFiller;
+import com.jaba.webapp.datafiller.item.ItemDataFiller;
+import com.jaba.webapp.datafiller.user.ConstantUserDataFiller;
+import com.jaba.webapp.datafiller.user.UserDataFiller;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,7 +11,11 @@ import org.springframework.context.annotation.Configuration;
 public class InjectionConfiguration {
 
     @Bean
-    public ItemDataFiller getDataFiller() {
+    public ItemDataFiller getItemDataFiller() {
         return new ConstantItemDataFiller();
     }
+
+    @Bean
+    public UserDataFiller getUserDataFiller() { return new ConstantUserDataFiller(); }
+
 }

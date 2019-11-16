@@ -9,11 +9,13 @@ public abstract class Item {
     private BigDecimal price;
     private String title;
     private Date releaseDate;
+    private FanSticker sticker;
 
-    public Item(String title, BigDecimal price, Date releaseDate) {
+    public Item(String title, BigDecimal price, Date releaseDate, FanSticker sticker) {
         this.title = title;
         this.price = price;
         this.releaseDate = releaseDate;
+        this.sticker = sticker;
     }
 
     public Item() {
@@ -51,6 +53,14 @@ public abstract class Item {
 
     public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
+    }
+
+    public FanSticker getSticker() {
+        return sticker;
+    }
+
+    public void setSticker(FanSticker sticker) {
+        this.sticker = sticker;
     }
 
     @Override

@@ -1,11 +1,7 @@
 package com.jaba.webapp.domain.user;
 
-import com.jaba.webapp.domain.audit.AuditInfo;
-
-
 public abstract class User {
-    private long id;
-    private AuditInfo auditInfo;
+    private Long id;
     private String username;
     private String passwordHash;
     private boolean active;
@@ -14,18 +10,17 @@ public abstract class User {
 
     }
 
-    public User(long id, String username, String passwordHash, boolean active) {
-        this.id = id;
+    public User(String username, String passwordHash, boolean active) {
         this.username = username;
         this.passwordHash = passwordHash;
         this.active = active;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -53,11 +48,4 @@ public abstract class User {
         this.active = active;
     }
 
-    public AuditInfo getAuditInfo() {
-        return auditInfo;
-    }
-
-    public void setAuditInfo(AuditInfo auditInfo) {
-        this.auditInfo = auditInfo;
-    }
 }

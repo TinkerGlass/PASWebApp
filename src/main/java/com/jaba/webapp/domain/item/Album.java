@@ -13,8 +13,8 @@ public class Album extends Item {
 
     }
 
-    public Album(String title, String author, Genre genre, Date releaseDate, int tracks, BigDecimal price) {
-        super(title, price, releaseDate);
+    public Album(String title, String author, Genre genre, Date releaseDate, int tracks, BigDecimal price, FanSticker sticker) {
+        super(title, price, releaseDate, sticker);
         this.author = author;
         this.genre = genre;
         this.tracks = tracks;
