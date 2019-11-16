@@ -2,7 +2,6 @@ package com.jaba.webapp.repository;
 
 import com.jaba.webapp.datacontext.datafiller.ItemDataFiller;
 import com.jaba.webapp.domain.item.Item;
-import com.jaba.webapp.domain.user.User;
 import com.jaba.webapp.repository.specification.Specification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -32,36 +31,30 @@ public class ItemRepositoryImpl implements ItemRepository {
         synchronized (items) {
             return items.stream()
                     .filter(item -> specification.matches(item))
-                    .filter(item -> item.getAuditInfo().getDeletionDate() == null)
                     .collect(Collectors.toList());
         }
     }
 
     @Override
-    public void addItem(Item item, User user) {
+    public void addItem(Item item) {
         synchronized (items) {
             if (item.getId() != null && items.contains(item))
                 throw new IllegalArgumentException(String.format("Item with ID {} already exists", item.getId()));
             item.setId(getNextID());
-            item.onCreate(user);
             items.add(item);
         }
     }
 
     @Override
-    public void removeItem(Item item, User user) {
-        int index = items.indexOf(item);
-        if(index == -1 || items.get(index).getAuditInfo().getDeletionDate() != null)
-            return;
-        items.get(index).onDelete(user);
+    public void removeItem(Item item) {
+        items.remove(item);
     }
 
     @Override
-    public void updateItem(Item item, User user) {
+    public void updateItem(Item item) {
         int index = items.indexOf(item);
-        if(index == -1 || items.get(index).getAuditInfo().getDeletionDate() != null)
+        if(index == -1)
             throw new IllegalArgumentException(String.format("Item with ID {} doesn't exist", item.getId()));
-        item.onUpdate(user);
         items.set(index, item);
     }
 

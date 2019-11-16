@@ -21,7 +21,7 @@ public class Album extends Item {
     }
 
     public String toString(){
-        return this.getId() + " " + this.getAuditInfo() + " " + this.getTitle() + " " + this.author + " " + this.genre + " " + this.getPrice();
+        return this.getId() + " " + this.getTitle() + " " + this.author + " " + this.genre + " " + this.getPrice();
     }
 
     public String getAuthor() {

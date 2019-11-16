@@ -45,7 +45,7 @@ public class Video extends Item {
     }
 
     public String toString(){
-        return this.getId() + " " + this.getAuditInfo() + " " + this.getTitle() + " " + this.director + " " + Arrays.toString(genres) + " " + this.getPrice();
+        return this.getId() + " " + this.getTitle() + " " + this.director + " " + Arrays.toString(genres) + " " + this.getPrice();
     }
 
     public enum Genre {
