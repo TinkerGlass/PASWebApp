@@ -4,9 +4,10 @@ import com.jaba.webapp.domain.item.Item;
 import com.jaba.webapp.repository.item.ItemRepository;
 import com.jaba.webapp.repository.specification.item.ItemSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class ItemManagerImpl implements ItemManager {
 
     private ItemRepository itemRepository;

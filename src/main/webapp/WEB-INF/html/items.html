@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/user-layout}">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title th:text="#{home.title}">Home</title>
+</head>
+<body>
+<span layout:fragment="title" th:text="#{home.welcome}">Welcome!</span>
+<div layout:fragment="content">
+    <table>
+        <tbody>
+            <tr th:each="item : ${items}">
+                <td th:text="${item.title}" />
+            </tr>
+        </tbody>
+    </table>
+<!--    <p th:text="#{home.content}">This is an example</p>-->
+<!--    <a th:block th:each="item : ${items}">-->
+<!--        <b  th:text="${item.title}"></b>-->
+<!--    </a>-->
+<!--        th:each="item : ${greeting.list}"-->
+</div>
+</body>
+</html>
