@@ -33,6 +33,11 @@ public class ItemManagerImpl implements ItemManager {
         itemRepository.updateItem(item);
     }
 
+    @Override
+    public void addItem(Item item) {
+        itemRepository.addItem(item);
+    }
+
     @Autowired
     public void setItemRepository(ItemRepository itemRepository) {
         this.itemRepository = itemRepository;

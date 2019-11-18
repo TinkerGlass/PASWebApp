@@ -9,11 +9,12 @@
 <body>
 <span layout:fragment="title" th:text="#{home.welcome}">Storage items</span>
 <div layout:fragment="content">
-    <button type="button" >Dodaj nowy przedmiot</button>
+    <a class="btn btn-light" type="button" th:href="@{/products/newitem}">Add new item</a>
     <table>
         <tbody>
             <tr th:each="item : ${items}">
                 <td th:text="${item.title}" />
+                <td><button type="button">Wypożycz</button></td>
             </tr>
         </tbody>
     </table>

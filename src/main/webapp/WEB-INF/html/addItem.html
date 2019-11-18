@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main-layout}">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title th:text="#{home.title}">Home</title>
+</head>
+<body>
+<span layout:fragment="title" >Create new item.</span>
+<div layout:fragment="content">
+    <button type="button" >Dodaj</button>
+    <form class="form-inline" method="post" th:action="@{/products/newitem/add}"><div>
+        <input class="form-control" type="text" name="title" placeholder="title">
+        <input class="form-control" type="text" name="price" placeholder="price">
+        <input class="form-control" type="text" name="release" placeholder="release">
+        <input class="form-control" type="text" name="author" placeholder="author">
+        <input class="form-control" type="text" name="genre" placeholder="genre">
+        <input class="form-control" type="text" name="tracks" placeholder="tracks">
+        <input class="btn btn-light" type="submit" value="Add">
+    </div></form>
+</div>
+</body>
+</html>
