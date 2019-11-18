@@ -1,14 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        lang="en">
+      layout:decorate="~{layouts/main-layout}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-    <h1>Wyjebane Jajca Web Application.</h1>
-    <div th:text="${message}" ></div>
-    <button class="Adam">Adam</button>
+<span layout:fragment="title" th:text="#{home.welcome}">Users</span>
+<div layout:fragment="content">
+    <button type="button" >Dodaj nowego użytkownika.</button>
+    <table>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.username}" />
+        </tr>
+        </tbody>
+    </table>
+    <!--    <p th:text="#{home.content}">This is an example</p>-->
+    <!--    <a th:block th:each="item : ${items}">-->
+    <!--        <b  th:text="${item.title}"></b>-->
+    <!--    </a>-->
+    <!--        th:each="item : ${greeting.list}"-->
+</div>
 </body>
 </html>

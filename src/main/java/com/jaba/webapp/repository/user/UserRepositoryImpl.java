@@ -4,12 +4,14 @@ import com.jaba.webapp.datafiller.user.UserDataFiller;
 import com.jaba.webapp.domain.user.User;
 import com.jaba.webapp.repository.specification.Specification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
+@Repository
 public class UserRepositoryImpl implements UserRepository {
 
     private final List<User> users = new ArrayList<>();

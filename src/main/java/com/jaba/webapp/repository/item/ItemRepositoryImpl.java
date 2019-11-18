@@ -16,9 +16,7 @@ public class ItemRepositoryImpl implements ItemRepository {
 
     private final List<Item> items = new ArrayList<>();
 
-    public ItemRepositoryImpl() {
-
-    }
+    public ItemRepositoryImpl() { }
 
     @Autowired(required = false)
     public ItemRepositoryImpl(ItemDataFiller filler) {

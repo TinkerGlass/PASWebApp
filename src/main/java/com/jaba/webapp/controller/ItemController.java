@@ -28,8 +28,7 @@ public class ItemController {
     @GetMapping(value = "/products")
     public String showCustomers(Model model) {
         List<Item> arrayList = itemService.getAllItems();
-        model.addAttribute("items", arrayList);
-        model.addAttribute("message", "dzialam");
+        model.addAttribute("items", arrayList);;
         return "items";
     }
 }

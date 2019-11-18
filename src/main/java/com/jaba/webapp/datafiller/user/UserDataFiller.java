@@ -4,4 +4,5 @@ import com.jaba.webapp.repository.user.UserRepository;
 
 public interface UserDataFiller {
     void fillUsers(UserRepository repository);
+
 }
