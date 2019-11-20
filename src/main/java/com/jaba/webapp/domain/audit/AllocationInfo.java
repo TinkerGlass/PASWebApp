@@ -6,6 +6,7 @@ import com.jaba.webapp.domain.user.User;
 import java.util.Date;
 
 public class AllocationInfo {
+    private Long id;
     private Item item;
     private User user;
     private Date startTime;

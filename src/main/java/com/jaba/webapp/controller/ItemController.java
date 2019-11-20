@@ -53,7 +53,7 @@ public class ItemController {
                              @ModelAttribute("tracks") String tracksNumber,
                              Model model) {
         Item item = new Album(itemTitle,
-                authorName, 
+                authorName,
                 Album.Genre.CLASSICAL,
                 new Date(),
                 Integer.parseInt(tracksNumber),
