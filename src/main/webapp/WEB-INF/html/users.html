@@ -4,24 +4,31 @@
       layout:decorate="~{layouts/main-layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="#{users.title}">Users</title>
 </head>
 <body>
-<span layout:fragment="title" th:text="#{home.welcome}">Users</span>
+<span layout:fragment="title" th:text="#{users.title}">Users</span>
 <div layout:fragment="content">
-    <button type="button" >Dodaj nowego użytkownika.</button>
-    <table>
+    <button type="button" class="btn btn-secondary" th:replace="~{fragments :: sec-button(@{/addUser}, #{buttons.add})}">Add</button>
+
+    <table class="table mt-3">
+        <thead>
+        <tr>
+            <th scope="col" th:text="#{tables.num}">No.</th>
+            <th scope="col" th:text="#{users.fields.username}">Username</th>
+            <th scope="col" th:text="#{users.fields.type}">Type</th>
+            <th scope="col" th:text="#{users.fields.active}">Active</th>
+        </tr>
+        </thead>
         <tbody>
-        <tr th:each="user : ${users}">
-            <td th:text="${user.username}" />
+        <tr th:each="user, stat : ${allUsers}">
+            <th th:text="${stat.count}">1</th>
+            <td th:text="${user.username}">Nick</td>
+            <td th:text="${{user.accountType}}">Admin</td>
+            <td th:text="${user.active} ? #{general.yes} : #{general.no}">Yes</td>
         </tr>
         </tbody>
     </table>
-    <!--    <p th:text="#{home.content}">This is an example</p>-->
-    <!--    <a th:block th:each="item : ${items}">-->
-    <!--        <b  th:text="${item.title}"></b>-->
-    <!--    </a>-->
-    <!--        th:each="item : ${greeting.list}"-->
 </div>
 </body>
 </html>

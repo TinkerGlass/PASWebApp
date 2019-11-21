@@ -1,4 +1,4 @@
-package com.jaba.webapp.service;
+package com.jaba.webapp.service.item;
 
 import com.jaba.webapp.domain.item.Item;
 

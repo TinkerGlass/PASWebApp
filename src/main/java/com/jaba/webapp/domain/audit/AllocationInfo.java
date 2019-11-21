@@ -22,6 +22,14 @@ public class AllocationInfo {
         this.startTime = startTime;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Item getItem() {
         return item;
     }

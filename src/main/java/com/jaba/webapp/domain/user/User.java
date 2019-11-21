@@ -4,13 +4,15 @@ public abstract class User {
     private Long id;
     private String username;
     private String passwordHash;
+    protected AccountType accountType;
     private boolean active;
 
     public User() {
-
+        accountType = AccountType.UNKNOWN;
     }
 
     public User(String username, String passwordHash, boolean active) {
+        this();
         this.username = username;
         this.passwordHash = passwordHash;
         this.active = active;
@@ -48,4 +50,11 @@ public abstract class User {
         this.active = active;
     }
 
+    public AccountType getAccountType() {
+        return accountType;
+    }
+
+    public enum AccountType {
+        UNKNOWN, CLIENT, RESOURCE_MANAGER, ADMINISTRATOR
+    }
 }

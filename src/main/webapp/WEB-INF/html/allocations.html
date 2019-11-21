@@ -4,12 +4,12 @@
       layout:decorate="~{layouts/main-layout}">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title th:text="#{home.title}">Home</title>
+    <title th:text="#{allocations.title}">Home</title>
 </head>
 <body>
-<span layout:fragment="title" th:text="#{home.welcome}">Storage items</span>
+<span layout:fragment="title" th:text="#{allocations.list.title}">Storage items</span>
 <div layout:fragment="content">
-    <a class="btn btn-light" type="button" th:href="@{/products/newitem}">Add new item</a>
+    <button type="button" class="btn btn-secondary" th:replace="fragments.html :: button (@{/addUser}, #{buttons.add})">Add</button>
     <table>
         <tbody>
         <tr th:each="allo : ${allocations}">
@@ -18,11 +18,6 @@
         </tr>
         </tbody>
     </table>
-    <!--    <p th:text="#{home.content}">This is an example</p>-->
-    <!--    <a th:block th:each="item : ${items}">-->
-    <!--        <b  th:text="${item.title}"></b>-->
-    <!--    </a>-->
-    <!--        th:each="item : ${greeting.list}"-->
 </div>
 </body>
 </html>

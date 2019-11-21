@@ -1,15 +1,10 @@
 package com.jaba.webapp.controller;
 
-import com.jaba.webapp.datafiller.item.ConstantItemDataFiller;
-import com.jaba.webapp.datafiller.item.ItemDataFiller;
 import com.jaba.webapp.domain.item.Album;
 import com.jaba.webapp.domain.item.FanSticker;
 import com.jaba.webapp.domain.item.Item;
-import com.jaba.webapp.repository.item.ItemRepository;
-import com.jaba.webapp.repository.item.ItemRepositoryImpl;
-import com.jaba.webapp.repository.specification.item.AlbumSpecification;
-import com.jaba.webapp.repository.specification.item.ItemSpecification;
-import com.jaba.webapp.service.ItemManagerImpl;
+import com.jaba.webapp.service.item.ItemManager;
+import com.jaba.webapp.service.item.ItemManagerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,10 +19,10 @@ import java.util.List;
 @Controller
 public class ItemController {
 
-    private ItemManagerImpl itemService;
+    private ItemManager itemService;
 
     @Autowired
-    public ItemController(ItemManagerImpl itemService){
+    public ItemController(ItemManager itemService){
         this.itemService = itemService;
     }
 

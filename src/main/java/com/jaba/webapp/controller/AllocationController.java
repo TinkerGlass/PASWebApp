@@ -1,7 +1,8 @@
 package com.jaba.webapp.controller;
 
 import com.jaba.webapp.domain.audit.AllocationInfo;
-import com.jaba.webapp.service.AllocationManagerImpl;
+import com.jaba.webapp.service.audit.AllocationManager;
+import com.jaba.webapp.service.audit.AllocationManagerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,10 +13,10 @@ import java.util.List;
 @Controller
 public class AllocationController {
 
-    private AllocationManagerImpl allocationService;
+    private AllocationManager allocationService;
 
     @Autowired
-    public AllocationController(AllocationManagerImpl allocationService) { this.allocationService = allocationService; }
+    public AllocationController(AllocationManager allocationService) { this.allocationService = allocationService; }
 
 
     @GetMapping(value = "/allocations")

@@ -4,26 +4,35 @@
       layout:decorate="~{layouts/main-layout}">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title th:text="#{home.title}">Home</title>
+    <title th:text="#{items.list.title}">Home</title>
 </head>
 <body>
-<span layout:fragment="title" th:text="#{home.welcome}">Storage items</span>
+<span layout:fragment="title" th:text="#{items.list.title}">Storage items</span>
 <div layout:fragment="content">
-    <a class="btn btn-light" type="button" th:href="@{/products/newitem}">Add new item</a>
-    <table>
+    <button type="button" class="btn btn-secondary" th:replace="fragments.html :: sec-button(@{/products/newitem}, #{buttons.add})">Add</button>
+
+    <table class="table mt-3">
+        <thead>
+        <tr>
+            <th scope="col" th:text="#{tables.num}">No.</th>
+            <th scope="col" th:text="#{items.fields.title}">Title</th>
+            <th scope="col" th:text="#{items.fields.releaseDate}">Release date</th>
+            <th scope="col" th:text="#{items.fields.sticker}">Sticker</th>
+            <th scope="col" th:text="#{items.fields.type}">Type</th>
+            <th scope="col" th:text="#{items.fields.price}">Price</th>
+        </tr>
+        </thead>
         <tbody>
-            <tr th:each="item : ${items}">
-                <td th:text="${item.title}" />
-                <td th:text="${item.id}" />
-                <td><button type="button">Wypożycz</button></td>
-            </tr>
+        <tr th:each="item, stat : ${items}">
+            <th th:text="${stat.count}">1</th>
+            <td th:text="${item.title}">Item title</td>
+            <td th:text="${{item.releaseDate}}">20.20.2020</td>
+            <td th:text="${{item.sticker}}">Yes, please</td>
+            <td th:text="${item instanceof T(com.jaba.webapp.domain.item.Album)} ? #{items.types.album} : #{items.types.video}">Album</td>
+            <td th:text="${#numbers.formatDecimal(item.price,2,2)}+' PLN'">20.90$</td>
+        </tr>
         </tbody>
     </table>
-<!--    <p th:text="#{home.content}">This is an example</p>-->
-<!--    <a th:block th:each="item : ${items}">-->
-<!--        <b  th:text="${item.title}"></b>-->
-<!--    </a>-->
-<!--        th:each="item : ${greeting.list}"-->
 </div>
 </body>
 </html>

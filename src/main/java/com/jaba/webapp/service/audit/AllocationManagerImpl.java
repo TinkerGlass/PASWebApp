@@ -1,4 +1,4 @@
-package com.jaba.webapp.service;
+package com.jaba.webapp.service.audit;
 
 import com.jaba.webapp.domain.audit.AllocationInfo;
 import com.jaba.webapp.repository.audit.AuditRepository;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class AllocationManagerImpl implements  AllocationManager{
+public class AllocationManagerImpl implements AllocationManager {
 
     private AuditRepository auditRepository;
 
@@ -18,11 +18,9 @@ public class AllocationManagerImpl implements  AllocationManager{
 
     @Override
     public AllocationInfo getAllocationById(Long id) {
-        return null;
+        List<AllocationInfo> list = auditRepository.find(AuditSpecification.byId(id));
+        return list.isEmpty() ? null : list.get(0);
     }
-
-    @Override
-    public void deleteAllocation(Long id) { auditRepository.removeAllocation(id); }
 
     @Override
     public void updateAllocation(AllocationInfo allocation) { auditRepository.updateAllocation(allocation); }
@@ -30,6 +28,15 @@ public class AllocationManagerImpl implements  AllocationManager{
     @Override
     public void addAllocation(AllocationInfo allocation) { auditRepository.addAllocation(allocation); }
 
+    @Override
+    public void removeAllocation(Long id) {
+        List<AllocationInfo> allocation = auditRepository.find(AuditSpecification.byId(id));
+        if(allocation.isEmpty())
+            return;
+        if(allocation.get(0).getEndTime() != null)
+            throw new IllegalArgumentException(String.format("Allocation with id %d is already finished. Removal forbidden.", allocation.get(0).getId()));
+        auditRepository.removeAllocation(id);
+    }
 
     @Autowired
     public void setAuditRepository(AuditRepository auditRepository) {

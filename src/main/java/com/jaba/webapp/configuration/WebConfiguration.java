@@ -1,5 +1,9 @@
 package com.jaba.webapp.configuration;
 
+import com.jaba.webapp.converter.AccountTypeFormatter;
+import com.jaba.webapp.converter.DateFormatter;
+import com.jaba.webapp.converter.FanStickerFormatter;
+import com.jaba.webapp.converter.UserConverter;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -7,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -21,6 +26,15 @@ import org.thymeleaf.templatemode.TemplateMode;
 public class WebConfiguration implements WebMvcConfigurer {
 
     private ApplicationContext applicationContext;
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addFormatter(accountTypeFormatter());
+        registry.addFormatter(dateFormatter());
+        registry.addFormatter(stickerFormatter());
+
+        registry.addConverter(userConverter());
+    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -63,6 +77,23 @@ public class WebConfiguration implements WebMvcConfigurer {
         messageSource.setBasename("i18n/messages");
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
+    }
+
+    @Bean
+    public AccountTypeFormatter accountTypeFormatter() {
+        return new AccountTypeFormatter();
+    }
+    @Bean
+    public DateFormatter dateFormatter() {
+        return new DateFormatter();
+    }@Bean
+    public FanStickerFormatter stickerFormatter() {
+        return new FanStickerFormatter();
+    }
+
+    @Bean
+    public UserConverter userConverter() {
+        return new UserConverter();
     }
 
     @Autowired

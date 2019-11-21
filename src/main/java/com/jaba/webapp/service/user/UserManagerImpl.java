@@ -1,4 +1,4 @@
-package com.jaba.webapp.service;
+package com.jaba.webapp.service.user;
 
 import com.jaba.webapp.domain.user.User;
 import com.jaba.webapp.repository.specification.user.UserSpecification;

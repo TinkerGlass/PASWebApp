@@ -17,4 +17,6 @@ public class AuditSpecification{
     public static Specification<AllocationInfo> all() {
         return allocation -> true;
     }
+
+    public static Specification<AllocationInfo> byId(Long id) { return allocation -> allocation.getId().equals(id); }
 }

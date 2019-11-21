@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<form action="#" th:fragment="sec-button (actionUrl, btnText)" th:action="${actionUrl}">
+    <button type="submit" class="btn btn-secondary" th:text="${btnText}">button</button>
+</form>
+
+<form action="#" th:fragment="pri-button (actionUrl, btnText)" th:action="${actionUrl}">
+    <button type="submit" class="btn btn-primary" th:text="${btnText}">button</button>
+</form>
+</body>
+</html>
