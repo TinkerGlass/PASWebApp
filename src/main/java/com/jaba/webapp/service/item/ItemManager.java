@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface ItemManager {
     List<Item> getAllItems();
+    List<Item> getAllActiveItems();
     Item getItemById(Long id);
     void deleteItem(Long id);
     void updateItem(Item item);

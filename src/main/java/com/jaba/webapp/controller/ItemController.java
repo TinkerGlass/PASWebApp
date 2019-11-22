@@ -53,7 +53,8 @@ public class ItemController {
                 new Date(),
                 Integer.parseInt(tracksNumber),
                 new BigDecimal(itemPrice),
-                new FanSticker()
+                new FanSticker(),
+                true
         );
         itemService.addItem(item);
 
