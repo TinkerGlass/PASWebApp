@@ -59,11 +59,11 @@ public class UserController {
             userService.addUser(user);
         } catch(ApplicationException e) {
             errors.add(e);
-            bindingResult.addError(new FieldError("user", "username",""));
+            if(e.getErrorCode() == ApplicationException.ErrorCode.USERNAME_NOT_UNIQUE.ordinal())
+                bindingResult.addError(new FieldError("user", "username",""));
             return "addUser";
         }
         return "redirect:/users";
     }
 
-    public static final String usernameNotUniqueMsg = "uNu";
 }
