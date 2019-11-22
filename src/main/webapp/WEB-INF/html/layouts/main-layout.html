@@ -29,7 +29,7 @@
         <div class="container shadow bg-white rounded p-0">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item" th:each="entry : ${session.currentBreadCrumb}"><a href="/" th:href="${entry.queryString}" th:text="${entry.label}" th:classappend="${entry.isCurrent} ? 'active' : ''">Home</a></li>
+                    <li class="breadcrumb-item" th:each="entry : ${session.currentBreadCrumb}"><a href="/" th:href="@{${entry.url}}" th:text="#{${entry.label}}" th:classappend="${entry.currentPage} ? 'active' : ''">Home</a></li>
                 </ol>
             </nav>
             <div class="p-4">

@@ -1,7 +1,7 @@
 package com.jaba.webapp.configuration;
 
 import com.jaba.webapp.converter.*;
-import dummiesmind.breadcrumb.springmvc.interceptor.BreadCrumbInterceptor;
+import com.jaba.webapp.interceptors.BreadCrumbInterceptor;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
