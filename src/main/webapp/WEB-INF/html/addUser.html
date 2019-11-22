@@ -26,7 +26,7 @@
                 <input type="hidden" name="user" th:value="*{accountType}"/>
                 <div class="form-group">
                     <label for="usernameInput" th:text="#{users.fields.username}">Username</label>
-                    <input type="text" class="form-control" id="usernameInput" placeholder="Enter username" th:field="*{username}"
+                    <input type="text" class="form-control" id="usernameInput" th:placeholder="#{users.fields.enterUsername}" placeholder="Enter username" th:field="*{username}"
                            th:errorclass="is-invalid">
                     <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">
                         Validation error
@@ -34,7 +34,7 @@
                 </div>
                 <div class="form-group">
                     <label for="passwordInput" th:text="#{users.fields.password}">Password</label>
-                    <input type="text" class="form-control" id="passwordInput" placeholder="Enter password" th:field="*{passwordHash}"
+                    <input type="text" class="form-control" id="passwordInput" th:placeholder="#{users.fields.enterPassword}" placeholder="Enter password" th:field="*{passwordHash}"
                            th:errorclass="is-invalid">
                     <div class="invalid-feedback" th:if="${#fields.hasErrors('passwordHash')}" th:errors="*{passwordHash}">
                         Validation error
