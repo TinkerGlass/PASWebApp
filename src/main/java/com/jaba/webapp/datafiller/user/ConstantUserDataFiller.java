@@ -19,7 +19,9 @@ public class ConstantUserDataFiller  implements UserDataFiller{
     @Override
     public void fillUsers(UserRepository repository) {
         for(User user : users) {
-            repository.addUser(user);
+            try {
+                repository.addUser(user);
+            } catch(Exception e) {}
         }
     }
 }

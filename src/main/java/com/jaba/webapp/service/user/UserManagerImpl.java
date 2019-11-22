@@ -1,6 +1,7 @@
 package com.jaba.webapp.service.user;
 
 import com.jaba.webapp.domain.user.User;
+import com.jaba.webapp.exceptions.ApplicationException;
 import com.jaba.webapp.repository.specification.user.UserSpecification;
 import com.jaba.webapp.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class UserManagerImpl implements  UserManager{
     }
 
     @Override
-    public void addUser(User user) { userRepository.addUser(user); }
+    public void addUser(User user) throws ApplicationException { userRepository.addUser(user); }
 
     @Override
     public void updateUser(User user)  { userRepository.updateUser(user); }

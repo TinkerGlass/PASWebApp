@@ -5,31 +5,51 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="#{users.add.title}">Add user</title>
+    <script type="text/javascript">
+        function onChange()
+        {
+            var e = document.getElementById("typeInput");
+            var strUser = e.options[e.selectedIndex].value;
+            window.location.href = "[[@{/addUser}]]?type="+strUser;
+        }
+    </script>
 </head>
 <body>
     <span layout:fragment="title" th:text="#{users.add.title}">Add users</span>
     <div layout:fragment="content">
+        <th:block th:each="error : ${errors}">
+            <div class="alert alert-danger" role="alert" th:text="#{*{error.errorMessageProperty}}">
+                Error
+            </div>
+        </th:block>
+
         <div class="container">
             <form th:action="@{/addUser}" th:object="${user}" method="post">
+                <input type="hidden" name="user" th:value="*{accountType}"/>
                 <div class="form-group">
                     <label for="usernameInput" th:text="#{users.fields.username}">Username</label>
-                    <input type="text" class="form-control" id="usernameInput" placeholder="Enter username" th:field="*{username}">
+                    <input type="text" class="form-control" id="usernameInput" placeholder="Enter username" th:field="*{username}"
+                           th:errorclass="is-invalid">
                 </div>
                 <div class="form-group">
                     <label for="passwordInput" th:text="#{users.fields.password}">Password</label>
-                    <input type="text" class="form-control" id="passwordInput" placeholder="Enter password" th:field="*{passwordHash}">
+                    <input type="text" class="form-control" id="passwordInput" placeholder="Enter password" th:field="*{passwordHash}"
+                           th:errorclass="is-invalid">
                 </div>
                 <div class="form-group">
                     <label for="typeInput" th:text="#{users.fields.type}">Type</label>
-                    <select id="typeInput" class="form-control" th:name="user" name="user">
+                    <select id="typeInput" class="form-control" th:name="userWithType" name="userWithType" onchange="onChange()">
                         <option th:each="type : ${allAccountTypes}" th:if="${type != T(com.jaba.webapp.domain.user.User.AccountType).UNKNOWN}"
-                                th:text="${{type}}" th:value="${type}">Type</option>
+                                th:text="${{type}}" th:value="${type}"
+                                th:selected="${type == user.accountType}">Type</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary" th:text="buttons.add">Add</button>
+                <button type="submit" class="btn btn-primary float-right" th:text="#{buttons.add}">Add</button>
+                <div class="clearfix"></div>
             </form>
 
         </div>
     </div>
+
 </body>
 </html>

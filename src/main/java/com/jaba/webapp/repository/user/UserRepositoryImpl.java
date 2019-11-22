@@ -2,7 +2,9 @@ package com.jaba.webapp.repository.user;
 
 import com.jaba.webapp.datafiller.user.UserDataFiller;
 import com.jaba.webapp.domain.user.User;
+import com.jaba.webapp.exceptions.ApplicationException;
 import com.jaba.webapp.repository.specification.Specification;
+import com.jaba.webapp.repository.specification.user.UserSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -33,10 +35,12 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void addUser(User user) {
+    public void addUser(User user) throws ApplicationException {
         synchronized (users) {
             if (user.getId() != null && users.contains(user))
                 throw new IllegalArgumentException(String.format("User with ID %d already exists", user.getId()));
+            if(!find(UserSpecification.byUsername(user.getUsername())).isEmpty())
+                throw new ApplicationException(ApplicationException.ErrorCode.USERNAME_NOT_UNIQUE);
             user.setId(getNextID());
             users.add(user);
         }

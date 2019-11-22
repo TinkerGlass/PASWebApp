@@ -8,5 +8,6 @@ public class AdministratorUser extends User {
 
     public AdministratorUser() {
         accountType = AccountType.ADMINISTRATOR;
+        setActive(true);
     }
 }

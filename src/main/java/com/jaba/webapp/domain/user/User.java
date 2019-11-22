@@ -1,9 +1,15 @@
 package com.jaba.webapp.domain.user;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public abstract class User {
     private Long id;
+    @NotBlank
     private String username;
+    @NotBlank
     private String passwordHash;
+    @NotNull
     protected AccountType accountType;
     private boolean active;
 

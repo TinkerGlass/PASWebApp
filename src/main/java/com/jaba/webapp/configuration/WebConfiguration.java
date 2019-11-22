@@ -1,9 +1,6 @@
 package com.jaba.webapp.configuration;
 
-import com.jaba.webapp.converter.AccountTypeFormatter;
-import com.jaba.webapp.converter.DateFormatter;
-import com.jaba.webapp.converter.FanStickerFormatter;
-import com.jaba.webapp.converter.UserConverter;
+import com.jaba.webapp.converter.*;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -34,6 +31,7 @@ public class WebConfiguration implements WebMvcConfigurer {
         registry.addFormatter(stickerFormatter());
 
         registry.addConverter(userConverter());
+        registry.addConverter(userStringConverter());
     }
 
     @Override
@@ -86,7 +84,8 @@ public class WebConfiguration implements WebMvcConfigurer {
     @Bean
     public DateFormatter dateFormatter() {
         return new DateFormatter();
-    }@Bean
+    }
+    @Bean
     public FanStickerFormatter stickerFormatter() {
         return new FanStickerFormatter();
     }
@@ -95,6 +94,11 @@ public class WebConfiguration implements WebMvcConfigurer {
     public UserConverter userConverter() {
         return new UserConverter();
     }
+    @Bean
+    public UserStringConverter userStringConverter() {
+        return new UserStringConverter();
+    }
+
 
     @Autowired
     public void setApplicationContext(ApplicationContext applicationContext) {
