@@ -19,8 +19,9 @@ public class Album extends Item {
                  Date releaseDate,
                  int tracks,
                  BigDecimal price,
-                 FanSticker sticker) {
-        super(title, price, releaseDate, sticker);
+                 FanSticker sticker,
+                 boolean status) {
+        super(title, price, releaseDate, sticker, status);
         this.author = author;
         this.genre = genre;
         this.tracks = tracks;

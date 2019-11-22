@@ -11,11 +11,14 @@ public abstract class Item {
     private Date releaseDate;
     private FanSticker sticker;
 
-    public Item(String title, BigDecimal price, Date releaseDate, FanSticker sticker) {
+    private boolean status;
+
+    public Item(String title, BigDecimal price, Date releaseDate, FanSticker sticker, boolean status) {
         this.title = title;
         this.price = price;
         this.releaseDate = releaseDate;
         this.sticker = sticker;
+        this.status = status;
     }
 
     public Item() {
@@ -62,6 +65,10 @@ public abstract class Item {
     public void setSticker(FanSticker sticker) {
         this.sticker = sticker;
     }
+
+    public boolean isStatus() { return status; }
+
+    public void setStatus(boolean status) { this.status = status; }
 
     @Override
     public boolean equals(Object o) {

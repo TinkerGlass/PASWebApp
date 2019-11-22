@@ -9,13 +9,22 @@
 <body>
 <span layout:fragment="title" th:text="#{allocations.list.title}">Storage items</span>
 <div layout:fragment="content">
-    <button type="button" class="btn btn-secondary" th:replace="fragments.html :: button (@{/addUser}, #{buttons.add})">Add</button>
-    <table>
-        <tbody>
-        <tr th:each="allo : ${allocations}">
-            <td th:text="${allo.startTime}" />
-            <td><button type="button">Wypożycz</button></td>
+    <table  class="table mt-3">
+        <thead>
+        <tr>
+            <th scope="col" th:text="#{allocations.fields.item.title}">Item title</th>
+            <th scope="col" th:text="#{allocations.fields.user.username}">User name</th>
+            <th scope="col" th:text="#{allocations.fields.startTime}">Allocation start</th>
+            <th scope="col" th:text="#{allocations.fields.endTime}">Allocation end</th>
         </tr>
+        </thead>
+        <tbody>
+            <tr th:each="allo : ${allocations}">
+                <td th:text="${allo.item.title}" />
+                <td th:text="${allo.user.username}" />
+                <td th:text="${#dates.format(allo.startTime, 'dd-MM-yyyy HH:mm')}" />
+                <td th:text="${#dates.format(allo.endTime, 'dd-MM-yyyy HH:mm')}" />
+            </tr>
         </tbody>
     </table>
 </div>

@@ -17,6 +17,11 @@ public class ItemManagerImpl implements ItemManager {
         return itemRepository.find(ItemSpecification.all());
     }
 
+
+    public List<Item> getAllActiveItems() {
+        return itemRepository.find(ItemSpecification.allActive());
+    }
+
     @Override
     public Item getItemById(Long id) {
         List<Item> items = itemRepository.find(ItemSpecification.byId(id));

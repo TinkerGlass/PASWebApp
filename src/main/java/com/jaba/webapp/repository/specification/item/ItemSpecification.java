@@ -12,6 +12,11 @@ public class ItemSpecification {
         return item -> true;
     }
 
+
+    public static Specification<Item> allActive() {
+        return item -> item.isStatus() == true;
+    }
+
     public static Specification<Item> byTitle(String title) {
         return item -> item.getTitle().equals(title);
     }

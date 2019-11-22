@@ -20,6 +20,7 @@
             <th scope="col" th:text="#{items.fields.sticker}">Sticker</th>
             <th scope="col" th:text="#{items.fields.type}">Type</th>
             <th scope="col" th:text="#{items.fields.price}">Price</th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
@@ -30,6 +31,8 @@
             <td th:text="${{item.sticker}}">Yes, please</td>
             <td th:text="${item instanceof T(com.jaba.webapp.domain.item.Album)} ? #{items.types.album} : #{items.types.video}">Album</td>
             <td th:text="${#numbers.formatDecimal(item.price,2,2)}+' PLN'">20.90$</td>
+            <td th:if="${item.status}"><button type="button" th:text="#{allocations.add.title}" class="btn btn-secondary">Lend</button></td>
+            <td th:if="${not item.status}"><button type="button" th:text="#{allocations.add.title}" disabled class="btn btn-secondary">Lend</button></td>
         </tr>
         </tbody>
     </table>
