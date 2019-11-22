@@ -3,6 +3,7 @@ package com.jaba.webapp.controller;
 import com.jaba.webapp.domain.user.User;
 import com.jaba.webapp.exceptions.ApplicationException;
 import com.jaba.webapp.service.user.UserManager;
+import dummiesmind.breadcrumb.springmvc.annotations.Link;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,17 +41,20 @@ public class UserController {
         return Arrays.asList(User.AccountType.values());
     }
 
+    @Link(label="{users.title}", family="User", parent = "" )
     @RequestMapping(value = "/users")
     public String showUsers() {
         return "users";
     }
 
+    @Link(label="{users.add.title}", family="User", parent = "{users.title}")
     @RequestMapping(value = "/addUser", method = RequestMethod.GET)
     public String addUser(@RequestParam(value = "type", defaultValue = "client") User user, Model model) {
         model.addAttribute("user", user);
         return "addUser";
     }
 
+    @Link(label="{users.add.title}", family="User", parent = "{users.title}")
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     public String addUser(@Valid @ModelAttribute User user, final BindingResult bindingResult, @ModelAttribute("errors") ArrayList<ApplicationException> errors){
         if(bindingResult.hasErrors())

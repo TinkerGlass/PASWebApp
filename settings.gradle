@@ -1,1 +1,4 @@
 rootProject.name = 'PASApp'
+include 'Breadcrumbs'
+
+project(':Breadcrumbs').projectDir = file('../lib/BreadCrumb-Spring-MVC')
