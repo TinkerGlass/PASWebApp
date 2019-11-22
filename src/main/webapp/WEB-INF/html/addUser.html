@@ -17,11 +17,9 @@
 <body>
     <span layout:fragment="title" th:text="#{users.add.title}">Add users</span>
     <div layout:fragment="content">
-        <th:block th:each="error : ${errors}">
-            <div class="alert alert-danger" role="alert" th:text="#{*{error.errorMessageProperty}}">
-                Error
-            </div>
-        </th:block>
+        <div class="alert alert-danger" role="alert" th:each="error : ${errors}" th:text="#{*{error.errorMessageProperty}}">
+            Error
+        </div>
 
         <div class="container">
             <form th:action="@{/addUser}" th:object="${user}" method="post">
@@ -30,11 +28,17 @@
                     <label for="usernameInput" th:text="#{users.fields.username}">Username</label>
                     <input type="text" class="form-control" id="usernameInput" placeholder="Enter username" th:field="*{username}"
                            th:errorclass="is-invalid">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">
+                        Validation error
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="passwordInput" th:text="#{users.fields.password}">Password</label>
                     <input type="text" class="form-control" id="passwordInput" placeholder="Enter password" th:field="*{passwordHash}"
                            th:errorclass="is-invalid">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('passwordHash')}" th:errors="*{passwordHash}">
+                        Validation error
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="typeInput" th:text="#{users.fields.type}">Type</label>
