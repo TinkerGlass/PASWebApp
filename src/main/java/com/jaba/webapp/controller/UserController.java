@@ -1,9 +1,9 @@
 package com.jaba.webapp.controller;
 
+import com.jaba.webapp.breadcrumbs.annotation.Breadcrumb;
 import com.jaba.webapp.domain.user.User;
 import com.jaba.webapp.exceptions.ApplicationException;
 import com.jaba.webapp.service.user.UserManager;
-import com.jaba.webapp.controller.breadcrumbs.Link;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,20 +41,20 @@ public class UserController {
         return Arrays.asList(User.AccountType.values());
     }
 
-    @Link(label="users.title", depth=0)
+    @Breadcrumb(label="users.title", depth=0, family = {"user"})
     @RequestMapping(value = "/users")
     public String showUsers() {
         return "users";
     }
 
-    @Link(label="users.add.title", depth=1)
+    @Breadcrumb(label="users.add.title", depth=1, family = {"user"})
     @RequestMapping(value = "/addUser", method = RequestMethod.GET)
     public String addUser(@RequestParam(value = "type", defaultValue = "client") User user, Model model) {
         model.addAttribute("user", user);
         return "addUser";
     }
 
-    @Link(label="users.add.title", depth=1)
+    @Breadcrumb(label="users.add.title", depth=1, family = {"user"})
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     public String addUser(@Valid @ModelAttribute User user, final BindingResult bindingResult, @ModelAttribute("errors") ArrayList<ApplicationException> errors){
         if(bindingResult.hasErrors())

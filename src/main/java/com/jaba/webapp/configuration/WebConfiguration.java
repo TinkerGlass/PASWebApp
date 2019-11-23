@@ -1,7 +1,8 @@
 package com.jaba.webapp.configuration;
 
+import com.jaba.webapp.breadcrumbs.BreadCrumbInterceptor;
+import com.jaba.webapp.breadcrumbs.BreadcrumbMap;
 import com.jaba.webapp.converter.*;
-import com.jaba.webapp.interceptors.BreadCrumbInterceptor;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -113,7 +114,10 @@ public class WebConfiguration implements WebMvcConfigurer {
     public UserStringConverter userStringConverter() {
         return new UserStringConverter();
     }
-
+    @Bean
+    public BreadcrumbMap getBreadCrumbMap() {
+        return new BreadcrumbMap();
+    }
     @Bean
     public BreadCrumbInterceptor breadCrumbInterceptor() {return new BreadCrumbInterceptor();}
 
