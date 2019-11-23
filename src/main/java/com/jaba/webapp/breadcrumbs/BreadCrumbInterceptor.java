@@ -34,8 +34,11 @@ public class BreadCrumbInterceptor extends HandlerInterceptorAdapter {
 
     private void putCurrentBreadCrumb(HttpSession session, HandlerMethod handler) {
         Breadcrumb handlerBreadCrumb = handler.getMethodAnnotation(Breadcrumb.class);
-        if(handlerBreadCrumb == null)
+        if(handlerBreadCrumb == null) {
+            log.debug("No breadcrumbs defined for the handler {}", handler.getShortLogMessage());
             return;
+        }
+
         String family = handlerBreadCrumb.family()[0];
         int depth = handlerBreadCrumb.depth();
         List<BreadCrumb> pathBreadcrumbs = breadcrumbMap.getBreadCrumbMap().get(family);
