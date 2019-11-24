@@ -13,22 +13,27 @@
     <form  method="post" th:action="@{/products/newitem/add}">
         <div class="form-group">
             <label for="item-title" th:text="#{allocations.fields.itemName}">Item name</label>
-            <input class="form-control" type="text" id="item-title" name="title" placeholder="Enter title">
+            <input class="form-control" type="text" id="item-title" name="title" th:placeholder="#{allocations.fields.itemName.input}">
         </div>
         <div class="form-group">
-            <input class="form-control" type="text" name="price" placeholder="price">
+            <label for="price" th:text="#{allocations.fields.price}">Price</label>
+            <input class="form-control" type="number" min="0.00" max="10000.00" step="0.01" id="price" name="price">
         </div>
         <div class="form-group">
-            <input class="form-control" type="text" name="release" placeholder="release">
+            <label for="release-date" th:text="#{allocations.fields.releaseDate }">Release date</label>
+            <input class="form-control" type="date" id="release-date" name="release" th:placeholder="#{allocations.fields.releaseDate.input }">
         </div>
         <div class="form-group">
-            <input class="form-control" type="text" name="author" placeholder="author">
+            <label for="author" th:text="#{allocations.fields.author }">Author</label>
+            <input class="form-control" type="text" id="author" name="author" th:placeholder="#{allocations.fields.author.input }">
         </div>
         <div class="form-group">
-            <input class="form-control" type="text" name="genre" placeholder="genre">
+            <label for="genre" th:text="#{allocations.fields.type }">Genre</label>
+            <input class="form-control" type="text" id="genre" name="genre" th:placeholder="#{allocations.fields.type.input }">
         </div>
         <div class="form-group">
-            <input class="form-control" type="text" name="tracks" placeholder="tracks">
+            <label for="tracks" th:text="#{allocations.fields.track.number }">tracks</label>
+            <input class="form-control" type="text" id="tracks" name="tracks" th:placeholder="#{allocations.fields.track.number.input }">
         </div>
         <button type="submit" class="btn btn-primary float-right" th:text="#{buttons.add}"></button>
         <div class="clearfix"></div>
