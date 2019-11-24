@@ -1,5 +1,7 @@
 package com.jaba.webapp.configuration;
 
+import com.jaba.webapp.breadcrumbs.BreadCrumbInterceptor;
+import com.jaba.webapp.breadcrumbs.BreadcrumbMap;
 import com.jaba.webapp.converter.*;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.SpringTemplateEngine;
@@ -24,6 +27,11 @@ import org.thymeleaf.templatemode.TemplateMode;
 public class WebConfiguration implements WebMvcConfigurer {
 
     private ApplicationContext applicationContext;
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(breadCrumbInterceptor());
+    }
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
@@ -106,7 +114,12 @@ public class WebConfiguration implements WebMvcConfigurer {
     public UserStringConverter userStringConverter() {
         return new UserStringConverter();
     }
-
+    @Bean
+    public BreadcrumbMap getBreadCrumbMap() {
+        return new BreadcrumbMap();
+    }
+    @Bean
+    public BreadCrumbInterceptor breadCrumbInterceptor() {return new BreadCrumbInterceptor();}
 
     @Autowired
     public void setApplicationContext(ApplicationContext applicationContext) {
