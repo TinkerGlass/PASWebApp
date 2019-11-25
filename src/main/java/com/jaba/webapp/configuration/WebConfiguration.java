@@ -41,6 +41,8 @@ public class WebConfiguration implements WebMvcConfigurer {
 
         registry.addConverter(userConverter());
         registry.addConverter(userStringConverter());
+
+        registry.addConverter(new ItemStringConverter());
     }
 
     @Override

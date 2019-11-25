@@ -31,15 +31,15 @@ public class ConstantItemDataFiller implements ItemDataFiller {
     };
 
     final Video[] videos = {
-            new Video("Perfect Blue", "Satoshi Kon", new Video.Genre[] {Video.Genre.ANIME, Video.Genre.DRAMA}, Date.from(Instant.ofEpochSecond(888667200)), 81, BigDecimal.valueOf(5999, 2), sticker2, true),
-            new Video("Edward Scissorhands", "Tim Burton", new Video.Genre[] {Video.Genre.FANTASY, Video.Genre.DRAMA}, Date.from(Instant.ofEpochSecond(660484800)), 105, BigDecimal.valueOf(1949, 2), sticker2, true),
-            new Video("Hotaru no Haka", "Isao Takahata", new Video.Genre[] {Video.Genre.ANIME, Video.Genre.DRAMA}, Date.from(Instant.ofEpochSecond(577195200)), 89, BigDecimal.valueOf(3999, 2), sticker2, true),
-            new Video("Corpse Bride", "Tim Burton", new Video.Genre[] {Video.Genre.MUSICAL, Video.Genre.COMEDY, Video.Genre.FANTASY}, Date.from(Instant.ofEpochSecond(1126094400)), 76, BigDecimal.valueOf(1945, 2), sticker, true),
-            new Video("Sweeney Todd: The Demon Barber of Fleet Street", "Tim Burton", new Video.Genre[] {Video.Genre.MUSICAL, Video.Genre.DRAMA, Video.Genre.COMEDY}, Date.from(Instant.ofEpochSecond(1203681600)), 116, BigDecimal.valueOf(1945, 2), sticker, true),
-            new Video("AKIRA", "Katsuhiro Outomo", new Video.Genre[] {Video.Genre.ANIME, Video.Genre.SCIFI}, Date.from(Instant.ofEpochSecond(585057600)), 124, BigDecimal.valueOf(2999, 2), sticker3, true),
-            new Video("Kill Bill: Vol 1", "Quentin Tarantino", new Video.Genre[] {Video.Genre.THRILLER, Video.Genre.ACTION}, Date.from(Instant.ofEpochSecond(1064836800)), 111, BigDecimal.valueOf(1999, 2), sticker2, true),
-            new Video("Sen to Chihiro no Kamikakushi", "Hayao Miyazaki", new Video.Genre[] {Video.Genre.ANIME, Video.Genre.FANTASY}, Date.from(Instant.ofEpochSecond(995630400)), 125, BigDecimal.valueOf(2999, 2), sticker3, true),
-            new Video("Shin seiki Evangelion Gekijô-ban: Air", "Hideaki Anno", new Video.Genre[] {Video.Genre.ANIME, Video.Genre.SCIFI, Video.Genre.DRAMA}, Date.from(Instant.ofEpochSecond(869313600)), 97, BigDecimal.valueOf(2999, 2), sticker, true)
+            new Video("Perfect Blue", "Satoshi Kon", Video.Genre.ANIME, Date.from(Instant.ofEpochSecond(888667200)), 81, BigDecimal.valueOf(5999, 2), sticker2, true),
+            new Video("Edward Scissorhands", "Tim Burton", Video.Genre.FANTASY, Date.from(Instant.ofEpochSecond(660484800)), 105, BigDecimal.valueOf(1949, 2), sticker2, true),
+            new Video("Hotaru no Haka", "Isao Takahata", Video.Genre.ANIME, Date.from(Instant.ofEpochSecond(577195200)), 89, BigDecimal.valueOf(3999, 2), sticker2, true),
+            new Video("Corpse Bride", "Tim Burton", Video.Genre.MUSICAL, Date.from(Instant.ofEpochSecond(1126094400)), 76, BigDecimal.valueOf(1945, 2), sticker, true),
+            new Video("Sweeney Todd: The Demon Barber of Fleet Street", "Tim Burton", Video.Genre.COMEDY, Date.from(Instant.ofEpochSecond(1203681600)), 116, BigDecimal.valueOf(1945, 2), sticker, true),
+            new Video("AKIRA", "Katsuhiro Outomo", Video.Genre.SCIFI, Date.from(Instant.ofEpochSecond(585057600)), 124, BigDecimal.valueOf(2999, 2), sticker3, true),
+            new Video("Kill Bill: Vol 1", "Quentin Tarantino", Video.Genre.THRILLER, Date.from(Instant.ofEpochSecond(1064836800)), 111, BigDecimal.valueOf(1999, 2), sticker2, true),
+            new Video("Sen to Chihiro no Kamikakushi", "Hayao Miyazaki", Video.Genre.ANIME, Date.from(Instant.ofEpochSecond(995630400)), 125, BigDecimal.valueOf(2999, 2), sticker3, true),
+            new Video("Shin seiki Evangelion Gekijô-ban: Air", "Hideaki Anno", Video.Genre.ANIME, Date.from(Instant.ofEpochSecond(869313600)), 97, BigDecimal.valueOf(2999, 2), sticker, true)
     };
 
     @Override

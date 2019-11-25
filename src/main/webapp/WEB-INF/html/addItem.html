@@ -1,44 +1,66 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
       layout:decorate="~{layouts/main-layout}">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title th:text="#{items.add.title}">Add item</title>
+    <script type="text/javascript">
+        function onChange()
+        {
+            var e = document.getElementById("typeInput");
+            var strUser = e.options[e.selectedIndex].value;
+            window.location.href = "[[@{/products/newitem}]]?type="+strUser;
+        }
+    </script>
 </head>
 <body>
-<span layout:fragment="title" th:text="#{items.add.title}">Create new item.</span>
-<div layout:fragment="content">
-    <div class="container">
-    <form  method="post" th:action="@{/products/newitem/add}">
-        <div class="form-group">
-            <label for="item-title" th:text="#{allocations.fields.itemName}">Item name</label>
-            <input class="form-control" type="text" id="item-title" name="title" th:placeholder="#{allocations.fields.itemName.input}">
+    <span layout:fragment="title" th:text="#{items.add.title}">Create new item.</span>
+    <div layout:fragment="content">
+
+
+        <div class="container">
+        <form  method="post" th:action="@{/products/newitem/add}" th:object="${item}">
+            <div class="form-group">
+                <label for="check-item" th:text="#{allocations.fields.item.choice}"></label>
+                <select class="form-control" type="text" id="check-item" name="genre" th:placeholder="#{allocations.fields.type.input }" onchange="onChange()">
+                    <option th:text="Video" th:value="video"></option>
+                    <option th:text="Album" th:value="album" selected></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="item-title" th:text="#{allocations.fields.itemName}">Item name</label>z
+                <input class="form-control" type="text" id="item-title" name="title" th:placeholder="#{allocations.fields.itemName.input}">
+            </div>
+            <div class="form-group">
+                <label for="price" th:text="#{allocations.fields.price}">Price</label>
+                <input class="form-control" type="number" min="0.00" max="10000.00" step="0.01" id="price" name="price" th:placeholder="#{allocations.fields.price.input}">
+            </div>
+            <div class="form-group">
+                <label for="release-date" th:text="#{allocations.fields.releaseDate }">Release date</label>
+                <input class="form-control" type="date" id="release-date" name="release" th:placeholder="#{allocations.fields.releaseDate.input }">
+            </div>
+            <div class="form-group">
+                <label for="author" th:text="#{allocations.fields.author }">Author</label>
+                <input class="form-control" type="text" id="author" name="author" th:placeholder="#{allocations.fields.author.input }" >
+            </div>
+            <div class="form-group">
+                <label for="genre" th:text="#{allocations.fields.type }">Genre</label>
+                <select class="form-control" type="text" id="genre" name="genre" th:placeholder="#{allocations.fields.type.input }">
+                    <option th:each="type : ${allVideoGenre}" th:if="${item instanceof T(com.jaba.webapp.domain.item.Video)}"
+                            th:text="${{type}}" th:value="${type}">Type</option>
+                    <option th:each="type : ${allAlbumGenre}" th:if="${item instanceof T(com.jaba.webapp.domain.item.Album)}"
+                            th:text="${{type}}" th:value="${type}">Type</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="tracks" th:text="#{allocations.fields.track.number }">tracks</label>
+                <input class="form-control" type="text" id="tracks" name="tracks" th:placeholder="#{allocations.fields.track.number.input }">
+            </div>
+            <button type="submit" class="btn btn-primary float-right" th:text="#{buttons.add}"></button>
+            <div class="clearfix"></div>
+        </form>
         </div>
-        <div class="form-group">
-            <label for="price" th:text="#{allocations.fields.price}">Price</label>
-            <input class="form-control" type="number" min="0.00" max="10000.00" step="0.01" id="price" name="price">
-        </div>
-        <div class="form-group">
-            <label for="release-date" th:text="#{allocations.fields.releaseDate }">Release date</label>
-            <input class="form-control" type="date" id="release-date" name="release" th:placeholder="#{allocations.fields.releaseDate.input }">
-        </div>
-        <div class="form-group">
-            <label for="author" th:text="#{allocations.fields.author }">Author</label>
-            <input class="form-control" type="text" id="author" name="author" th:placeholder="#{allocations.fields.author.input }">
-        </div>
-        <div class="form-group">
-            <label for="genre" th:text="#{allocations.fields.type }">Genre</label>
-            <input class="form-control" type="text" id="genre" name="genre" th:placeholder="#{allocations.fields.type.input }">
-        </div>
-        <div class="form-group">
-            <label for="tracks" th:text="#{allocations.fields.track.number }">tracks</label>
-            <input class="form-control" type="text" id="tracks" name="tracks" th:placeholder="#{allocations.fields.track.number.input }">
-        </div>
-        <button type="submit" class="btn btn-primary float-right" th:text="#{buttons.add}"></button>
-        <div class="clearfix"></div>
-    </form>
     </div>
-</div>
 </body>
 </html>

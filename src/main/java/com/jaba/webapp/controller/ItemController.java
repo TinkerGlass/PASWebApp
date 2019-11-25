@@ -3,19 +3,20 @@ package com.jaba.webapp.controller;
 import com.jaba.webapp.domain.item.Album;
 import com.jaba.webapp.domain.item.FanSticker;
 import com.jaba.webapp.domain.item.Item;
+import com.jaba.webapp.domain.item.Video;
 import com.jaba.webapp.service.item.ItemManager;
-import com.jaba.webapp.service.item.ItemManagerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.annotation.ApplicationScope;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+@ApplicationScope
 @Controller
 public class ItemController {
 
@@ -26,6 +27,16 @@ public class ItemController {
         this.itemService = itemService;
     }
 
+
+    @ModelAttribute("allAlbumGenre")
+    public List<Album.Genre> albumGenres() {
+        return Arrays.asList(Album.Genre.values());
+    }
+
+
+    @ModelAttribute("allVideoGenre")
+    public List<Video.Genre> videoGenres() { return Arrays.asList(Video.Genre.values()); }
+
     @GetMapping(value = "/products")
     public String showCustomers(Model model) {
         List<Item> arrayList = itemService.getAllItems();
@@ -33,19 +44,36 @@ public class ItemController {
         return "items";
     }
 
+//    @RequestMapping(value = "/addUser", method = RequestMethod.GET)
+//    public String addUser(@RequestParam(value = "type", defaultValue = "client") User user, Model model) {
+//        model.addAttribute("user", user);
+//        return "addUser";
+//    }
 
-    @GetMapping(value = "/products/newitem")
-    public String showSubmitForm() {
+
+    @RequestMapping(value = "/products/newitem", method = RequestMethod.GET)
+    public String showSubmitForm(@RequestParam(value = "type", defaultValue = "Album") Item item, Model model) {
+        model.addAttribute("item", item);
         return "addItem";
     }
 
-    @PostMapping(value = "/products/newitem/add")
+//    String title,
+//    String director,
+//    Genre[] genres,
+//    Date releaseDate,
+//    int minutes,
+//    BigDecimal price,
+//    FanSticker sticker,
+//    boolean status
+
+
+    @RequestMapping(value = "/products/newitem/add", method = RequestMethod.POST)
     public String addNewItem(@ModelAttribute("title") String itemTitle,
                              @ModelAttribute("price") String itemPrice,
                              @ModelAttribute("release") String releaseDate,
-                             @ModelAttribute("author") String authorName,
+                             @ModelAttribute("owner") String authorName,
                              @ModelAttribute("genre") String genreName,
-                             @ModelAttribute("tracks") String tracksNumber,
+                             @ModelAttribute("numeric") String tracksNumber,
                              Model model) {
         Item item = new Album(itemTitle,
                 authorName,
@@ -58,6 +86,6 @@ public class ItemController {
         );
         itemService.addItem(item);
 
-        return showCustomers(model);
+        return "redirect:/products";
     }
 }

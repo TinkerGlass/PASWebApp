@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Date;
 
 public class Video extends Item {
-    private Genre[] genres;
+    private Genre genre;
     private String director;
     private int minutes;
 
@@ -13,19 +13,26 @@ public class Video extends Item {
 
     }
 
-    public Video(String title, String director, Genre[] genres, Date releaseDate, int minutes, BigDecimal price, FanSticker sticker, boolean status) {
+    public Video(String title,
+                 String director,
+                 Genre genre,
+                 Date releaseDate,
+                 int minutes,
+                 BigDecimal price,
+                 FanSticker sticker,
+                 boolean status) {
         super(title, price, releaseDate, sticker, status);
-        this.genres = genres;
+        this.genre = genre;
         this.director = director;
         this.minutes = minutes;
     }
 
-    public Genre[] getGenres() {
-        return genres;
+    public Genre getGenres() {
+        return genre;
     }
 
-    public void setGenres(Genre[] genres) {
-        this.genres = genres;
+    public void setGenres(Genre genres) {
+        this.genre = genres;
     }
 
     public String getDirector() {
@@ -45,7 +52,7 @@ public class Video extends Item {
     }
 
     public String toString(){
-        return this.getId() + " " + this.getTitle() + " " + this.director + " " + Arrays.toString(genres) + " " + this.getPrice();
+        return this.getId() + " " + this.getTitle() + " " + this.director + " " + genre.toString() + " " + this.getPrice();
     }
 
     public enum Genre {
