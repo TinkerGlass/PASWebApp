@@ -1,5 +1,7 @@
 package com.jaba.webapp.domain.item;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -9,13 +11,10 @@ public abstract class Item {
     private Long id;
     private BigDecimal price;
     private String title;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date releaseDate;
     private FanSticker sticker;
-
-    @NotBlank(message = "{users.validation.empty}")
     private boolean status;
-
-
 
     public Item(String title, BigDecimal price, Date releaseDate, FanSticker sticker) {
         this.title = title;

@@ -1,4 +1,4 @@
-package com.jaba.webapp.converter;
+package com.jaba.webapp.formatter;
 
 import com.jaba.webapp.domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;

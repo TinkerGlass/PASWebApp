@@ -9,8 +9,8 @@
         function onChange()
         {
             var e = document.getElementById("check-item");
-            var strUser = e.options[e.selectedIndex].value;
-            window.location.href = "[[@{/products/newitem}]]?type="+strUser;
+            var strType = e.options[e.selectedIndex].value;
+            window.location.href = "[[@{/products/newitem}]]?type="+strType;
         }
     </script>
 </head>
@@ -21,34 +21,34 @@
 
         <div class="container">
         <form  method="post" th:action="@{/products/newitem}" th:object="${item}">
-            <input type="hidden" name="item" th:value="album"/>
+<!--            <input type="hidden" name="item" th:value="${item  instanceof T(com.jaba.webapp.domain.item.Video) ? 'video' : 'album'}"/>-->
             <div class="form-group">
                 <label for="check-item" th:text="#{allocations.fields.item.choice}"></label>
 <!--                <select id="typeInput" class="form-control" th:name="userWithType" name="userWithType" onchange="onChange()">-->
-                <select class="form-control" type="text" id="check-item" name="genre" onchange="onChange()">
-                    <option th:text="Video" th:value="video"></option>
-                    <option th:text="Album" th:value="album" selected></option>
+                <select class="form-control" type="text" id="check-item" name="item" onchange="onChange()">
+                    <option th:text="Video" th:value="video" th:selected="${item instanceof T(com.jaba.webapp.domain.item.Video)}"></option>
+                    <option th:text="Album" th:value="album" th:selected="${item instanceof T(com.jaba.webapp.domain.item.Album)}"></option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="item-title" th:text="#{allocations.fields.itemName}">Item name</label>z
-                <input class="form-control" type="text" id="item-title" name="title" th:placeholder="#{allocations.fields.itemName.input}">
+                <input class="form-control" type="text" id="item-title" th:field="*{title}" th:placeholder="#{allocations.fields.itemName.input}">
             </div>
             <div class="form-group">
                 <label for="price" th:text="#{allocations.fields.price}">Price</label>
-                <input class="form-control" type="number" min="0.00" max="10000.00" step="0.01" id="price" name="price" th:placeholder="#{allocations.fields.price.input}">
+                <input class="form-control" type="number" min="0.00" max="10000.00" step="0.01" id="price" th:field="*{price}" th:placeholder="#{allocations.fields.price.input}">
             </div>
             <div class="form-group">
                 <label for="release-date" th:text="#{allocations.fields.releaseDate }">Release date</label>
-                <input class="form-control" type="date" id="release-date" name="release" th:placeholder="#{allocations.fields.releaseDate.input }">
+                <input class="form-control" type="date" id="release-date" th:field="*{releaseDate}" th:placeholder="#{allocations.fields.releaseDate.input }">
             </div>
             <div class="form-group">
                 <label for="author" th:text="#{allocations.fields.author }">Author</label>
-                <input class="form-control" type="text" id="author" name="author" th:placeholder="#{allocations.fields.author.input }" >
+                <input class="form-control" type="text" id="author" th:field="*{author}" th:placeholder="#{allocations.fields.author.input }" >
             </div>
             <div class="form-group">
                 <label for="genre" th:text="#{allocations.fields.type }">Genre</label>
-                <select class="form-control" type="text" id="genre" name="genre" th:placeholder="#{allocations.fields.type.input }">
+                <select class="form-control" type="text" id="genre" th:field="*{genre}" th:placeholder="#{allocations.fields.type.input}">
                     <option th:each="type : ${allVideoGenre}" th:if="${item instanceof T(com.jaba.webapp.domain.item.Video)}"
                             th:text="${{type}}" th:value="${type}">Type</option>
                     <option th:each="type : ${allAlbumGenre}" th:if="${item instanceof T(com.jaba.webapp.domain.item.Album)}"
@@ -57,9 +57,8 @@
             </div>
             <div class="form-group">
                 <label for="tracks" th:text="#{allocations.fields.track.number }">tracks</label>
-                <input class="form-control" type="text" id="tracks" name="tracks" th:placeholder="#{allocations.fields.track.number.input }">
+                <input class="form-control" type="text" id="tracks"th:field="*{tracks}" th:placeholder="#{allocations.fields.track.number.input }">
             </div>
-            <input type="hidden" name="booolFlag" th:value="*{true}"/>
             <button type="submit" class="btn btn-primary float-right" th:text="#{buttons.add}"></button>
             <div class="clearfix"></div>
         </form>

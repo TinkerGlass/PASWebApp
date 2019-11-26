@@ -3,6 +3,10 @@ package com.jaba.webapp.configuration;
 import com.jaba.webapp.breadcrumbs.BreadCrumbInterceptor;
 import com.jaba.webapp.breadcrumbs.BreadcrumbMap;
 import com.jaba.webapp.converter.*;
+import com.jaba.webapp.formatter.AccountTypeFormatter;
+import com.jaba.webapp.formatter.AlbumGenreFormatter;
+import com.jaba.webapp.formatter.DateFormatter;
+import com.jaba.webapp.formatter.FanStickerFormatter;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -38,9 +42,11 @@ public class WebConfiguration implements WebMvcConfigurer {
         registry.addFormatter(accountTypeFormatter());
         registry.addFormatter(dateFormatter());
         registry.addFormatter(stickerFormatter());
+        registry.addFormatter(albumGenreFormatter());
 
         registry.addConverter(userConverter());
         registry.addConverter(userStringConverter());
+        registry.addConverter(dateConverter());
 
         registry.addConverter(new ItemStringConverter());
     }
@@ -107,6 +113,10 @@ public class WebConfiguration implements WebMvcConfigurer {
     public FanStickerFormatter stickerFormatter() {
         return new FanStickerFormatter();
     }
+    @Bean
+    public AlbumGenreFormatter albumGenreFormatter() {
+        return new AlbumGenreFormatter();
+    }
 
     @Bean
     public UserConverter userConverter() {
@@ -116,6 +126,11 @@ public class WebConfiguration implements WebMvcConfigurer {
     public UserStringConverter userStringConverter() {
         return new UserStringConverter();
     }
+    @Bean
+    public DateConverter dateConverter() {
+        return new DateConverter();
+    }
+
     @Bean
     public BreadcrumbMap getBreadCrumbMap() {
         return new BreadcrumbMap();

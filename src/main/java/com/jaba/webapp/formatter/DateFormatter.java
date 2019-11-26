@@ -1,4 +1,4 @@
-package com.jaba.webapp.converter;
+package com.jaba.webapp.formatter;
 
 import org.springframework.format.Formatter;
 import java.text.DateFormat;

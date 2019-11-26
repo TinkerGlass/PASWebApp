@@ -1,4 +1,4 @@
-package com.jaba.webapp.converter;
+package com.jaba.webapp.formatter;
 
 import com.jaba.webapp.domain.item.FanSticker;
 import org.springframework.format.Formatter;
