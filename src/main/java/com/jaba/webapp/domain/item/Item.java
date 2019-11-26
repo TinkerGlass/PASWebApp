@@ -2,6 +2,7 @@ package com.jaba.webapp.domain.item;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.Valid;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -19,6 +20,7 @@ public abstract class Item {
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date releaseDate;
+    @Valid
     private FanSticker sticker;
     private boolean status = true;
 
