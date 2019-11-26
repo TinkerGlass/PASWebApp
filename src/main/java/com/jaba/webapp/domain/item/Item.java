@@ -4,16 +4,19 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
 
 
 public abstract class Item {
     private Long id;
+    @NotNull
     @DecimalMin(value="0", message = "general.validation.minValue")
     private BigDecimal price;
     @NotBlank(message = "general.validation.empty")
     private String title;
+    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date releaseDate;
     private FanSticker sticker;

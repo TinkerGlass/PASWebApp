@@ -10,16 +10,17 @@
 <span layout:fragment="title" th:text="#{items.add.title}">Create new item.</span>
 <div layout:fragment="content">
 
-
     <div class="container">
         <form  method="post" th:action="@{/products/newitem}" th:object="${item}">
             <input type="hidden" name="item" th:value="${item instanceof T(com.jaba.webapp.domain.item.Video) ? 'video' : 'album'}"/>
             <input type="hidden" th:field="*{title}" />
             <input type="hidden" th:field="*{price}" />
             <input type="hidden" th:field="*{releaseDate}" />
-            <input type="hidden" th:field="*{author}" />
             <input type="hidden" th:field="*{genre}" />
-            <input type="hidden" th:field="*{tracks}" />
+            <input type="hidden" th:field="*{author}" th:if="${item instanceof T(com.jaba.webapp.domain.item.Album)}"/>
+            <input type="hidden" th:field="*{tracks}" th:if="${item instanceof T(com.jaba.webapp.domain.item.Album)}"/>
+            <input type="hidden" th:field="*{director}" th:if="${item instanceof T(com.jaba.webapp.domain.item.Video)}"/>
+            <input type="hidden" th:field="*{minutes}" th:if="${item instanceof T(com.jaba.webapp.domain.item.Video)}"/>
             <div class="form-group">
                 <label for="sticker-name" th:text="#{sticker.fields.name}">Item name</label>z
                 <input class="form-control" type="text" id="sticker-name" th:field="*{sticker.stickerName}" th:placeholder="#{sticker.fields.name.input}">

@@ -1,5 +1,6 @@
 package com.jaba.webapp.controller;
 
+import com.jaba.webapp.breadcrumbs.annotation.Breadcrumb;
 import com.jaba.webapp.domain.item.Album;
 import com.jaba.webapp.domain.item.FanSticker;
 import com.jaba.webapp.domain.item.Item;
@@ -36,36 +37,38 @@ public class ItemController {
     @ModelAttribute("allVideoGenre")
     public List<Video.Genre> videoGenres() { return Arrays.asList(Video.Genre.values()); }
 
-    @GetMapping(value = "/products")
+    @Breadcrumb(label="items.list.title", depth=0, family = {"items"})
+    @RequestMapping(value = "/products", method = RequestMethod.GET)
     public String showCustomers(Model model) {
         List<Item> arrayList = itemService.getAllItems();
         model.addAttribute("items", arrayList);
         return "items";
     }
 
-
+    @Breadcrumb(label="items.add.title", depth=1, family = {"items"})
     @RequestMapping(value = "/products/newitem", method = RequestMethod.GET)
     public String showSubmitForm(@RequestParam(value = "type", defaultValue = "Album") Item item, FanSticker sticker, Model model) {
         model.addAttribute("item", item);
         return "addItem";
     }
 
+    @Breadcrumb(label="items.add.title", depth=1, family = {"items"})
     @RequestMapping(value = "/products/newitem", method = RequestMethod.POST)
     public String addNewItem(@Valid @ModelAttribute Item item,
                              final BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
-            if(item.getSticker() != null)
+        if (bindingResult.hasErrors()) {
+            if (item.getSticker() != null)
                 return "addSticker";
             else
                 return "addItem";
         }
 
-        if(item.getSticker() == null)
+        if (item.getSticker() == null)
             return "addSticker";
 
         try {
             itemService.addItem(item);
-        } catch(Exception e) {
+        } catch (Exception e) {
             return "addSticker";
         }
 

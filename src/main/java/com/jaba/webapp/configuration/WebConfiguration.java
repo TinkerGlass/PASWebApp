@@ -3,10 +3,7 @@ package com.jaba.webapp.configuration;
 import com.jaba.webapp.breadcrumbs.BreadCrumbInterceptor;
 import com.jaba.webapp.breadcrumbs.BreadcrumbMap;
 import com.jaba.webapp.converter.*;
-import com.jaba.webapp.formatter.AccountTypeFormatter;
-import com.jaba.webapp.formatter.AlbumGenreFormatter;
-import com.jaba.webapp.formatter.DateFormatter;
-import com.jaba.webapp.formatter.FanStickerFormatter;
+import com.jaba.webapp.formatter.*;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -32,6 +29,7 @@ public class WebConfiguration implements WebMvcConfigurer {
 
     private ApplicationContext applicationContext;
 
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(breadCrumbInterceptor());
@@ -40,13 +38,14 @@ public class WebConfiguration implements WebMvcConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(accountTypeFormatter());
-        registry.addFormatter(dateFormatter());
+        //registry.addFormatter(dateFormatter());
         registry.addFormatter(stickerFormatter());
         registry.addFormatter(albumGenreFormatter());
+        registry.addFormatter(videoGenreFormatter());
 
         registry.addConverter(userConverter());
         registry.addConverter(userStringConverter());
-        registry.addConverter(dateConverter());
+        //registry.addConverter(dateConverter());
 
         registry.addConverter(new ItemStringConverter());
     }
@@ -116,6 +115,10 @@ public class WebConfiguration implements WebMvcConfigurer {
     @Bean
     public AlbumGenreFormatter albumGenreFormatter() {
         return new AlbumGenreFormatter();
+    }
+    @Bean
+    public VideoGenreFormatter videoGenreFormatter() {
+        return new VideoGenreFormatter();
     }
 
     @Bean

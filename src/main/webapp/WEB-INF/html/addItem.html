@@ -56,9 +56,9 @@
                 <label for="genre" th:text="#{allocations.fields.type }">Genre</label>
                 <select class="form-control" type="text" id="genre" th:field="*{genre}" th:placeholder="#{allocations.fields.type.input}">
                     <option th:each="type : ${allVideoGenre}" th:if="${item instanceof T(com.jaba.webapp.domain.item.Video)}"
-                            th:text="${{type}}" th:value="${type}">Type</option>
+                            th:text="#{${{type}}}" th:value="${type}">Type</option>
                     <option th:each="type : ${allAlbumGenre}" th:if="${item instanceof T(com.jaba.webapp.domain.item.Album)}"
-                            th:text="${{type}}" th:value="${type}">Type</option>
+                            th:text="#{${{type}}}" th:value="${type}">Type</option>
                 </select>
             </div>
             <div class="form-group" th:if="${item instanceof T(com.jaba.webapp.domain.item.Album)}">
