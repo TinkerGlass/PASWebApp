@@ -1,12 +1,18 @@
 package com.jaba.webapp.domain.item;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
 
 
 public class Album extends Item {
+    @NotBlank(message = "general.validation.empty")
     private String author;
+    @NotNull(message = "general.validation.empty")
     private Genre genre;
+    @Min(value = 1, message = "general.validation.minValue")
     private int tracks;
 
     public Album() {

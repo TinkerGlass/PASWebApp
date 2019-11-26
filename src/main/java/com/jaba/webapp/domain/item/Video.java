@@ -1,12 +1,17 @@
 package com.jaba.webapp.domain.item;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.Date;
 
 public class Video extends Item {
+    @NotNull(message="general.validation.empty")
     private Genre genre;
+    @NotBlank(message="general.validation.empty")
     private String director;
+    @Min(value = 1, message = "general.validation.minValue")
     private int minutes;
 
     public Video() {
@@ -27,11 +32,11 @@ public class Video extends Item {
         this.minutes = minutes;
     }
 
-    public Genre getGenres() {
+    public Genre getGenre() {
         return genre;
     }
 
-    public void setGenres(Genre genres) {
+    public void setGenre(Genre genres) {
         this.genre = genres;
     }
 

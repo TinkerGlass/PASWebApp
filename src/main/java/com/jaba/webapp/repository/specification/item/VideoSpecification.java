@@ -16,7 +16,7 @@ public class VideoSpecification {
     }
 
     public static Specification<Item> byGenre(Video.Genre genre) {
-        return item -> item instanceof Video && Arrays.asList(((Video) item).getGenres()).contains(genre);
+        return item -> item instanceof Video && Arrays.asList(((Video) item).getGenre()).contains(genre);
     }
 
     public static Specification<Item> byDirector(String director) {

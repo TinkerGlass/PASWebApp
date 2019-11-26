@@ -17,7 +17,9 @@
 <body>
     <span layout:fragment="title" th:text="#{items.add.title}">Create new item.</span>
     <div layout:fragment="content">
-
+        <div class="alert alert-danger" role="alert" th:each="error : ${errors}" th:text="#{*{error.errorMessageProperty}}">
+            Error
+        </div>
 
         <div class="container">
         <form  method="post" th:action="@{/products/newitem}" th:object="${item}">
@@ -32,19 +34,23 @@
             </div>
             <div class="form-group">
                 <label for="item-title" th:text="#{allocations.fields.itemName}">Item name</label>z
-                <input class="form-control" type="text" id="item-title" th:field="*{title}" th:placeholder="#{allocations.fields.itemName.input}">
+                <input class="form-control" type="text" id="item-title" th:field="*{title}" th:placeholder="#{allocations.fields.itemName.input}" th:errorclass="is-invalid">
             </div>
             <div class="form-group">
                 <label for="price" th:text="#{allocations.fields.price}">Price</label>
-                <input class="form-control" type="number" min="0.00" max="10000.00" step="0.01" id="price" th:field="*{price}" th:placeholder="#{allocations.fields.price.input}">
+                <input class="form-control" type="number" min="0.00" max="10000.00" step="0.01" id="price" th:field="*{price}" th:placeholder="#{allocations.fields.price.input}" th:errorclass="is-invalid">
             </div>
             <div class="form-group">
                 <label for="release-date" th:text="#{allocations.fields.releaseDate }">Release date</label>
-                <input class="form-control" type="date" id="release-date" th:field="*{releaseDate}" th:placeholder="#{allocations.fields.releaseDate.input }">
+                <input class="form-control" type="date" id="release-date" th:field="*{releaseDate}" th:placeholder="#{allocations.fields.releaseDate.input }" th:errorclass="is-invalid">
             </div>
-            <div class="form-group">
+            <div class="form-group" th:if="${item instanceof T(com.jaba.webapp.domain.item.Album)}">
                 <label for="author" th:text="#{allocations.fields.author }">Author</label>
-                <input class="form-control" type="text" id="author" th:field="*{author}" th:placeholder="#{allocations.fields.author.input }" >
+                <input class="form-control" type="text" id="author" th:field="*{author}" th:placeholder="#{allocations.fields.author.input}" th:errorclass="is-invalid">
+            </div>
+            <div class="form-group" th:if="${item instanceof T(com.jaba.webapp.domain.item.Video)}">
+                <label for="author" th:text="#{items.field.video.director}">Director</label>
+                <input class="form-control" type="text" id="director" th:field="*{director}" th:placeholder="#{items.field.video.director.input}" th:errorclass="is-invalid">
             </div>
             <div class="form-group">
                 <label for="genre" th:text="#{allocations.fields.type }">Genre</label>
@@ -55,9 +61,13 @@
                             th:text="${{type}}" th:value="${type}">Type</option>
                 </select>
             </div>
-            <div class="form-group">
+            <div class="form-group" th:if="${item instanceof T(com.jaba.webapp.domain.item.Album)}">
                 <label for="tracks" th:text="#{allocations.fields.track.number }">tracks</label>
-                <input class="form-control" type="text" id="tracks"th:field="*{tracks}" th:placeholder="#{allocations.fields.track.number.input }">
+                <input class="form-control" type="text" id="tracks" th:field="*{tracks}" th:placeholder="#{allocations.fields.track.number.input }" th:errorclass="is-invalid">
+            </div>
+            <div class="form-group" th:if="${item instanceof T(com.jaba.webapp.domain.item.Video)}">
+                <label for="tracks" th:text="#{items.field.video.length}">tracks</label>
+                <input class="form-control" type="text" id="minutes" th:field="*{minutes}" th:placeholder="#{items.field.video.length.input}" th:errorclass="is-invalid">
             </div>
             <button type="submit" class="btn btn-primary float-right" th:text="#{buttons.add}"></button>
             <div class="clearfix"></div>

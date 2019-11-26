@@ -1,11 +1,14 @@
 package com.jaba.webapp.domain.item;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 public class FanSticker {
-    @NotBlank(message = "{users.validation.empty}")
+    @NotBlank(message = "general.validation.empty")
     private String stickerName;
+    @NotBlank(message = "general.validation.empty")
     private String stickerContent;
+    @Min(value = 0, message = "general.validation.minValue")
     private int stickerPoints;
 
     public FanSticker() {}

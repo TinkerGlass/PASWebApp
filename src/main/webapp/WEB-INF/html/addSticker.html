@@ -12,19 +12,25 @@
 
 
     <div class="container">
-        <form  method="post" th:action="@{/products/sticker}" th:object="${sticker}">
-            <input type="hidden" name="sticker" th:value="sticker"/>
+        <form  method="post" th:action="@{/products/newitem}" th:object="${item}">
+            <input type="hidden" name="item" th:value="${item instanceof T(com.jaba.webapp.domain.item.Video) ? 'video' : 'album'}"/>
+            <input type="hidden" th:field="*{title}" />
+            <input type="hidden" th:field="*{price}" />
+            <input type="hidden" th:field="*{releaseDate}" />
+            <input type="hidden" th:field="*{author}" />
+            <input type="hidden" th:field="*{genre}" />
+            <input type="hidden" th:field="*{tracks}" />
             <div class="form-group">
                 <label for="sticker-name" th:text="#{sticker.fields.name}">Item name</label>z
-                <input class="form-control" type="text" id="sticker-name" name="sticker-name" th:placeholder="#{sticker.fields.name.input}">
+                <input class="form-control" type="text" id="sticker-name" th:field="*{sticker.stickerName}" th:placeholder="#{sticker.fields.name.input}">
             </div>
             <div class="form-group">
                 <label for="sticker-content" th:text="#{sticker.fields.content}">Price</label>
-                <input class="form-control"  id="sticker-content" name="content" th:placeholder="#{sticker.fields.content.input}">
+                <input class="form-control"  id="sticker-content" th:field="*{sticker.stickerContent}" th:placeholder="#{sticker.fields.content.input}">
             </div>
-            <div> class="form-group">
+            <div class="form-group">
                 <label for="sticker-points" th:text="#{sticker.fields.points}">Release date</label>
-                <input class="form-control" type="date" id="sticker-points" name="points" th:placeholder="#{sticker.fields.points.input }">
+                <input class="form-control" type="number" id="sticker-points" th:field="*{sticker.stickerPoints}" th:placeholder="#{sticker.fields.points.input }">
             </div>
             <button type="submit" class="btn btn-primary float-right" th:text="#{buttons.add}"></button>
             <div class="clearfix"></div>

@@ -2,6 +2,7 @@ package com.jaba.webapp.domain.item;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -9,12 +10,14 @@ import java.util.Date;
 
 public abstract class Item {
     private Long id;
+    @DecimalMin(value="0", message = "general.validation.minValue")
     private BigDecimal price;
+    @NotBlank(message = "general.validation.empty")
     private String title;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date releaseDate;
     private FanSticker sticker;
-    private boolean status;
+    private boolean status = true;
 
     public Item(String title, BigDecimal price, Date releaseDate, FanSticker sticker) {
         this.title = title;
@@ -34,7 +37,6 @@ public abstract class Item {
     }
 
     public Item() {
-
     }
 
 
