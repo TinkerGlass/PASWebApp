@@ -3,12 +3,12 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
       layout:decorate="~{layouts/main-layout}">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8" />
     <title th:text="#{items.add.title}">Add item</title>
     <script type="text/javascript">
         function onChange()
         {
-            var e = document.getElementById("typeInput");
+            var e = document.getElementById("check-item");
             var strUser = e.options[e.selectedIndex].value;
             window.location.href = "[[@{/products/newitem}]]?type="+strUser;
         }
@@ -20,10 +20,12 @@
 
 
         <div class="container">
-        <form  method="post" th:action="@{/products/newitem/add}" th:object="${item}">
+        <form  method="post" th:action="@{/products/newitem}" th:object="${item}">
+            <input type="hidden" name="item" th:value="album"/>
             <div class="form-group">
                 <label for="check-item" th:text="#{allocations.fields.item.choice}"></label>
-                <select class="form-control" type="text" id="check-item" name="genre" th:placeholder="#{allocations.fields.type.input }" onchange="onChange()">
+<!--                <select id="typeInput" class="form-control" th:name="userWithType" name="userWithType" onchange="onChange()">-->
+                <select class="form-control" type="text" id="check-item" name="genre" onchange="onChange()">
                     <option th:text="Video" th:value="video"></option>
                     <option th:text="Album" th:value="album" selected></option>
                 </select>

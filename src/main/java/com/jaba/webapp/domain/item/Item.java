@@ -1,5 +1,6 @@
 package com.jaba.webapp.domain.item;
 
+import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -7,6 +8,7 @@ import java.util.Date;
 public abstract class Item {
     private Long id;
     private BigDecimal price;
+    @NotBlank(message = "{users.validation.empty}")
     private String title;
     private Date releaseDate;
     private FanSticker sticker;

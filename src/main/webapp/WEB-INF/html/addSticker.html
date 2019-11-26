@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
+      layout:decorate="~{layouts/main-layout}">
+<head>
+    <meta charset="UTF-8" />
+    <title th:text="#{items.add.title}">Add item</title>
+</head>
+<body>
+<span layout:fragment="title" th:text="#{items.add.title}">Create new item.</span>
+<div layout:fragment="content">
+
+
+    <div class="container">
+        <form  method="post" th:action="@{/products/sticker}" th:object="${sticker}">
+            <input type="hidden" name="sticker" th:value="sticker"/>
+            <div class="form-group">
+                <label for="sticker-name" th:text="#{sticker.fields.name}">Item name</label>z
+                <input class="form-control" type="text" id="sticker-name" name="sticker-name" th:placeholder="#{sticker.fields.name.input}">
+            </div>
+            <div class="form-group">
+                <label for="sticker-content" th:text="#{sticker.fields.content}">Price</label>
+                <input class="form-control"  id="sticker-content" name="content" th:placeholder="#{sticker.fields.content.input}">
+            </div>
+            <div> class="form-group">
+                <label for="sticker-points" th:text="#{sticker.fields.points}">Release date</label>
+                <input class="form-control" type="date" id="sticker-points" name="points" th:placeholder="#{sticker.fields.points.input }">
+            </div>
+            <button type="submit" class="btn btn-primary float-right" th:text="#{buttons.add}"></button>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

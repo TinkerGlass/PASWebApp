@@ -56,7 +56,9 @@ public class UserController {
 
     @Breadcrumb(label="users.add.title", depth=1, family = {"user"})
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
-    public String addUser(@Valid @ModelAttribute User user, final BindingResult bindingResult, @ModelAttribute("errors") ArrayList<ApplicationException> errors){
+    public String addUser(@Valid @ModelAttribute User user,
+                          final BindingResult bindingResult,
+                          @ModelAttribute("errors") ArrayList<ApplicationException> errors){
         if(bindingResult.hasErrors())
             return "addUser";
         try {

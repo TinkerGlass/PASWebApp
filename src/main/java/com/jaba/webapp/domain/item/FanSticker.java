@@ -1,6 +1,9 @@
 package com.jaba.webapp.domain.item;
 
+import javax.validation.constraints.NotBlank;
+
 public class FanSticker {
+    @NotBlank(message = "{users.validation.empty}")
     private String stickerName;
     private String stickerContent;
     private int stickerPoints;
