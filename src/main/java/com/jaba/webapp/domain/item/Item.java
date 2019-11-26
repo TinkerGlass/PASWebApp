@@ -8,12 +8,23 @@ import java.util.Date;
 public abstract class Item {
     private Long id;
     private BigDecimal price;
-    @NotBlank(message = "{users.validation.empty}")
     private String title;
     private Date releaseDate;
     private FanSticker sticker;
 
+    @NotBlank(message = "{users.validation.empty}")
     private boolean status;
+
+
+
+    public Item(String title, BigDecimal price, Date releaseDate, FanSticker sticker) {
+        this.title = title;
+        this.price = price;
+        this.releaseDate = releaseDate;
+        this.sticker = sticker;
+        this.status = true;
+    }
+
 
     public Item(String title, BigDecimal price, Date releaseDate, FanSticker sticker, boolean status) {
         this.title = title;

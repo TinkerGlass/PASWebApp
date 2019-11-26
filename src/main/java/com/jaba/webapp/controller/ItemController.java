@@ -53,7 +53,7 @@ public class ItemController {
 
 
     @RequestMapping(value = "/products/newitem", method = RequestMethod.GET)
-    public String showSubmitForm(@RequestParam(value = "type", defaultValue = "Album") Item item, Model model) {
+    public String showSubmitForm(@RequestParam(value = "type", defaultValue = "Album") Item item, FanSticker sticker, Model model) {
         model.addAttribute("item", item);
         return "addItem";
     }
@@ -64,7 +64,7 @@ public class ItemController {
     public String addNewItem(@Valid @ModelAttribute Item item,
                              final BindingResult bindingResult) {
         if(bindingResult.hasErrors())
-
+            return "addItem";
         try {
             addingItem = item;
         } catch(Exception e) {
@@ -75,14 +75,18 @@ public class ItemController {
     }
 
 
+    @RequestMapping(value = "/products/sticker", method = RequestMethod.GET)
+    public String addStickerForm(@RequestParam(value = "type", defaultValue = "sticker") FanSticker sticker, Model model) {
+        model.addAttribute("sticker", sticker);
+        return "addSticker";
+    }
+
     @RequestMapping(value = "/products/sticker", method = RequestMethod.POST)
-    public String addStickerForm(@Valid @ModelAttribute FanSticker sticker,
+    public String addSticker(@Valid @ModelAttribute FanSticker sticker,
                                  final BindingResult bindingResult){
         addingItem.setSticker(sticker);
         itemService.addItem(addingItem);
-        addingItem = null;
         return "redirect:/products";
     }
-
 
 }

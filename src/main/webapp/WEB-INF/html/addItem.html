@@ -59,6 +59,7 @@
                 <label for="tracks" th:text="#{allocations.fields.track.number }">tracks</label>
                 <input class="form-control" type="text" id="tracks" name="tracks" th:placeholder="#{allocations.fields.track.number.input }">
             </div>
+            <input type="hidden" name="booolFlag" th:value="*{true}"/>
             <button type="submit" class="btn btn-primary float-right" th:text="#{buttons.add}"></button>
             <div class="clearfix"></div>
         </form>
