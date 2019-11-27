@@ -47,7 +47,7 @@ public class ItemController {
 
     @Breadcrumb(label="items.add.title", depth=1, family = {"items"})
     @RequestMapping(value = "/products/newitem", method = RequestMethod.GET)
-    public String showSubmitForm(@RequestParam(value = "type", defaultValue = "Album") Item item, FanSticker sticker, Model model) {
+    public String showSubmitForm(@RequestParam(value = "type", defaultValue = "Album") Item item, Model model) {
         model.addAttribute("item", item);
         return "addItem";
     }
@@ -77,11 +77,22 @@ public class ItemController {
 
 
 
-    @RequestMapping(value = "/products/modifyitem", method = RequestMethod.GET)
-    public String showModifyForm(@RequestParam(value = "type", defaultValue = "Album") Item item, FanSticker sticker, Model model) {
-        return "addItem";
+
+
+    @RequestMapping(value = "/products/modifyitem/{id}", method = RequestMethod.GET)
+    public String showModifyForm(@PathVariable Long id, Model model) {
+        model.addAttribute("item", itemService.getItemById(id));
+        return "modifyItem";
     }
 
+
+
+    @RequestMapping(value = "/products/modifyitem", method = RequestMethod.POST)
+    public String showModifySubmit(@Valid @ModelAttribute Item item,
+                                   final BindingResult bindingResult){
+        itemService.updateItem(item);
+        return "redirect:/products";
+    }
 
 
 

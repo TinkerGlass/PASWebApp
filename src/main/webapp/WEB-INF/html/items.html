@@ -37,7 +37,7 @@
                 <td th:if="${not item.status}"><button type="button" th:text="#{allocations.add.title}" disabled class="btn btn-secondary">Lend</button></td>
                 <td th:if="${item.status}"><button type="button" th:text="#{allocations.add.delete}" class="btn btn-secondary" th:replace="fragments.html :: sec-button(@{/products/delete/{id}(id=${item.id})}, #{allocations.add.delete})">Delete</button></td>
                 <td th:if="${not item.status}"><button type="button" th:text="#{allocations.add.delete}" disabled class="btn btn-secondary">Delete</button></td>
-                <td th:if="${item.status}"><button type="button" th:text="#{allocations.add.modify}" class="btn btn-secondary" th:replace="fragments.html :: sec-button(@{/products/modifyitem}, #{allocations.add.modify})">Modify</button></td>
+                <td th:if="${item.status}"><button type="button" th:text="#{allocations.add.modify}" class="btn btn-secondary" th:replace="fragments.html :: sec-button(@{/products/modifyitem/{id}(id=${item.id})}, #{allocations.add.modify})">Modify</button></td>
                 <td th:if="${not item.status}"><button type="button" th:text="#{allocations.add.modify}" disabled class="btn btn-secondary">Modify</button></td>
             </tr>
         </tbody>

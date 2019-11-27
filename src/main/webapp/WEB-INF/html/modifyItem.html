@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
+      layout:decorate="~{layouts/main-layout}">
+<head>
+    <meta charset="UTF-8" />
+    <title th:text="#{items.add.title}">Add item</title>
+</head>
+<body>
+<span layout:fragment="title" th:text="#{items.add.title}">Create new item.</span>
+<div layout:fragment="content">
+    <div class="alert alert-danger" role="alert" th:each="error : ${errors}" th:text="#{*{error.errorMessageProperty}}">
+        Error
+    </div>
+
+    <div class="container">
+        <form  method="post" th:action="@{/products/modifyitem}" th:object="${item}">
+            <!--            <input type="hidden" name="item" th:value="${item  instanceof T(com.jaba.webapp.domain.item.Video) ? 'video' : 'album'}"/>-->
+            <div class="form-group">
+                <label for="check-item" th:text="#{allocations.fields.item.choice}"></label>
+                <!--                <select id="typeInput" class="form-control" th:name="userWithType" name="userWithType" onchange="onChange()">-->
+                <select class="form-control" type="text" id="check-item" name="item" onchange="onChange()">
+                    <option th:text="Video" th:value="video" th:selected="${item instanceof T(com.jaba.webapp.domain.item.Video)}"></option>
+                    <option th:text="Album" th:value="album" th:selected="${item instanceof T(com.jaba.webapp.domain.item.Album)}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="item-title" th:text="#{allocations.fields.itemName}">Item name</label>z
+                <input class="form-control" type="text" id="item-title" th:field="*{title}" th:placeholder="#{allocations.fields.itemName.input}" th:errorclass="is-invalid">
+            </div>
+            <div class="form-group">
+                <label for="price" th:text="#{allocations.fields.price}">Price</label>
+                <input class="form-control" type="number" min="0.00" max="10000.00" step="0.01" id="price" th:field="*{price}" th:placeholder="#{allocations.fields.price.input}" th:errorclass="is-invalid">
+            </div>
+            <div class="form-group">
+                <label for="release-date" th:text="#{allocations.fields.releaseDate }">Release date</label>
+                <input class="form-control" type="date" id="release-date" th:field="*{releaseDate}" th:placeholder="#{allocations.fields.releaseDate.input }" th:errorclass="is-invalid">
+            </div>
+            <div class="form-group" th:if="${item instanceof T(com.jaba.webapp.domain.item.Album)}">
+                <label for="author" th:text="#{allocations.fields.author }">Author</label>
+                <input class="form-control" type="text" id="author" th:field="*{author}" th:placeholder="#{allocations.fields.author.input}" th:errorclass="is-invalid">
+            </div>
+            <div class="form-group" th:if="${item instanceof T(com.jaba.webapp.domain.item.Video)}">
+                <label for="author" th:text="#{items.field.video.director}">Director</label>
+                <input class="form-control" type="text" id="director" th:field="*{director}" th:placeholder="#{items.field.video.director.input}" th:errorclass="is-invalid">
+            </div>
+            <div class="form-group">
+                <label for="genre" th:text="#{allocations.fields.type }">Genre</label>
+                <select class="form-control" type="text" id="genre" th:field="*{genre}" th:placeholder="#{allocations.fields.type.input}">
+                    <option th:each="type : ${allVideoGenre}" th:if="${item instanceof T(com.jaba.webapp.domain.item.Video)}"
+                            th:text="#{${{type}}}" th:value="${type}">Type</option>
+                    <option th:each="type : ${allAlbumGenre}" th:if="${item instanceof T(com.jaba.webapp.domain.item.Album)}"
+                            th:text="#{${{type}}}" th:value="${type}">Type</option>
+                </select>
+            </div>
+            <div class="form-group" th:if="${item instanceof T(com.jaba.webapp.domain.item.Album)}">
+                <label for="tracks" th:text="#{allocations.fields.track.number }">tracks</label>
+                <input class="form-control" type="text" id="tracks" th:field="*{tracks}" th:placeholder="#{allocations.fields.track.number.input }" th:errorclass="is-invalid">
+            </div>
+            <div class="form-group" th:if="${item instanceof T(com.jaba.webapp.domain.item.Video)}">
+                <label for="tracks" th:text="#{items.field.video.length}">tracks</label>
+                <input class="form-control" type="text" id="minutes" th:field="*{minutes}" th:placeholder="#{items.field.video.length.input}" th:errorclass="is-invalid">
+            </div>
+            <button type="submit" class="btn btn-primary float-right" th:text="#{allocations.add.modify}"></button>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
