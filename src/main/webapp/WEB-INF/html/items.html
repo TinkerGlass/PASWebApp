@@ -11,29 +11,35 @@
 <div layout:fragment="content">
     <button type="button" class="btn btn-secondary" th:replace="fragments.html :: sec-button(@{/products/newitem}, #{buttons.add})">Add</button>
 
-    <table class="table mt-3">
+    <table class="table mt-4">
         <thead>
-        <tr>
-            <th scope="col" th:text="#{tables.num}">No.</th>
-            <th scope="col" th:text="#{items.fields.title}">Title</th>
-            <th scope="col" th:text="#{items.fields.releaseDate}">Release date</th>
-            <th scope="col" th:text="#{items.fields.sticker}">Sticker</th>
-            <th scope="col" th:text="#{items.fields.type}">Type</th>
-            <th scope="col" th:text="#{items.fields.price}">Price</th>
-            <th scope="col"></th>
-        </tr>
+            <tr>
+                <th scope="col" th:text="#{tables.num}">No.</th>
+                <th scope="col" th:text="#{items.fields.title}">Title</th>
+                <th scope="col" th:text="#{items.fields.releaseDate}">Release date</th>
+                <th scope="col" th:text="#{items.fields.sticker}">Sticker</th>
+                <th scope="col" th:text="#{items.fields.type}">Type</th>
+                <th scope="col" th:text="#{items.fields.price}">Price</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
         </thead>
         <tbody>
-        <tr th:each="item, stat : ${items}">
-            <th th:text="${stat.count}">1</th>
-            <td th:text="${item.title}">Item title</td>
-            <td th:text="${{item.releaseDate}}">20.20.2020</td>
-            <td th:text="${{item.sticker}}">Yes, please</td>
-            <td th:text="${item instanceof T(com.jaba.webapp.domain.item.Album)} ? #{items.types.album} : #{items.types.video}">Album</td>
-            <td th:text="${#numbers.formatDecimal(item.price,2,2)}+' PLN'">20.90$</td>
-            <td th:if="${item.status}"><button type="button" th:text="#{allocations.add.title}" class="btn btn-secondary">Lend</button></td>
-            <td th:if="${not item.status}"><button type="button" th:text="#{allocations.add.title}" disabled class="btn btn-secondary">Lend</button></td>
-        </tr>
+            <tr th:each="item, stat : ${items}">
+                <th th:text="${stat.count}">1</th>
+                <td th:text="${item.title}">Item title</td>
+                <td th:text="${{item.releaseDate}}">20.20.2020</td>
+                <td th:text="${{item.sticker}}">Yes, please</td>
+                <td th:text="${item instanceof T(com.jaba.webapp.domain.item.Album)} ? #{items.types.album} : #{items.types.video}">Album</td>
+                <td th:text="${#numbers.formatDecimal(item.price,2,2)}+' PLN'">20.90$</td>
+                <td th:if="${item.status}"><button type="button" th:text="#{allocations.add.title}" class="btn btn-secondary">Lend</button></td>
+                <td th:if="${not item.status}"><button type="button" th:text="#{allocations.add.title}" disabled class="btn btn-secondary">Lend</button></td>
+                <td th:if="${item.status}"><button type="button" th:text="#{allocations.add.delete}" class="btn btn-secondary" th:replace="fragments.html :: sec-button(@{/products/delete/{id}(id=${item.id})}, #{allocations.add.delete})">Delete</button></td>
+                <td th:if="${not item.status}"><button type="button" th:text="#{allocations.add.delete}" disabled class="btn btn-secondary">Delete</button></td>
+                <td th:if="${item.status}"><button type="button" th:text="#{allocations.add.modify}" class="btn btn-secondary" th:replace="fragments.html :: sec-button(@{/products/modifyitem}, #{allocations.add.modify})">Modify</button></td>
+                <td th:if="${not item.status}"><button type="button" th:text="#{allocations.add.modify}" disabled class="btn btn-secondary">Modify</button></td>
+            </tr>
         </tbody>
     </table>
 </div>

@@ -74,4 +74,21 @@ public class ItemController {
 
         return "redirect:/products";
     }
+
+
+
+    @RequestMapping(value = "/products/modifyitem", method = RequestMethod.GET)
+    public String showModifyForm(@RequestParam(value = "type", defaultValue = "Album") Item item, FanSticker sticker, Model model) {
+        return "addItem";
+    }
+
+
+
+
+
+    @RequestMapping(value = "/products/delete/{id}", method = RequestMethod.GET)
+    public String removeItem(@PathVariable Long id) {
+        itemService.deleteItem(id);
+        return "redirect:/products";
+    }
 }
