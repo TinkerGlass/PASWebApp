@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
+      layout:decorate="~{layouts/main-layout}">
+<head>
+    <meta charset="UTF-8" />
+    <title th:text="#{items.add.title}">Add item</title>
+</head>
+<body>
+<span layout:fragment="title" th:text="#{items.add.title}">Create new item.</span>
+<div layout:fragment="content">
+
+    <div class="container">
+        <form  method="post" th:action="@{/products/modifyitem/sticker}" th:object="${item}">
+            <input type="hidden" name="item" th:value="${item instanceof T(com.jaba.webapp.domain.item.Video) ? 'video' : 'album'}"/>
+            <input type="hidden" th:field="*{id}" />
+            <input type="hidden" th:field="*{title}" />
+            <input type="hidden" th:field="*{price}" />
+            <input type="hidden" th:field="*{releaseDate}" />
+            <input type="hidden" th:field="*{genre}" />
+            <input type="hidden" th:field="*{author}" th:if="${item instanceof T(com.jaba.webapp.domain.item.Album)}"/>
+            <input type="hidden" th:field="*{tracks}" th:if="${item instanceof T(com.jaba.webapp.domain.item.Album)}"/>
+            <input type="hidden" th:field="*{director}" th:if="${item instanceof T(com.jaba.webapp.domain.item.Video)}"/>
+            <input type="hidden" th:field="*{minutes}" th:if="${item instanceof T(com.jaba.webapp.domain.item.Video)}"/>
+            <div class="form-group">
+                <label for="sticker-name" th:text="#{sticker.fields.name}">Item name</label>z
+                <input class="form-control" type="text" id="sticker-name" th:field="*{sticker.stickerName}" th:placeholder="#{sticker.fields.name.input}">
+            </div>
+            <div class="form-group">
+                <label for="sticker-content" th:text="#{sticker.fields.content}">Price</label>
+                <input class="form-control"  id="sticker-content" th:field="*{sticker.stickerContent}" th:placeholder="#{sticker.fields.content.input}">
+            </div>
+            <div class="form-group">
+                <label for="sticker-points" th:text="#{sticker.fields.points}">Release date</label>
+                <input class="form-control" type="number" id="sticker-points" th:field="*{sticker.stickerPoints}" th:placeholder="#{sticker.fields.points.input }">
+            </div>
+            <button type="submit" class="btn btn-primary float-right" th:text="#{buttons.add}"></button>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

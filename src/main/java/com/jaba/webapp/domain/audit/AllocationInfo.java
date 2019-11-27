@@ -3,11 +3,14 @@ package com.jaba.webapp.domain.audit;
 import com.jaba.webapp.domain.item.Item;
 import com.jaba.webapp.domain.user.User;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class AllocationInfo {
     private Long id;
+    @NotNull
     private Item item;
+    @NotNull
     private User user;
     private Date startTime;
     private Date endTime;

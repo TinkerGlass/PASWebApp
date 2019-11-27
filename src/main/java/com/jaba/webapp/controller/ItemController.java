@@ -29,6 +29,8 @@ public class ItemController {
         this.itemService = itemService;
     }
 
+
+
     @ModelAttribute("allAlbumGenre")
     public List<Album.Genre> albumGenres() {
         return Arrays.asList(Album.Genre.values());
@@ -90,11 +92,46 @@ public class ItemController {
     @RequestMapping(value = "/products/modifyitem", method = RequestMethod.POST)
     public String showModifySubmit(@Valid @ModelAttribute Item item,
                                    final BindingResult bindingResult){
-        itemService.updateItem(item);
-        return "redirect:/products";
+        if (bindingResult.hasErrors()) {
+            if (item.getSticker() != null)
+                return "modifySticker";
+            else
+                return "modifyItem";
+        }
+
+        if (item.getSticker() == null)
+            return "modifySticker";
+
+        try {
+            itemService.updateItem(item);
+        } catch (Exception e) {
+            return "modifySticker";
+        }
+
+        return "modifySticker";
     }
 
+    @RequestMapping(value = "/products/modifyitem/sticker", method = RequestMethod.POST)
+    public String modifySticker(@Valid @ModelAttribute Item item,
+                                   final BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            if (item.getSticker() != null)
+                return "modifySticker";
+            else
+                return "modifyItem";
+        }
 
+        if (item.getSticker() == null)
+            return "modifySticker";
+
+        try {
+            itemService.updateItem(item);
+        } catch (Exception e) {
+            return "modifySticker";
+        }
+
+        return "redirect:/products";
+    }
 
 
     @RequestMapping(value = "/products/delete/{id}", method = RequestMethod.GET)
@@ -102,4 +139,5 @@ public class ItemController {
         itemService.deleteItem(id);
         return "redirect:/products";
     }
+
 }

@@ -3,10 +3,46 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/loan-layout}">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8" />
+    <title th:text="#{items.add.title}">Add item</title>
 </head>
 <body>
-</div>
+    <span layout:fragment="title" th:text="#{items.add.title}">Create new item.</span>
+    <div layout:fragment="content">
+
+        <div class="container">
+            <form  method="post" th:action="@{/loans/addLoan}" th:object="${allocation}">
+                <div class="form-group">
+                    <label th:text="#{allocations.fields.itemName} + ': ' + ${item.title}" >Item name</label>
+                </div>
+                <div class="form-group">
+                    <label th:text="#{allocations.fields.price} + ': ' + ${item.price}">Price</label>
+                </div>
+                <div class="form-group">
+                    <label th:text="#{allocations.fields.releaseDate} + ': ' + ${item.releaseDate}">Price</label>
+                </div>
+                <div class="form-group" th:if="${item instanceof T(com.jaba.webapp.domain.item.Album)}" >
+                    <label th:text="#{allocations.fields.author} + ': ' + ${item.author}">Price</label>
+                </div>
+                <div class="form-group" th:if="${item instanceof T(com.jaba.webapp.domain.item.Video)}">
+                    <label th:text="#{items.field.video.director} + ': ' + ${item.director}">Price</label>
+                </div>
+                <div class="form-group" th:if="${item instanceof T(com.jaba.webapp.domain.item.Album)}">
+                    <label th:text="#{allocations.fields.track.number} + ': ' + ${item.tracks}">Price</label>
+                </div>
+                <div class="form-group" th:if="${item instanceof T(com.jaba.webapp.domain.item.Video)}">
+                    <label th:text="#{items.field.video.length} + ': ' + ${item.minutes}">Price</label>
+                </div>
+                <div class="form-group">
+                    <select class="form-control" type="text" id="genre" th:field="${item.genre}" th:placeholder="#{allocations.fields.type.input}">
+                        <option th:each="user : ${users}"
+                                th:text="#{${{user.username}}}" th:value="${user}">Type</option>
+                    </select>
+                </div>
+                <input type="hidden" th:field="${item}"  th:value="${item}"/>
+                <button type="submit" class="btn btn-primary float-right" th:text="#{buttons.add}"></button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

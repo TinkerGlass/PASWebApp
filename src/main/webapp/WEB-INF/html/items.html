@@ -33,7 +33,7 @@
                 <td th:text="${{item.sticker}}">Yes, please</td>
                 <td th:text="${item instanceof T(com.jaba.webapp.domain.item.Album)} ? #{items.types.album} : #{items.types.video}">Album</td>
                 <td th:text="${#numbers.formatDecimal(item.price,2,2)}+' PLN'">20.90$</td>
-                <td th:if="${item.status}"><button type="button" th:text="#{allocations.add.title}" class="btn btn-secondary">Lend</button></td>
+                <td th:if="${item.status}"><button type="button" th:text="#{allocations.add.title}" class="btn btn-secondary" th:replace="fragments.html :: sec-button(@{/loans/addLoan/{id}(id=${item.id})}, #{allocations.add.title})">Lend</button></td>
                 <td th:if="${not item.status}"><button type="button" th:text="#{allocations.add.title}" disabled class="btn btn-secondary">Lend</button></td>
                 <td th:if="${item.status}"><button type="button" th:text="#{allocations.add.delete}" class="btn btn-secondary" th:replace="fragments.html :: sec-button(@{/products/delete/{id}(id=${item.id})}, #{allocations.add.delete})">Delete</button></td>
                 <td th:if="${not item.status}"><button type="button" th:text="#{allocations.add.delete}" disabled class="btn btn-secondary">Delete</button></td>
