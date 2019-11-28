@@ -33,10 +33,10 @@
                 <td th:text="${#numbers.formatDecimal(item.price,2,2)}+' PLN'">20.90$</td>
                 <td>
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" th:disabled="${!item.available}">
                             Action
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" th:disabled="${!item.status}">
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item text-primary" th:text="#{allocations.add.title}" th:href="@{/loans/addLoan/{id}(id=${item.id})}">Lend</a>
                             <a class="dropdown-item text-danger" th:text="#{allocations.add.delete}" th:href="@{/products/delete/{id}(id=${item.id})}">Delete</a>
                             <a class="dropdown-item text-dark" th:text="#{allocations.add.modify}" th:href="@{/products/modifyitem/{id}(id=${item.id})}">Modify</a>

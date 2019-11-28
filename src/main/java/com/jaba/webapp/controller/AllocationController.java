@@ -2,6 +2,7 @@ package com.jaba.webapp.controller;
 
 import com.jaba.webapp.domain.audit.AllocationInfo;
 import com.jaba.webapp.domain.item.Item;
+import com.jaba.webapp.exceptions.ApplicationException;
 import com.jaba.webapp.service.audit.AllocationManager;
 import com.jaba.webapp.service.audit.AllocationManagerImpl;
 import com.jaba.webapp.service.item.ItemManager;
@@ -14,10 +15,7 @@ import org.springframework.ui.Model;
 
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 @Controller
 public class AllocationController {
@@ -58,24 +56,24 @@ public class AllocationController {
 
 
     @RequestMapping(value = "/loans/addLoan/{id}", method = RequestMethod.GET)
-    public String showLoanForm(String userId,
-                               String itemId,
-                               @PathVariable Long id,
+    public String showLoanForm(@PathVariable Long id,
                                Model model) {
         model.addAttribute("item", itemService.getItemById(id));
         model.addAttribute("users", userService.getAllUsers());
-        model.addAttribute("userId", userId);
-        model.addAttribute("itemId", itemId);
         return "loan";
     }
 
     @RequestMapping(value = "/loans/addLoan", method = RequestMethod.POST)
-    public String addNewLoan(@ModelAttribute("userId") String userId,
-                             @ModelAttribute("itemId") String itemId,
-                             final BindingResult bindingResult) {
-        Date now = Calendar.getInstance().getTime();
-        AllocationInfo allocation = new AllocationInfo(itemService.getItemById((long) 1), userService.getUserById((long) 2), now);
-        allocationService.addAllocation(allocation);
+    public String addNewLoan(@ModelAttribute("userId") Long userId,
+                             @ModelAttribute("itemId") Long itemId,
+                             @ModelAttribute("errors") ArrayList<ApplicationException> errors) {
+        try {
+            allocationService.addAllocation(userId, itemId);
+        } catch (ApplicationException e) {
+            errors.add(e);
+            return "loan";
+        }
+
         return "redirect:/products";
     }
 }

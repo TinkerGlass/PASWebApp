@@ -14,7 +14,7 @@ public class ItemSpecification {
 
 
     public static Specification<Item> allActive() {
-        return item -> item.isStatus() == true;
+        return item -> item.isAvailable() == true;
     }
 
     public static Specification<Item> byTitle(String title) {

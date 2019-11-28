@@ -22,23 +22,23 @@ public abstract class Item {
     private Date releaseDate;
     @Valid
     private FanSticker sticker;
-    private boolean status = true;
+    private boolean available = true;
 
     public Item(String title, BigDecimal price, Date releaseDate, FanSticker sticker) {
         this.title = title;
         this.price = price;
         this.releaseDate = releaseDate;
         this.sticker = sticker;
-        this.status = true;
+        this.available = true;
     }
 
 
-    public Item(String title, BigDecimal price, Date releaseDate, FanSticker sticker, boolean status) {
+    public Item(String title, BigDecimal price, Date releaseDate, FanSticker sticker, boolean available) {
         this.title = title;
         this.price = price;
         this.releaseDate = releaseDate;
         this.sticker = sticker;
-        this.status = status;
+        this.available = available;
     }
 
     public Item() {
@@ -85,9 +85,9 @@ public abstract class Item {
         this.sticker = sticker;
     }
 
-    public boolean isStatus() { return status; }
+    public boolean isAvailable() { return available; }
 
-    public void setStatus(boolean status) { this.status = status; }
+    public void setAvailable(boolean available) { this.available = available; }
 
     @Override
     public boolean equals(Object o) {
