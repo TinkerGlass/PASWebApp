@@ -22,7 +22,7 @@
                 <input type="hidden" th:field="*{sticker.stickerName}" />
                 <input type="hidden" th:field="*{sticker.stickerPoints}" />
                 <label for="check-item" th:text="#{allocations.fields.item.choosen}"></label>
-                <select class="form-control" type="text" id="check-item" name="item" onchange="onChange()">
+                <select class="form-control" type="hidden" id="check-item" name="item">
                     <option th:text="Video" th:value="video" th:selected="${item instanceof T(com.jaba.webapp.domain.item.Video)}"></option>
                     <option th:text="Album" th:value="album" th:selected="${item instanceof T(com.jaba.webapp.domain.item.Album)}"></option>
                 </select>

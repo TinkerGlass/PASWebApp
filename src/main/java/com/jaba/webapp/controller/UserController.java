@@ -70,5 +70,17 @@ public class UserController {
     }
 
 
+    @RequestMapping(value = "/deleteUser/{id}", method = RequestMethod.GET)
+    public String shutUser(@PathVariable Long id) {
+        userService.getUserById(id).setActive(false);
+        return "redirect:/users";
+    }
+
+    @RequestMapping(value = "/upUser/{id}", method = RequestMethod.GET)
+    public String upUser(@PathVariable Long id) {
+        userService.getUserById(id).setActive(true);
+        return "redirect:/users";
+    }
+
 
 }

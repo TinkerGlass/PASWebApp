@@ -27,7 +27,12 @@
             <td th:text="${user.username}">Nick</td>
             <td th:text="${{user.accountType}}">Admin</td>
             <td th:text="${user.active} ? #{general.yes} : #{general.no}">Yes</td>
-            <td><button type="button" th:text="#{allocations.add.delete}" class="btn btn-secondary " th:replace="~{fragments :: del-button(@{/deleteUser/{id}(id=${user.id})}, #{users.block}, ${!user.active})}" >Delete</button></td>
+            <td th:if="${user.active}">
+                <button  type="button" th:text="#{allocations.add.delete}"  th:replace="~{fragments :: del-button(@{/deleteUser/{id}(id=${user.id})}, #{users.block}, ${!user.active})}" >Delete</button>
+            </td>
+            <td th:if="${!user.active}">
+                <button  type="button" th:text="#{allocations.add.modify}"  th:replace="~{fragments :: ack-button(@{/upUser/{id}(id=${user.id})}, #{users.unlock}, ${user.active})}" >Delete</button>
+            </td>
         </tr>
         </tbody>
     </table>
