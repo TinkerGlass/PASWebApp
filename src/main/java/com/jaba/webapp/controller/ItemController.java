@@ -93,19 +93,7 @@ public class ItemController {
     public String showModifySubmit(@Valid @ModelAttribute Item item,
                                    final BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
-            if (item.getSticker() != null)
-                return "modifySticker";
-            else
                 return "modifyItem";
-        }
-
-        if (item.getSticker() == null)
-            return "modifySticker";
-
-        try {
-            itemService.updateItem(item);
-        } catch (Exception e) {
-            return "modifySticker";
         }
 
         return "modifySticker";
