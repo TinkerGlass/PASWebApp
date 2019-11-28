@@ -1,19 +1,19 @@
 package com.jaba.webapp.service.user;
 
+import com.jaba.webapp.domain.audit.AllocationInfo;
 import com.jaba.webapp.domain.user.User;
 import com.jaba.webapp.exceptions.ApplicationException;
+import com.jaba.webapp.repository.audit.AuditRepository;
+import com.jaba.webapp.repository.specification.audit.AuditSpecification;
 import com.jaba.webapp.repository.specification.user.UserSpecification;
 import com.jaba.webapp.repository.user.UserRepository;
+import com.jaba.webapp.service.audit.AllocationManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.WebApplicationContext;
 
 import java.util.List;
 
 @Service
-@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.INTERFACES)
 public class UserManagerImpl implements  UserManager{
 
     private UserRepository userRepository;

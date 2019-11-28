@@ -2,24 +2,23 @@ package com.jaba.webapp.controller;
 
 import com.jaba.webapp.breadcrumbs.annotation.Breadcrumb;
 import com.jaba.webapp.domain.item.Album;
+import com.jaba.webapp.domain.item.FanSticker;
 import com.jaba.webapp.domain.item.Item;
 import com.jaba.webapp.domain.item.Video;
-import com.jaba.webapp.exceptions.ApplicationException;
 import com.jaba.webapp.service.item.ItemManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.annotation.ApplicationScope;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@ApplicationScope
 @Controller
-@Scope("request")
 public class ItemController {
 
     private ItemManager itemService;
@@ -29,6 +28,8 @@ public class ItemController {
     public ItemController(ItemManager itemService){
         this.itemService = itemService;
     }
+
+
 
     @ModelAttribute("allAlbumGenre")
     public List<Album.Genre> albumGenres() {
@@ -100,8 +101,7 @@ public class ItemController {
 
     @RequestMapping(value = "/products/modifyitem/sticker", method = RequestMethod.POST)
     public String modifySticker(@Valid @ModelAttribute Item item,
-                                   final BindingResult bindingResult,
-                                    @ModelAttribute("errors") ArrayList<ApplicationException> errors){
+                                   final BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
             if (item.getSticker() != null)
                 return "modifySticker";
@@ -114,8 +114,7 @@ public class ItemController {
 
         try {
             itemService.updateItem(item);
-        } catch (ApplicationException e) {
-            errors.add(e);
+        } catch (Exception e) {
             return "modifySticker";
         }
 
