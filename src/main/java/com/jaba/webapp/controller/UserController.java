@@ -28,11 +28,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @ModelAttribute("allUsers")
-    public List<User> populateUsers() {
-        return userService.getAllUsers();
-    }
-
     @ModelAttribute("allAccountTypes")
     public List<User.AccountType> populateAccountTypes() {
         return Arrays.asList(User.AccountType.values());
@@ -40,7 +35,8 @@ public class UserController {
 
     @Breadcrumb(label="users.title", depth=0, family = {"user"})
     @RequestMapping(value = "/users")
-    public String showUsers() {
+    public String showUsers(@RequestParam(name="username", defaultValue = "") String usernameQuery, Model model) {
+        model.addAttribute("allUsers", userService.findUsersByUsername(usernameQuery));
         return "users";
     }
 

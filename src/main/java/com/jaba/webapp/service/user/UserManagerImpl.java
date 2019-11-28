@@ -63,6 +63,11 @@ public class UserManagerImpl implements  UserManager{
         userRepository.updateUser(users.get(0));
     }
 
+    @Override
+    public List<User> findUsersByUsername(String query) {
+        return userRepository.find(user -> user.getUsername().toLowerCase().contains(query.toLowerCase()));
+    }
+
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;

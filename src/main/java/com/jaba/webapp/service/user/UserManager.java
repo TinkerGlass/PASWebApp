@@ -8,6 +8,7 @@ import java.util.List;
 public interface UserManager {
     List<User> getAllUsers();
     List<User> getAllActiveUsers();
+    List<User> findUsersByUsername(String query);
     User getUserById(Long id);
     void deleteUser(Long id);
     void addUser(User user) throws ApplicationException;
