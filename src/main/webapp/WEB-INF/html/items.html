@@ -20,25 +20,29 @@
                 <th scope="col" th:text="#{items.fields.sticker}">Sticker</th>
                 <th scope="col" th:text="#{items.fields.type}">Type</th>
                 <th scope="col" th:text="#{items.fields.price}">Price</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
+                <th scope="col" th:text="#{general.tables.action}">Actions</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="item, stat : ${items}">
                 <th th:text="${stat.count}">1</th>
                 <td th:text="${item.title}">Item title</td>
-                <td th:text="${{item.releaseDate}}">20.20.2020</td>
+                <td th:text="${#dates.format(item.releaseDate, 'dd-MM-yyyy')}">20.20.2020</td>
                 <td th:text="${{item.sticker}}">Yes, please</td>
                 <td th:text="${item instanceof T(com.jaba.webapp.domain.item.Album)} ? #{items.types.album} : #{items.types.video}">Album</td>
                 <td th:text="${#numbers.formatDecimal(item.price,2,2)}+' PLN'">20.90$</td>
-                <td th:if="${item.status}"><button type="button" th:text="#{allocations.add.title}" class="btn btn-secondary" th:replace="fragments.html :: sec-button(@{/loans/addLoan/{id}(id=${item.id})}, #{allocations.add.title})">Lend</button></td>
-                <td th:if="${not item.status}"><button type="button" th:text="#{allocations.add.title}" disabled class="btn btn-secondary">Lend</button></td>
-                <td th:if="${item.status}"><button type="button" th:text="#{allocations.add.delete}" class="btn btn-secondary" th:replace="fragments.html :: sec-button(@{/products/delete/{id}(id=${item.id})}, #{allocations.add.delete})">Delete</button></td>
-                <td th:if="${not item.status}"><button type="button" th:text="#{allocations.add.delete}" disabled class="btn btn-secondary">Delete</button></td>
-                <td th:if="${item.status}"><button type="button" th:text="#{allocations.add.modify}" class="btn btn-secondary" th:replace="fragments.html :: sec-button(@{/products/modifyitem/{id}(id=${item.id})}, #{allocations.add.modify})">Modify</button></td>
-                <td th:if="${not item.status}"><button type="button" th:text="#{allocations.add.modify}" disabled class="btn btn-secondary">Modify</button></td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+                            Action
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" th:disabled="${!item.status}">
+                            <a class="dropdown-item text-primary" th:text="#{allocations.add.title}" th:href="@{/loans/addLoan/{id}(id=${item.id})}">Lend</a>
+                            <a class="dropdown-item text-danger" th:text="#{allocations.add.delete}" th:href="@{/products/delete/{id}(id=${item.id})}">Delete</a>
+                            <a class="dropdown-item text-dark" th:text="#{allocations.add.modify}" th:href="@{/products/modifyitem/{id}(id=${item.id})}">Modify</a>
+                        </div>
+                    </div>
+                </td>
             </tr>
         </tbody>
     </table>

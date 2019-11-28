@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/loan-layout}">
+      layout:decorate="~{layouts/main-layout}">
 <head>
     <meta charset="UTF-8" />
-    <title th:text="#{items.add.title}">Add item</title>
+    <title th:text="#{loans.add.title}">Lend item</title>
 </head>
 <body>
-    <span layout:fragment="title" th:text="#{items.add.title}">Create new item.</span>
+    <span layout:fragment="title" th:text="#{loans.add.title}">Create new item.</span>
     <div layout:fragment="content">
 
         <div class="container">
@@ -19,7 +19,7 @@
                     <label th:text="#{allocations.fields.price} + ': ' + ${item.price}">Price</label>
                 </div>
                 <div class="form-group">
-                    <label th:text="#{allocations.fields.releaseDate} + ': ' + ${item.releaseDate}">Price</label>
+                    <label th:text="#{allocations.fields.releaseDate} + ': ' + ${#dates.format(item.releaseDate, 'dd-MM-yyyy')}">Price</label>
                 </div>
                 <div class="form-group" th:if="${item instanceof T(com.jaba.webapp.domain.item.Album)}" >
                     <label th:text="#{allocations.fields.author} + ': ' + ${item.author}">Price</label>
@@ -34,13 +34,15 @@
                     <label th:text="#{items.field.video.length} + ': ' + ${item.minutes}">Price</label>
                 </div>
                 <div class="form-group">
+                    <label for="genre" th:text="#{loans.add.user}">Type</label>
                     <select class="form-control" type="text" id="genre" th:field="${item.genre}" th:placeholder="#{allocations.fields.type.input}">
                         <option th:each="user : ${users}"
-                                th:text="#{${{user.username}}}" th:value="${user}">Type</option>
+                                th:text="${user.username}" th:value="${user}">Type</option>
                     </select>
                 </div>
                 <input type="hidden" th:field="${item}"  th:value="${item}"/>
                 <button type="submit" class="btn btn-primary float-right" th:text="#{buttons.add}"></button>
+                <div class="clearfix"></div>
             </form>
         </div>
     </div>

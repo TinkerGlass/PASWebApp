@@ -18,7 +18,7 @@
             <th scope="col" th:text="#{users.fields.username}">Username</th>
             <th scope="col" th:text="#{users.fields.type}">Type</th>
             <th scope="col" th:text="#{users.fields.active}">Active</th>
-            <th scope="col"></th>
+            <th scope="col" th:text="#{general.tables.action}"></th>
         </tr>
         </thead>
         <tbody>
@@ -27,7 +27,7 @@
             <td th:text="${user.username}">Nick</td>
             <td th:text="${{user.accountType}}">Admin</td>
             <td th:text="${user.active} ? #{general.yes} : #{general.no}">Yes</td>
-            <td ><button type="button" th:text="#{allocations.add.delete}" class="btn btn-secondary " th:replace="~{fragments :: sec-button(@{/deleteUser/{id}(id=${user.id})}, #{allocations.add.delete})}" >Delete</button></td>
+            <td><button type="button" th:text="#{allocations.add.delete}" class="btn btn-secondary " th:replace="~{fragments :: del-button(@{/deleteUser/{id}(id=${user.id})}, #{users.block}, ${!user.active})}" >Delete</button></td>
         </tr>
         </tbody>
     </table>
