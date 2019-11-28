@@ -23,4 +23,6 @@ public class AuditSpecification{
     public static Specification<AllocationInfo> byItemId(Long id) { return allocation -> allocation.getItem().getId().equals(id); }
 
     public static Specification<AllocationInfo> byItemIdActive(Long id) { return allocation -> allocation.getItem().getId().equals(id) && allocation.getEndTime() == null; }
+
+    public static Specification<AllocationInfo> byUserIdActive(Long id) { return allocation -> allocation.getUser().getId().equals(id) && allocation.getEndTime() == null;}
 }

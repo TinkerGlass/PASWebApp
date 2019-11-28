@@ -52,6 +52,9 @@ public class AllocationManagerImpl implements AllocationManager {
         if(users.isEmpty())
             throw new ApplicationException(ApplicationException.ErrorCode.USER_ID_DOESNT_EXIST);
 
+        if(!users.get(0).isActive())
+            throw new ApplicationException(ApplicationException.ErrorCode.USER_INACTIVE);
+
         AllocationInfo allocationInfo = new AllocationInfo(items.get(0), users.get(0), Date.from(Instant.now()));
         auditRepository.addAllocation(allocationInfo);
 
@@ -91,7 +94,6 @@ public class AllocationManagerImpl implements AllocationManager {
     public void setAuditRepository(AuditRepository auditRepository) {
         this.auditRepository = auditRepository;
     }
-
     @Autowired
     public void setItemRepository(ItemRepository itemRepository) {
         this.itemRepository = itemRepository;

@@ -2,7 +2,7 @@ package com.jaba.webapp.exceptions;
 
 public class ApplicationException extends Exception {
     public static enum ErrorCode {
-        USERNAME_NOT_UNIQUE, ITEM_ID_DOESNT_EXIST, USER_ID_DOESNT_EXIST, ITEM_UNAVAILABLE, ITEM_AVAILABLE
+        USERNAME_NOT_UNIQUE, ITEM_ID_DOESNT_EXIST, USER_ID_DOESNT_EXIST, ITEM_UNAVAILABLE, ITEM_AVAILABLE, USER_INACTIVE
     }
 
     protected int errorCode;
@@ -30,6 +30,9 @@ public class ApplicationException extends Exception {
                 break;
             case ITEM_AVAILABLE:
                 this.errorMessageProperty="exceptions.itemAvailable";
+                break;
+            case USER_INACTIVE:
+                this.errorMessageProperty="exceptions.userInactive";
                 break;
         }
     }

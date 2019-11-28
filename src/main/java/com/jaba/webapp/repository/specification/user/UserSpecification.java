@@ -15,5 +15,6 @@ public class UserSpecification {
     public static Specification<User> byUsername(String username) {
         return user -> user.getUsername().equals(username);
     }
+    public static Specification<User> allActive() {return user -> user.isActive();}
 
 }

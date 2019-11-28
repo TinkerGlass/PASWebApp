@@ -72,13 +72,21 @@ public class UserController {
 
     @RequestMapping(value = "/deleteUser/{id}", method = RequestMethod.GET)
     public String shutUser(@PathVariable Long id) {
-        userService.getUserById(id).setActive(false);
+        try {
+            userService.blockUser(id);
+        } catch (ApplicationException e) {
+
+        }
         return "redirect:/users";
     }
 
     @RequestMapping(value = "/upUser/{id}", method = RequestMethod.GET)
     public String upUser(@PathVariable Long id) {
-        userService.getUserById(id).setActive(true);
+        try {
+            userService.unblockUser(id);
+        } catch (ApplicationException e) {
+
+        }
         return "redirect:/users";
     }
 

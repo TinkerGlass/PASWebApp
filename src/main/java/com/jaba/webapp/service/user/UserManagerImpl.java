@@ -1,9 +1,13 @@
 package com.jaba.webapp.service.user;
 
+import com.jaba.webapp.domain.audit.AllocationInfo;
 import com.jaba.webapp.domain.user.User;
 import com.jaba.webapp.exceptions.ApplicationException;
+import com.jaba.webapp.repository.audit.AuditRepository;
+import com.jaba.webapp.repository.specification.audit.AuditSpecification;
 import com.jaba.webapp.repository.specification.user.UserSpecification;
 import com.jaba.webapp.repository.user.UserRepository;
+import com.jaba.webapp.service.audit.AllocationManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +20,11 @@ public class UserManagerImpl implements  UserManager{
 
     @Override
     public List<User> getAllUsers() { return userRepository.find(UserSpecification.all()); }
+
+    @Override
+    public List<User> getAllActiveUsers() {
+        return userRepository.find(UserSpecification.allActive());
+    }
 
     @Override
     public User getUserById(Long id) {
@@ -34,6 +43,25 @@ public class UserManagerImpl implements  UserManager{
     @Override
     public void updateUser(User user)  { userRepository.updateUser(user); }
 
+    @Override
+    public void blockUser(Long userId) throws ApplicationException {
+        List<User> users = userRepository.find(UserSpecification.byId(userId));
+        if(users.isEmpty())
+            throw new ApplicationException(ApplicationException.ErrorCode.USER_ID_DOESNT_EXIST);
+
+        users.get(0).setActive(false);
+        userRepository.updateUser(users.get(0));
+    }
+
+    @Override
+    public void unblockUser(Long userId) throws ApplicationException {
+        List<User> users = userRepository.find(UserSpecification.byId(userId));
+        if(users.isEmpty())
+            throw new ApplicationException(ApplicationException.ErrorCode.USER_ID_DOESNT_EXIST);
+
+        users.get(0).setActive(true);
+        userRepository.updateUser(users.get(0));
+    }
 
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
