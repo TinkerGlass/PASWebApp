@@ -56,6 +56,14 @@ public class UserRepositoryImpl implements UserRepository {
         }
     }
 
+    @Override
+    public void removeUser(Long id) {
+        synchronized (users) {
+            users.removeIf(user -> user.getId().equals(id));
+        }
+    }
+
+
     private static final AtomicLong _nextID = new AtomicLong(0);
     public static Long getNextID() {
         return _nextID.getAndIncrement();

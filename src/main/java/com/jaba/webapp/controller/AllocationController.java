@@ -49,21 +49,32 @@ public class AllocationController {
 
 
 
+    @RequestMapping(value = "/allocation/delete/{id}", method = RequestMethod.GET)
+    public String removeItem(@PathVariable Long id) {
+        allocationService.removeAllocation(id);
+        return "redirect:/allocations";
+    }
+
+
+
     @RequestMapping(value = "/loans/addLoan/{id}", method = RequestMethod.GET)
-    public String showLoanForm(AllocationInfo allocation,
+    public String showLoanForm(String userId,
+                               String itemId,
                                @PathVariable Long id,
                                Model model) {
         model.addAttribute("item", itemService.getItemById(id));
         model.addAttribute("users", userService.getAllUsers());
-        model.addAttribute("allocation", allocation);
+        model.addAttribute("userId", userId);
+        model.addAttribute("itemId", itemId);
         return "loan";
     }
 
     @RequestMapping(value = "/loans/addLoan", method = RequestMethod.POST)
-    public String addNewLoan(@Valid @ModelAttribute AllocationInfo allocation,
+    public String addNewLoan(@ModelAttribute("userId") String userId,
+                             @ModelAttribute("itemId") String itemId,
                              final BindingResult bindingResult) {
         Date now = Calendar.getInstance().getTime();
-        allocation.setStartTime(now);
+        AllocationInfo allocation = new AllocationInfo(itemService.getItemById((long) 1), userService.getUserById((long) 2), now);
         allocationService.addAllocation(allocation);
         return "redirect:/products";
     }

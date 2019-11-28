@@ -27,7 +27,6 @@
             <td th:text="${user.username}">Nick</td>
             <td th:text="${{user.accountType}}">Admin</td>
             <td th:text="${user.active} ? #{general.yes} : #{general.no}">Yes</td>
-            <td ><button type="button" th:text="#{allocations.add.delete}" class="btn btn-secondary " th:replace="~{fragments :: sec-button(@{/deleteUser/{id}(id=${user.id})}, #{allocations.add.delete})}" >Delete</button></td>
         </tr>
         </tbody>
     </table>

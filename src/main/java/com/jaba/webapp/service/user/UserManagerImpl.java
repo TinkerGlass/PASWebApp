@@ -25,6 +25,7 @@ public class UserManagerImpl implements  UserManager{
 
     @Override
     public void deleteUser(Long id) {
+        userRepository.removeUser(id);
     }
 
     @Override

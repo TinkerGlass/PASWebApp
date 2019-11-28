@@ -9,5 +9,6 @@ import java.util.List;
 public interface UserRepository {
     List<User> find(Specification<User> specification);
     void addUser(User user) throws ApplicationException;
+    public void removeUser(Long id);
     void updateUser(User user);
 }
