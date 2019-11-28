@@ -14,7 +14,7 @@
     </div>
 
     <div class="container">
-        <form  method="post" th:action="@{/loans/addLoan}" th:object="${item}">
+        <form  method="post" th:action="@{/products/modifyitem}" th:object="${item}">
             <!--            <input type="hidden" name="item" th:value="${item  instanceof T(com.jaba.webapp.domain.item.Video) ? 'video' : 'album'}"/>-->
             <div class="form-group">
                 <input type="hidden" th:field="*{id}" />
