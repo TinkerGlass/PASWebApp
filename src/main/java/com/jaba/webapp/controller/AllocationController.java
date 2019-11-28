@@ -1,5 +1,6 @@
 package com.jaba.webapp.controller;
 
+import com.jaba.webapp.breadcrumbs.annotation.Breadcrumb;
 import com.jaba.webapp.domain.audit.AllocationInfo;
 import com.jaba.webapp.domain.item.Item;
 import com.jaba.webapp.exceptions.ApplicationException;
@@ -33,7 +34,8 @@ public class AllocationController {
         this.userService = userService;
     }
 
-    @GetMapping(value = "/allocations")
+    @Breadcrumb(label = "allocations.list.title", depth = 0, family = {"allocations"})
+    @RequestMapping(value = "/allocations", method = RequestMethod.GET)
     public String showAllocation(Model model) {
         List<AllocationInfo> arrayList = allocationService.getAllAllocations();
         model.addAttribute("allocations", arrayList);
@@ -46,14 +48,16 @@ public class AllocationController {
         return "redirect:/allocations";
     }
 
+    @Breadcrumb(label = "loans.add.title", depth = 1, family = {"loan"})
     @RequestMapping(value = "/loans/addLoan/{id}", method = RequestMethod.GET)
     public String showLoanForm(@PathVariable Long id,
                                Model model) {
         model.addAttribute("item", itemService.getItemById(id));
-        model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("users", userService.getAllActiveUsers());
         return "loan";
     }
 
+    @Breadcrumb(label = "loans.add.title", depth = 1, family = {"loan"})
     @RequestMapping(value = "/loans/addLoan", method = RequestMethod.POST)
     public String addNewLoan(@ModelAttribute("userId") Long userId,
                              @ModelAttribute("itemId") Long itemId,
@@ -65,7 +69,7 @@ public class AllocationController {
             errors.add(e);
             model.addAttribute("errors", errors);
             model.addAttribute("item", itemService.getItemById(itemId));
-            model.addAttribute("users", userService.getAllUsers());
+            model.addAttribute("users", userService.getAllActiveUsers());
             return "loan";
         }
 

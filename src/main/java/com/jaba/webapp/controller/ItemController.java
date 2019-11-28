@@ -39,9 +39,9 @@ public class ItemController {
     @ModelAttribute("allVideoGenre")
     public List<Video.Genre> videoGenres() { return Arrays.asList(Video.Genre.values()); }
 
-    @Breadcrumb(label="items.list.title", depth=0, family = {"items"})
+    @Breadcrumb(label="items.list.title", depth=0, family = {"items", "loan"})
     @RequestMapping(value = "/products", method = RequestMethod.GET)
-    public String showCustomers(Model model) {
+    public String showItems(Model model) {
         List<Item> arrayList = itemService.getAllItems();
         model.addAttribute("items", arrayList);
         return "items";

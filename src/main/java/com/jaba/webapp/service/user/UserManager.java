@@ -7,9 +7,11 @@ import java.util.List;
 
 public interface UserManager {
     List<User> getAllUsers();
+    List<User> getAllActiveUsers();
     User getUserById(Long id);
     void deleteUser(Long id);
     void addUser(User user) throws ApplicationException;
     void updateUser(User user);
-
+    void blockUser(Long userId) throws ApplicationException;
+    void unblockUser(Long userId) throws ApplicationException;
 }
