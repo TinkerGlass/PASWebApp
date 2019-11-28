@@ -10,11 +10,12 @@ import com.jaba.webapp.formatter.*;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
-import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -104,43 +105,35 @@ public class WebConfiguration implements WebMvcConfigurer {
     }
 
     @Bean
-    @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
     public AccountTypeFormatter accountTypeFormatter() {
         return new AccountTypeFormatter();
     }
     @Bean
-    @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
     public DateFormatter dateFormatter() {
         return new DateFormatter();
     }
     @Bean
-    @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
     public FanStickerFormatter stickerFormatter() {
         return new FanStickerFormatter();
     }
     @Bean
-    @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
     public AlbumGenreFormatter albumGenreFormatter() {
         return new AlbumGenreFormatter();
     }
     @Bean
-    @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
     public VideoGenreFormatter videoGenreFormatter() {
         return new VideoGenreFormatter();
     }
 
     @Bean
-    @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
     public UserConverter userConverter() {
         return new UserConverter();
     }
     @Bean
-    @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
     public UserStringConverter userStringConverter() {
         return new UserStringConverter();
     }
     @Bean
-    @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
     public DateConverter dateConverter() {
         return new DateConverter();
     }
@@ -150,7 +143,6 @@ public class WebConfiguration implements WebMvcConfigurer {
         return new BreadcrumbMap();
     }
     @Bean
-    @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
     public BreadCrumbInterceptor breadCrumbInterceptor() {return new BreadCrumbInterceptor();}
 
     @Autowired

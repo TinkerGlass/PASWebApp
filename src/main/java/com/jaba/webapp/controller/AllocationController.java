@@ -7,7 +7,6 @@ import com.jaba.webapp.service.audit.AllocationManager;
 import com.jaba.webapp.service.item.ItemManager;
 import com.jaba.webapp.service.user.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@Scope("request")
 public class AllocationController {
 
     private AllocationManager allocationService;
