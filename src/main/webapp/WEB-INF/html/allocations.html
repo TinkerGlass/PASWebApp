@@ -24,6 +24,8 @@
                 <td th:text="${allo.user.username}" />
                 <td th:text="${#dates.format(allo.startTime, 'dd-MM-yyyy HH:mm')}" />
                 <td th:text="${#dates.format(allo.endTime, 'dd-MM-yyyy HH:mm')}" />
+                <td th:if="${allo.endTime == null}"><button type="button" th:text="#{allocations.add.delete}" class="btn btn-secondary" th:replace="fragments.html :: sec-button(@{/allocation/delete/{id}(id=${allo.id})}, #{allocations.add.delete})">Delete</button></td>
+                <td th:if="${allo.endTime != null}"><button type="button" th:text="#{allocations.add.delete}" disabled class="btn btn-secondary">Delete</button></td>
             </tr>
         </tbody>
     </table>
