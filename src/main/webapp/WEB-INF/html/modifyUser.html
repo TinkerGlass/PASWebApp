@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main-layout}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{users.add.title}">Add user</title>
+    <script type="text/javascript">
+        function onChange()
+        {
+            var e = document.getElementById("typeInput");
+            var strUser = e.options[e.selectedIndex].value;
+            window.location.href = "[[@{/addUser}]]?type="+strUser;
+        }
+    </script>
+</head>
+<body>
+<span layout:fragment="title" th:text="#{users.add.title}">Add users</span>
+<div layout:fragment="content">
+    <div class="alert alert-danger" role="alert" th:each="error : ${errors}" th:text="#{*{error.errorMessageProperty}}">
+        Error
+    </div>
+
+    <div class="container">
+        <form th:action="@{/modifyUser}" th:object="${user}" method="post">
+            <input type="hidden" name="user" th:value="*{accountType}"/>
+            <input type="hidden" th:field="*{id}" />
+            <div class="form-group">
+                <label for="usernameInput" th:text="#{users.fields.username}">Username</label>
+                <input type="text" class="form-control" id="usernameInput" th:placeholder="#{users.fields.enterUsername}" placeholder="Enter username" th:field="*{username}"
+                       th:errorclass="is-invalid">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">
+                    Validation error
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="passwordInput" th:text="#{users.fields.password}">Password</label>
+                <input type="text" class="form-control" id="passwordInput" th:placeholder="#{users.fields.enterPassword}" placeholder="Enter password" th:field="*{passwordHash}"
+                       th:errorclass="is-invalid">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('passwordHash')}" th:errors="*{passwordHash}">
+                    Validation error
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="typeInput" th:text="#{users.fields.type}">Type</label>
+                <select id="typeInput" class="form-control" th:name="userWithType" name="userWithType" onchange="onChange()">
+                    <option th:each="type : ${allAccountTypes}" th:if="${type != T(com.jaba.webapp.domain.user.User.AccountType).UNKNOWN}"
+                            th:text="${{type}}" th:value="${type}"
+                            th:selected="${type == user.accountType}">Type</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary float-right" th:text="#{buttons.add}">Add</button>
+            <div class="clearfix"></div>
+        </form>
+
+    </div>
+</div>
+
+</body>
+</html>
