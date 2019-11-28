@@ -33,10 +33,6 @@ public class AllocationController {
         this.userService = userService;
     }
 
-
-
-
-
     @GetMapping(value = "/allocations")
     public String showAllocation(Model model) {
         List<AllocationInfo> arrayList = allocationService.getAllAllocations();
@@ -44,16 +40,11 @@ public class AllocationController {
         return "allocations";
     }
 
-
-
-
     @RequestMapping(value = "/allocation/delete/{id}", method = RequestMethod.GET)
     public String removeItem(@PathVariable Long id) {
         allocationService.removeAllocation(id);
         return "redirect:/allocations";
     }
-
-
 
     @RequestMapping(value = "/loans/addLoan/{id}", method = RequestMethod.GET)
     public String showLoanForm(@PathVariable Long id,
@@ -66,14 +57,28 @@ public class AllocationController {
     @RequestMapping(value = "/loans/addLoan", method = RequestMethod.POST)
     public String addNewLoan(@ModelAttribute("userId") Long userId,
                              @ModelAttribute("itemId") Long itemId,
-                             @ModelAttribute("errors") ArrayList<ApplicationException> errors) {
+                             Model model) {
         try {
             allocationService.addAllocation(userId, itemId);
         } catch (ApplicationException e) {
+            List<ApplicationException> errors = new ArrayList<ApplicationException>();
             errors.add(e);
+            model.addAttribute("errors", errors);
+            model.addAttribute("item", itemService.getItemById(itemId));
+            model.addAttribute("users", userService.getAllUsers());
             return "loan";
         }
 
+        return "redirect:/products";
+    }
+
+    @RequestMapping(value = "/loans/removeLoan/{id}", method = RequestMethod.GET)
+    public String removeLoan(@PathVariable(name = "id") Long itemId) {
+        try {
+            allocationService.finishAllocation(itemId);
+        } catch (ApplicationException e) {
+
+        }
         return "redirect:/products";
     }
 }

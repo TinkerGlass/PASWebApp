@@ -11,5 +11,6 @@ public interface AllocationManager{
      void updateAllocation(AllocationInfo allocation);
      void addAllocation(AllocationInfo allocation);
      void addAllocation(Long userId, Long itemId) throws ApplicationException;
+     void finishAllocation(Long itemId) throws ApplicationException;
      void removeAllocation(Long id);
 }

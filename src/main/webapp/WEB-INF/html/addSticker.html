@@ -23,15 +23,24 @@
             <input type="hidden" th:field="*{minutes}" th:if="${item instanceof T(com.jaba.webapp.domain.item.Video)}"/>
             <div class="form-group">
                 <label for="sticker-name" th:text="#{sticker.fields.name}">Item name</label>z
-                <input class="form-control" type="text" id="sticker-name" th:field="*{sticker.stickerName}" th:placeholder="#{sticker.fields.name.input}">
+                <input class="form-control" type="text" id="sticker-name" th:field="*{sticker.stickerName}" th:placeholder="#{sticker.fields.name.input}"  th:errorclass="is-invalid">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('sticker.stickerName')}" th:errors="*{sticker.stickerName}">
+                    Validation error
+                </div>
             </div>
             <div class="form-group">
                 <label for="sticker-content" th:text="#{sticker.fields.content}">Price</label>
-                <input class="form-control"  id="sticker-content" th:field="*{sticker.stickerContent}" th:placeholder="#{sticker.fields.content.input}">
+                <input class="form-control"  id="sticker-content" th:field="*{sticker.stickerContent}" th:placeholder="#{sticker.fields.content.input}"  th:errorclass="is-invalid">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('sticker.stickerContent')}" th:errors="*{sticker.stickerContent}">
+                    Validation error
+                </div>
             </div>
             <div class="form-group">
                 <label for="sticker-points" th:text="#{sticker.fields.points}">Release date</label>
-                <input class="form-control" type="number" id="sticker-points" th:field="*{sticker.stickerPoints}" th:placeholder="#{sticker.fields.points.input }">
+                <input class="form-control" type="number" id="sticker-points" th:field="*{sticker.stickerPoints}" th:placeholder="#{sticker.fields.points.input }"  th:errorclass="is-invalid">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('sticker.stickerPoints')}" th:errors="*{sticker.stickerPoints}">
+                    Validation error
+                </div>
             </div>
             <button type="submit" class="btn btn-primary float-right" th:text="#{buttons.add}"></button>
             <div class="clearfix"></div>

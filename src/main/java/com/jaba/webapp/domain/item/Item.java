@@ -12,12 +12,12 @@ import java.util.Date;
 
 public abstract class Item {
     private Long id;
-    @NotNull
-    @DecimalMin(value="0", message = "general.validation.minValue")
+    @NotNull(message = "{general.validation.empty}")
+    @DecimalMin(value="0", message = "{general.validation.minValue}")
     private BigDecimal price;
-    @NotBlank(message = "general.validation.empty")
+    @NotBlank(message = "{general.validation.empty}")
     private String title;
-    @NotNull
+    @NotNull(message = "{general.validation.empty}")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date releaseDate;
     @Valid

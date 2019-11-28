@@ -15,18 +15,11 @@
 
     <div class="container">
         <form  method="post" th:action="@{/products/modifyitem}" th:object="${item}">
-            <!--            <input type="hidden" name="item" th:value="${item  instanceof T(com.jaba.webapp.domain.item.Video) ? 'video' : 'album'}"/>-->
-            <div class="form-group">
-                <input type="hidden" th:field="*{id}" />
-                <input type="hidden" th:field="*{sticker.stickerContent}" />
-                <input type="hidden" th:field="*{sticker.stickerName}" />
-                <input type="hidden" th:field="*{sticker.stickerPoints}" />
-                <label for="check-item" th:text="#{allocations.fields.item.choosen}"></label>
-                <select class="form-control" type="text" id="check-item" name="item" onchange="onChange()">
-                    <option th:text="Video" th:value="video" th:selected="${item instanceof T(com.jaba.webapp.domain.item.Video)}"></option>
-                    <option th:text="Album" th:value="album" th:selected="${item instanceof T(com.jaba.webapp.domain.item.Album)}"></option>
-                </select>
-            </div>
+            <input type="hidden" name="item" th:value="${item instanceof T(com.jaba.webapp.domain.item.Video)} ? 'video' : 'album'"/>
+            <input type="hidden" th:field="*{id}" />
+            <input type="hidden" th:field="*{sticker.stickerContent}" />
+            <input type="hidden" th:field="*{sticker.stickerName}" />
+            <input type="hidden" th:field="*{sticker.stickerPoints}" />
             <div class="form-group">
                 <label for="item-title" th:text="#{allocations.fields.itemName}">Item name</label>z
                 <input class="form-control" type="text" id="item-title" th:field="*{title}" th:placeholder="#{allocations.fields.itemName.input}" th:errorclass="is-invalid">

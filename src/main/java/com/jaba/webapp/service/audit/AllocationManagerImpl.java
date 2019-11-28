@@ -60,6 +60,24 @@ public class AllocationManagerImpl implements AllocationManager {
     }
 
     @Override
+    public void finishAllocation(Long itemId) throws ApplicationException {
+        List<Item> items = itemRepository.find(ItemSpecification.byId(itemId));
+        if(items.isEmpty())
+            throw new ApplicationException(ApplicationException.ErrorCode.ITEM_ID_DOESNT_EXIST);
+
+        if(items.get(0).isAvailable())
+            throw new ApplicationException(ApplicationException.ErrorCode.ITEM_AVAILABLE);
+
+        AllocationInfo allocationInfo = auditRepository.find(AuditSpecification.byItemIdActive(itemId)).get(0);
+
+        allocationInfo.setEndTime(Date.from(Instant.now()));
+        auditRepository.updateAllocation(allocationInfo);
+
+        items.get(0).setAvailable(true);
+        itemRepository.updateItem(items.get(0));
+    }
+
+    @Override
     public void removeAllocation(Long id) {
         List<AllocationInfo> allocation = auditRepository.find(AuditSpecification.byId(id));
         if(allocation.isEmpty())

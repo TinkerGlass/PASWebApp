@@ -7,11 +7,11 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class Video extends Item {
-    @NotNull(message="general.validation.empty")
+    @NotNull(message="{general.validation.empty}")
     private Genre genre;
-    @NotBlank(message="general.validation.empty")
+    @NotBlank(message="{general.validation.empty}")
     private String director;
-    @Min(value = 1, message = "general.validation.minValue")
+    @Min(value = 1, message = "{general.validation.minValue}")
     private int minutes;
 
     public Video() {

@@ -8,11 +8,11 @@ import java.util.Date;
 
 
 public class Album extends Item {
-    @NotBlank(message = "general.validation.empty")
+    @NotBlank(message = "{general.validation.empty}")
     private String author;
-    @NotNull(message = "general.validation.empty")
+    @NotNull(message = "{general.validation.empty}")
     private Genre genre;
-    @Min(value = 1, message = "general.validation.minValue")
+    @Min(value = 1, message = "{general.validation.minValue}")
     private int tracks;
 
     public Album() {

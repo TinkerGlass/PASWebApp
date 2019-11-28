@@ -9,6 +9,9 @@
 <body>
 <span layout:fragment="title" th:text="#{items.list.title}">Storage items</span>
 <div layout:fragment="content">
+    <div class="alert alert-danger" role="alert" th:each="error : ${errors}" th:text="#{*{error.errorMessageProperty}}">
+        Error
+    </div>
     <button type="button" class="btn btn-secondary" th:replace="fragments.html :: sec-button(@{/products/newitem}, #{buttons.add})">Add</button>
 
     <table class="table mt-4">
@@ -33,12 +36,14 @@
                 <td th:text="${#numbers.formatDecimal(item.price,2,2)}+' PLN'">20.90$</td>
                 <td>
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" th:disabled="${!item.available}">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
                             Action
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item text-primary" th:text="#{allocations.add.title}" th:href="@{/loans/addLoan/{id}(id=${item.id})}">Lend</a>
-                            <a class="dropdown-item text-danger" th:text="#{allocations.add.delete}" th:href="@{/products/delete/{id}(id=${item.id})}">Delete</a>
+                            <a class="dropdown-item text-primary" th:if="${item.available}" th:text="#{allocations.add.title}" th:href="@{/loans/addLoan/{id}(id=${item.id})}">Lend</a>
+                            <a class="dropdown-item text-primary" th:if="${!item.available}" th:text="#{loans.return}" th:href="@{/loans/removeLoan/{id}(id=${item.id})}">Return</a>
+                            <a class="dropdown-item" th:classappend="${item.available} ? 'text-danger' : 'disabled' "
+                               th:text="#{allocations.add.delete}" th:href="${item.available} ? @{/products/delete/{id}(id=${item.id})} : ''">Delete</a>
                             <a class="dropdown-item text-dark" th:text="#{allocations.add.modify}" th:href="@{/products/modifyitem/{id}(id=${item.id})}">Modify</a>
                         </div>
                     </div>
