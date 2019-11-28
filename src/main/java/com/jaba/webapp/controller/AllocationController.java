@@ -2,23 +2,24 @@ package com.jaba.webapp.controller;
 
 import com.jaba.webapp.breadcrumbs.annotation.Breadcrumb;
 import com.jaba.webapp.domain.audit.AllocationInfo;
-import com.jaba.webapp.domain.item.Item;
 import com.jaba.webapp.exceptions.ApplicationException;
 import com.jaba.webapp.service.audit.AllocationManager;
-import com.jaba.webapp.service.audit.AllocationManagerImpl;
 import com.jaba.webapp.service.item.ItemManager;
 import com.jaba.webapp.service.user.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.validation.Valid;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
+@Scope("request")
 public class AllocationController {
 
     private AllocationManager allocationService;

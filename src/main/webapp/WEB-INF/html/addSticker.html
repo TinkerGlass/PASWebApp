@@ -10,6 +10,10 @@
 <span layout:fragment="title" th:text="#{items.add.title}">Create new item.</span>
 <div layout:fragment="content">
 
+    <div class="alert alert-danger" role="alert" th:each="error : ${errors}" th:text="#{*{error.errorMessageProperty}}">
+        Error
+    </div>
+
     <div class="container">
         <form  method="post" th:action="@{/products/newitem}" th:object="${item}">
             <input type="hidden" name="item" th:value="${item instanceof T(com.jaba.webapp.domain.item.Video) ? 'video' : 'album'}"/>
