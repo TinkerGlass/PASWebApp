@@ -33,11 +33,12 @@
             <td th:text="${{user.accountType}}">Admin</td>
             <td th:text="${user.active} ? #{general.yes} : #{general.no}">Yes</td>
             <td th:if="${user.active}">
-                <button  type="button" th:text="#{allocations.add.delete}"  th:replace="~{fragments :: del-button(@{/deleteUser/{id}(id=${user.id})}, #{users.block}, ${!user.active})}" >Delete</button>
+                <button  type="button" th:replace="~{fragments :: del-button(@{/deleteUser/{id}(id=${user.id})}, #{users.block}, ${!user.active})}" >Delete</button>
             </td>
             <td th:if="${!user.active}">
-                <button  type="button" th:text="#{allocations.add.modify}"  th:replace="~{fragments :: ack-button(@{/upUser/{id}(id=${user.id})}, #{users.unlock}, ${user.active})}" >Delete</button>
+                <button  type="button" th:replace="~{fragments :: ack-button(@{/upUser/{id}(id=${user.id})}, #{users.unlock}, ${user.active})}" >Delete</button>
             </td>
+            <td> <button  type="button" th:replace="~{fragments :: modify-button(@{/modifyUser/{id}(id=${user.id})}, #{users.modify})}" >Delete</button> </td>
         </tr>
         </tbody>
     </table>

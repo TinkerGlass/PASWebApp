@@ -86,5 +86,28 @@ public class UserController {
         return "redirect:/users";
     }
 
+    @RequestMapping(value = "/modifyUser/{id}", method = RequestMethod.GET)
+    public String modifyUserForm(@PathVariable Long id, Model model) {
+        model.addAttribute("user", userService.getUserById(id));
+        return "modifyUser";
+    }
 
+
+    @RequestMapping(value = "/modifyUser", method = RequestMethod.POST)
+    public String modifyUserForm(@Valid @ModelAttribute User user,
+                                 final BindingResult bindingResult,
+                                 @ModelAttribute("errors") ArrayList<ApplicationException> errors) {
+
+//        if(bindingResult.hasErrors())
+//            return "modifyUser";
+//        try {
+            userService.updateUser(user);
+//        } catch(ApplicationException e) {
+//            errors.add(e);
+//            if(e.getErrorCode() == ApplicationException.ErrorCode.USERNAME_NOT_UNIQUE.ordinal())
+//                bindingResult.addError(new FieldError("user", "username",""));
+//            return "modifyUser";
+//        }
+        return "redirect:/users";
+    }
 }

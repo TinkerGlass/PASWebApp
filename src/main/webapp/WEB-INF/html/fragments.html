@@ -18,7 +18,7 @@
 </form>
 
 <form action="#" th:fragment="modify-button (actionUrl, btnText)" th:action="${actionUrl}">
-    <button type="submit" class="btn btn-dark" th:text="${btnText}" >button</button>
+    <button type="submit" class="btn btn-dark btn-sm" th:text="${btnText}" >button</button>
 </form>
 <form action="#" th:fragment="ack-button (actionUrl, btnText, disabled)" th:action="${actionUrl}">
     <button type="submit" class="btn btn-success btn-sm" th:text="${btnText}" th:disabled="${disabled}">button</button>
