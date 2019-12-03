@@ -1,10 +1,7 @@
 package com.jaba.webapp.datafiller.audit;
 
 import com.jaba.webapp.domain.audit.AllocationInfo;
-import com.jaba.webapp.domain.item.Album;
-import com.jaba.webapp.domain.item.FanSticker;
 import com.jaba.webapp.domain.item.Item;
-import com.jaba.webapp.domain.user.ClientUser;
 import com.jaba.webapp.domain.user.User;
 import com.jaba.webapp.repository.audit.AuditRepository;
 import com.jaba.webapp.repository.item.ItemRepository;
@@ -13,11 +10,9 @@ import com.jaba.webapp.repository.specification.user.UserSpecification;
 import com.jaba.webapp.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 public class ConstantAllocationDataFiller implements  AllocationDataFiller {
 

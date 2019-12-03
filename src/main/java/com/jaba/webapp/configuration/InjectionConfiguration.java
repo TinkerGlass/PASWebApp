@@ -6,7 +6,6 @@ import com.jaba.webapp.datafiller.item.ConstantItemDataFiller;
 import com.jaba.webapp.datafiller.item.ItemDataFiller;
 import com.jaba.webapp.datafiller.user.ConstantUserDataFiller;
 import com.jaba.webapp.datafiller.user.UserDataFiller;
-import com.jaba.webapp.domain.user.ClientUser;
 import com.jaba.webapp.domain.user.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,6 +27,6 @@ public class InjectionConfiguration {
 
     @Bean
     @RequestScope
-    public User getUserModel() {return new ClientUser(); }
+    public User getUserModel() {return new User(); }
 
 }

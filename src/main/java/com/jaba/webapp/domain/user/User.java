@@ -5,7 +5,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-public abstract class User {
+public class User {
     private Long id;
     @NotBlank(message = "{users.validation.empty}")
     @Length(min = 5, message = "{users.validation.length}")
@@ -19,11 +19,18 @@ public abstract class User {
         accountType = AccountType.UNKNOWN;
     }
 
-    public User(String username, String passwordHash, boolean active) {
+    public User(AccountType username)
+    {
+        this.accountType = username;
+    }
+
+
+    public User(String username, String passwordHash, boolean active, AccountType accountType) {
         this();
         this.username = username;
         this.passwordHash = passwordHash;
         this.active = active;
+        this.accountType = accountType;
     }
 
     public Long getId() {

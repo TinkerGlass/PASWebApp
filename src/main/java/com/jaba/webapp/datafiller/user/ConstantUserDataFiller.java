@@ -1,19 +1,16 @@
 package com.jaba.webapp.datafiller.user;
 
-import com.jaba.webapp.domain.user.AdministratorUser;
-import com.jaba.webapp.domain.user.ClientUser;
-import com.jaba.webapp.domain.user.ResourceManagerUser;
 import com.jaba.webapp.domain.user.User;
 import com.jaba.webapp.repository.user.UserRepository;
 
 public class ConstantUserDataFiller  implements UserDataFiller{
 
     final User[] users = {
-            new ClientUser("BorryOllo", "flash", true),
-            new ClientUser("Patty221", "aksudh34982r9j", true),
-            new ClientUser("Ghana", "fchj394poksd", true),
-            new AdministratorUser("Superuser", "kjsndf8943qwe", true),
-            new ResourceManagerUser("Jessie", "oiu234olnksfd", true),
+            new User("BorryOllo", "flash", true, User.AccountType.CLIENT),
+            new User("Patty221", "aksudh34982r9j", true, User.AccountType.CLIENT),
+            new User("Ghana", "fchj394poksd", true, User.AccountType.CLIENT),
+            new User("Superuser", "kjsndf8943qwe", true, User.AccountType.ADMINISTRATOR),
+            new User("Jessie", "oiu234olnksfd", true, User.AccountType.RESOURCE_MANAGER),
     };
 
     @Override

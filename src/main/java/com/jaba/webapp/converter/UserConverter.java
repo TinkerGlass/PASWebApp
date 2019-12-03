@@ -1,8 +1,5 @@
 package com.jaba.webapp.converter;
 
-import com.jaba.webapp.domain.user.AdministratorUser;
-import com.jaba.webapp.domain.user.ClientUser;
-import com.jaba.webapp.domain.user.ResourceManagerUser;
 import com.jaba.webapp.domain.user.User;
 import org.springframework.core.convert.converter.Converter;
 
@@ -11,11 +8,11 @@ public class UserConverter implements Converter<User.AccountType, User> {
     public User convert(User.AccountType source) {
         switch (source) {
             case CLIENT:
-                return new ClientUser();
+                return new User(User.AccountType.CLIENT);
             case ADMINISTRATOR:
-                return new AdministratorUser();
+                return new User(User.AccountType.ADMINISTRATOR);
             case RESOURCE_MANAGER:
-                return new ResourceManagerUser();
+                return new User(User.AccountType.RESOURCE_MANAGER);
             default:
                 throw new IllegalArgumentException("Unknown user type: " + source);
         }
