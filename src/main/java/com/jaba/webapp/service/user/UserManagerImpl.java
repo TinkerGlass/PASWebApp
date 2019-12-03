@@ -41,7 +41,7 @@ public class UserManagerImpl implements  UserManager{
     public void addUser(User user) throws ApplicationException { userRepository.addUser(user); }
 
     @Override
-    public void updateUser(User user)  { userRepository.updateUser(user); }
+    public void updateUser(User user) throws ApplicationException { userRepository.updateUser(user); }
 
     @Override
     public void blockUser(Long userId) throws ApplicationException {

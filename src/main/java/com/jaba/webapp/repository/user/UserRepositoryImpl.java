@@ -47,11 +47,11 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void updateUser(User user) {
+    public void updateUser(User user) throws ApplicationException{
         synchronized (users) {
             int index = Math.toIntExact(user.getId());
             if (index == -1)
-                throw new IllegalArgumentException(String.format("User with ID %d doesn't exist", user.getId()));
+                throw new ApplicationException(ApplicationException.ErrorCode.USERNAME_NOT_UNIQUE);
             users.set(index, user);
         }
     }

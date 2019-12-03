@@ -98,16 +98,16 @@ public class UserController {
                                  final BindingResult bindingResult,
                                  @ModelAttribute("errors") ArrayList<ApplicationException> errors) {
 
-//        if(bindingResult.hasErrors())
-//            return "modifyUser";
-//        try {
+        if(bindingResult.hasErrors())
+            return "modifyUser";
+        try {
             userService.updateUser(user);
-//        } catch(ApplicationException e) {
-//            errors.add(e);
-//            if(e.getErrorCode() == ApplicationException.ErrorCode.USERNAME_NOT_UNIQUE.ordinal())
-//                bindingResult.addError(new FieldError("user", "username",""));
-//            return "modifyUser";
-//        }
+        } catch(ApplicationException e) {
+            errors.add(e);
+            if(e.getErrorCode() == ApplicationException.ErrorCode.USERNAME_NOT_UNIQUE.ordinal())
+                bindingResult.addError(new FieldError("user", "username",""));
+            return "modifyUser";
+        }
         return "redirect:/users";
     }
 }

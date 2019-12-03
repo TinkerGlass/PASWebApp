@@ -12,7 +12,7 @@ public interface UserManager {
     User getUserById(Long id);
     void deleteUser(Long id);
     void addUser(User user) throws ApplicationException;
-    void updateUser(User user);
+    void updateUser(User user) throws ApplicationException;
     void blockUser(Long userId) throws ApplicationException;
     void unblockUser(Long userId) throws ApplicationException;
 }
