@@ -5,6 +5,7 @@ import com.jaba.webapp.domain.item.Album;
 import com.jaba.webapp.domain.item.FanSticker;
 import com.jaba.webapp.domain.item.Item;
 import com.jaba.webapp.domain.item.Video;
+import com.jaba.webapp.exceptions.ApplicationException;
 import com.jaba.webapp.service.item.ItemManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,8 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.ApplicationScope;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,16 +31,6 @@ public class ItemController {
     public ItemController(ItemManager itemService){
         this.itemService = itemService;
     }
-
-
-
-    @ModelAttribute("allAlbumGenre")
-    public List<Album.Genre> albumGenres() {
-        return Arrays.asList(Album.Genre.values());
-    }
-
-    @ModelAttribute("allVideoGenre")
-    public List<Video.Genre> videoGenres() { return Arrays.asList(Video.Genre.values()); }
 
     @Breadcrumb(label="items.list.title", depth=0, family = {"items", "loan"})
     @RequestMapping(value = "/products", method = RequestMethod.GET)
@@ -57,7 +50,13 @@ public class ItemController {
     @Breadcrumb(label="items.add.title", depth=1, family = {"items"})
     @RequestMapping(value = "/products/newitem", method = RequestMethod.POST)
     public String addNewItem(@Valid @ModelAttribute Item item,
-                             final BindingResult bindingResult) {
+                             final BindingResult bindingResult,
+                             Model model,
+                             RedirectAttributes ra) {
+
+        model.addAttribute("allAlbumGenre", Arrays.asList(Album.Genre.values()));
+        model.addAttribute("allVideoGenre", Arrays.asList(Video.Genre.values()));
+
         if (bindingResult.hasErrors()) {
             if (item.getSticker() != null)
                 return "addSticker";
@@ -71,6 +70,9 @@ public class ItemController {
         try {
             itemService.addItem(item);
         } catch (Exception e) {
+            ArrayList<ApplicationException> errors = new ArrayList<>();
+            errors.add(new ApplicationException(500, "Unknown error occured."));
+            model.addAttribute("errors", errors);
             return "addSticker";
         }
 
@@ -83,15 +85,25 @@ public class ItemController {
 
     @RequestMapping(value = "/products/modifyitem/{id}", method = RequestMethod.GET)
     public String showModifyForm(@PathVariable Long id, Model model) {
-        model.addAttribute("item", itemService.getItemById(id));
+        Item item = itemService.getItemById(id);
+        model.addAttribute("item", item);
+        if(item instanceof Album)
+            model.addAttribute("allAlbumGenre", Arrays.asList(Album.Genre.values()));
+        else
+            model.addAttribute("allVideoGenre", Arrays.asList(Video.Genre.values()));
         return "modifyItem";
     }
 
 
 
-    @RequestMapping(value = "/products/modifyitem", method = RequestMethod.POST)
+    @RequestMapping(value = "/products/modifyitem/{id}", method = RequestMethod.POST)
     public String showModifySubmit(@Valid @ModelAttribute Item item,
-                                   final BindingResult bindingResult){
+                                   final BindingResult bindingResult, Model model){
+        if(item instanceof Album)
+            model.addAttribute("allAlbumGenre", Arrays.asList(Album.Genre.values()));
+        else
+            model.addAttribute("allVideoGenre", Arrays.asList(Video.Genre.values()));
+
         if (bindingResult.hasErrors()) {
                 return "modifyItem";
         }
@@ -101,7 +113,7 @@ public class ItemController {
 
     @RequestMapping(value = "/products/modifyitem/sticker", method = RequestMethod.POST)
     public String modifySticker(@Valid @ModelAttribute Item item,
-                                   final BindingResult bindingResult){
+                                   final BindingResult bindingResult, Model model, RedirectAttributes ra){
         if (bindingResult.hasErrors()) {
             if (item.getSticker() != null)
                 return "modifySticker";
@@ -115,6 +127,9 @@ public class ItemController {
         try {
             itemService.updateItem(item);
         } catch (Exception e) {
+            ArrayList<ApplicationException> errors = new ArrayList<>();
+            errors.add(new ApplicationException(500, "Unknown error occured."));
+            model.addAttribute("errors", errors);
             return "modifySticker";
         }
 
@@ -123,7 +138,7 @@ public class ItemController {
 
 
     @RequestMapping(value = "/products/delete/{id}", method = RequestMethod.GET)
-    public String removeItem(@PathVariable Long id) {
+    public String removeItem(@PathVariable Long id, RedirectAttributes ra) {
         itemService.deleteItem(id);
         return "redirect:/products";
     }

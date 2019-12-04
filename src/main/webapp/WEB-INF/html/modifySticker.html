@@ -11,6 +11,10 @@
 <div layout:fragment="content">
 
     <div class="container">
+        <div class="alert alert-danger" role="alert" th:each="error : ${errors}" th:text="#{*{error.errorMessageProperty}}">
+            Error
+        </div>
+
         <form  method="post" th:action="@{/products/modifyitem/sticker}" th:object="${item}">
             <input type="hidden" name="item" th:value="${item instanceof T(com.jaba.webapp.domain.item.Video) ? 'video' : 'album'}"/>
             <input type="hidden" th:field="*{id}" />
@@ -34,7 +38,7 @@
                 <label for="sticker-points" th:text="#{sticker.fields.points}">Release date</label>
                 <input class="form-control" type="number" id="sticker-points" th:field="*{sticker.stickerPoints}" th:placeholder="#{sticker.fields.points.input }">
             </div>
-            <button type="submit" class="btn btn-primary float-right" th:text="#{buttons.add}"></button>
+            <button type="submit" class="btn btn-primary float-right" th:text="#{allocations.add.modify}"></button>
             <div class="clearfix"></div>
         </form>
     </div>

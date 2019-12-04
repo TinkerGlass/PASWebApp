@@ -28,5 +28,6 @@ public class AppInitializer implements WebApplicationInitializer {
 
         filterRegistration.addMappingForUrlPatterns(null, false, "/*");
         filterRegistration.addMappingForUrlPatterns(null, true, "/*");
+
     }
 }

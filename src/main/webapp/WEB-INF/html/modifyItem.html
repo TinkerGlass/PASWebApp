@@ -14,7 +14,7 @@
     </div>
 
     <div class="container">
-        <form  method="post" th:action="@{/products/modifyitem}" th:object="${item}">
+        <form  method="post" th:action="@{/products/modifyitem/{id}(id=${item.id})}" th:object="${item}">
             <input type="hidden" name="item" th:value="${item instanceof T(com.jaba.webapp.domain.item.Video)} ? 'video' : 'album'"/>
             <input type="hidden" th:field="*{id}" />
             <input type="hidden" th:field="*{sticker.stickerContent}" />
@@ -57,7 +57,7 @@
                 <label for="tracks" th:text="#{items.field.video.length}">tracks</label>
                 <input class="form-control" type="text" id="minutes" th:field="*{minutes}" th:placeholder="#{items.field.video.length.input}" th:errorclass="is-invalid">
             </div>
-            <button type="submit" class="btn btn-primary float-right" th:text="#{allocations.add.modify}"></button>
+            <button type="submit" class="btn btn-primary float-right" th:text="#{general.next}"></button>
             <div class="clearfix"></div>
         </form>
     </div>

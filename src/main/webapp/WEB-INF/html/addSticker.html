@@ -11,6 +11,10 @@
 <div layout:fragment="content">
 
     <div class="container">
+        <div class="alert alert-danger" role="alert" th:each="error : ${errors}" th:text="#{*{error.errorMessageProperty}}">
+            Error
+        </div>
+
         <form  method="post" th:action="@{/products/newitem}" th:object="${item}">
             <input type="hidden" name="item" th:value="${item instanceof T(com.jaba.webapp.domain.item.Video) ? 'video' : 'album'}"/>
             <input type="hidden" th:field="*{title}" />

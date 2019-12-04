@@ -15,15 +15,7 @@ public class User {
     protected AccountType accountType;
     private boolean active;
 
-    public User() {
-        accountType = AccountType.UNKNOWN;
-    }
-
-    public User(AccountType username)
-    {
-        this.accountType = username;
-    }
-
+    public User() { }
 
     public User(String username, String passwordHash, boolean active, AccountType accountType) {
         this();
@@ -69,7 +61,11 @@ public class User {
         return accountType;
     }
 
+    public void setAccountType(AccountType accountType) {
+        this.accountType = accountType;
+    }
+
     public enum AccountType {
-        UNKNOWN, CLIENT, RESOURCE_MANAGER, ADMINISTRATOR
+        CLIENT, RESOURCE_MANAGER, ADMINISTRATOR
     }
 }

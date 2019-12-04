@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
@@ -43,7 +44,7 @@ public class AllocationController {
     }
 
     @RequestMapping(value = "/allocation/delete/{id}", method = RequestMethod.GET)
-    public String removeItem(@PathVariable Long id) {
+    public String removeItem(@PathVariable Long id, RedirectAttributes ra) {
         allocationService.removeAllocation(id);
         return "redirect:/allocations";
     }
@@ -61,7 +62,7 @@ public class AllocationController {
     @RequestMapping(value = "/loans/addLoan", method = RequestMethod.POST)
     public String addNewLoan(@ModelAttribute("userId") Long userId,
                              @ModelAttribute("itemId") Long itemId,
-                             Model model) {
+                             Model model, RedirectAttributes ra) {
         try {
             allocationService.addAllocation(userId, itemId);
         } catch (ApplicationException e) {
@@ -77,7 +78,7 @@ public class AllocationController {
     }
 
     @RequestMapping(value = "/loans/removeLoan/{id}", method = RequestMethod.GET)
-    public String removeLoan(@PathVariable(name = "id") Long itemId) {
+    public String removeLoan(@PathVariable(name = "id") Long itemId, RedirectAttributes ra) {
         try {
             allocationService.finishAllocation(itemId);
         } catch (ApplicationException e) {

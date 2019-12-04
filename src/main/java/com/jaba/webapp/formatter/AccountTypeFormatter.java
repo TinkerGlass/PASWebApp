@@ -21,7 +21,7 @@ public class AccountTypeFormatter implements Formatter<User.AccountType> {
         } else if(text.equalsIgnoreCase("administrator")) {
             return User.AccountType.ADMINISTRATOR;
         } else {
-            return User.AccountType.UNKNOWN;
+            throw new IllegalArgumentException("Unknown account type: "+text);
         }
     }
 

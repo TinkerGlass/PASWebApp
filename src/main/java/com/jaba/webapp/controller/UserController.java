@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.ApplicationScope;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -28,11 +29,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @ModelAttribute("allAccountTypes")
-    public List<User.AccountType> populateAccountTypes() {
-        return Arrays.asList(User.AccountType.values());
-    }
-
     @Breadcrumb(label="users.title", depth=0, family = {"user"})
     @RequestMapping(value = "/users")
     public String showUsers(@RequestParam(name="username", defaultValue = "") String usernameQuery, Model model) {
@@ -42,8 +38,9 @@ public class UserController {
 
     @Breadcrumb(label="users.add.title", depth=1, family = {"user"})
     @RequestMapping(value = "/addUser", method = RequestMethod.GET)
-    public String addUser(@RequestParam(value = "type", defaultValue = "client") User user, Model model) {
+    public String addUser(User user, Model model) {
         model.addAttribute("user", user);
+        model.addAttribute("allAccountTypes", Arrays.asList(User.AccountType.values()));
         return "addUser";
     }
 
@@ -51,7 +48,8 @@ public class UserController {
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     public String addUser(@Valid @ModelAttribute User user,
                           final BindingResult bindingResult,
-                          @ModelAttribute("errors") ArrayList<ApplicationException> errors){
+                          @ModelAttribute("errors") ArrayList<ApplicationException> errors, Model model, RedirectAttributes ra){
+        model.addAttribute("allAccountTypes", Arrays.asList(User.AccountType.values()));
         if(bindingResult.hasErrors())
             return "addUser";
         try {
@@ -67,7 +65,7 @@ public class UserController {
 
 
     @RequestMapping(value = "/deleteUser/{id}", method = RequestMethod.GET)
-    public String shutUser(@PathVariable Long id) {
+    public String shutUser(@PathVariable Long id, RedirectAttributes ra) {
         try {
             userService.blockUser(id);
         } catch (ApplicationException e) {
@@ -77,7 +75,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/upUser/{id}", method = RequestMethod.GET)
-    public String upUser(@PathVariable Long id) {
+    public String upUser(@PathVariable Long id, RedirectAttributes ra) {
         try {
             userService.unblockUser(id);
         } catch (ApplicationException e) {
@@ -89,6 +87,7 @@ public class UserController {
     @RequestMapping(value = "/modifyUser/{id}", method = RequestMethod.GET)
     public String modifyUserForm(@PathVariable Long id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
+        model.addAttribute("allAccountTypes", Arrays.asList(User.AccountType.values()));
         return "modifyUser";
     }
 
@@ -96,13 +95,15 @@ public class UserController {
     @RequestMapping(value = "/modifyUser", method = RequestMethod.POST)
     public String modifyUserForm(@Valid @ModelAttribute User user,
                                  final BindingResult bindingResult,
-                                 @ModelAttribute("errors") ArrayList<ApplicationException> errors) {
-
+                                 Model model, RedirectAttributes ra) {
+        model.addAttribute("allAccountTypes", Arrays.asList(User.AccountType.values()));
         if(bindingResult.hasErrors())
             return "modifyUser";
         try {
             userService.updateUser(user);
         } catch(ApplicationException e) {
+            ArrayList<ApplicationException> errors = new ArrayList<>();
+            model.addAttribute("errors", errors);
             errors.add(e);
             if(e.getErrorCode() == ApplicationException.ErrorCode.USERNAME_NOT_UNIQUE.ordinal())
                 bindingResult.addError(new FieldError("user", "username",""));

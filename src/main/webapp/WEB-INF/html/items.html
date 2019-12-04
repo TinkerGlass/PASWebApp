@@ -43,7 +43,8 @@
                             <a class="dropdown-item text-primary" th:if="${item.available}" th:text="#{allocations.add.title}" th:href="@{/loans/addLoan/{id}(id=${item.id})}">Lend</a>
                             <a class="dropdown-item text-primary" th:if="${!item.available}" th:text="#{loans.return}" th:href="@{/loans/removeLoan/{id}(id=${item.id})}">Return</a>
                             <a class="dropdown-item" th:classappend="${item.available} ? 'text-danger' : 'disabled' "
-                               th:text="#{allocations.add.delete}" th:href="${item.available} ? @{/products/delete/{id}(id=${item.id})} : ''">Delete</a>
+                               th:text="#{allocations.add.delete}" th:href="${item.available} ? @{/products/delete/{id}(id=${item.id})} : '#'"
+                               data-toggle="modal" data-target="#deleteModal" th:attrappend="data-item-title=${item.title}, data-item-id=${item.id}">Delete</a>
                             <a class="dropdown-item text-dark" th:text="#{allocations.add.modify}" th:href="@{/products/modifyitem/{id}(id=${item.id})}">Modify</a>
                         </div>
                     </div>
@@ -51,6 +52,43 @@
             </tr>
         </tbody>
     </table>
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel" th:text="#{items.modal.delete}">Delete this item?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="delete-window-body">
+                    Are you sure you want to delete Unknown Pleasures?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" th:text="#{buttons.cancel}">Cancel</button>
+                    <form action="#" id="modal-form-delete">
+                        <button type="submit" class="btn btn-danger" th:text="#{buttons.delete}">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $('#deleteModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var title = button.data('item-title');
+            var id = button.data('item-id');
+            var modal = $(this);
+            var text = /*[[#{general.delete.confirm}]]*/;
+            var url = /*[[@{/products/delete/}]]*/;
+            modal.find('#delete-window-body').text(text.replace("{0}", title));
+            modal.find('#modal-form-delete').attr("action", url.replace("\\", "")+id);
+        })
+        /*]]>*/
+    </script>
 </div>
 </body>
 </html>
