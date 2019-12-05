@@ -2,7 +2,6 @@ package com.jaba.webapp.controller;
 
 import com.jaba.webapp.breadcrumbs.annotation.Breadcrumb;
 import com.jaba.webapp.domain.item.Album;
-import com.jaba.webapp.domain.item.FanSticker;
 import com.jaba.webapp.domain.item.Item;
 import com.jaba.webapp.domain.item.Video;
 import com.jaba.webapp.exceptions.ApplicationException;
@@ -82,7 +81,7 @@ public class ItemController {
 
 
 
-
+    @Breadcrumb(label="items.modify.title", depth=1, family = {"items"})
     @RequestMapping(value = "/products/modifyitem/{id}", method = RequestMethod.GET)
     public String showModifyForm(@PathVariable Long id, Model model) {
         Item item = itemService.getItemById(id);
@@ -95,7 +94,7 @@ public class ItemController {
     }
 
 
-
+    @Breadcrumb(label="items.modify.title", depth=1, family = {"items"})
     @RequestMapping(value = "/products/modifyitem/{id}", method = RequestMethod.POST)
     public String showModifySubmit(@Valid @ModelAttribute Item item,
                                    final BindingResult bindingResult, Model model){
@@ -111,6 +110,7 @@ public class ItemController {
         return "modifySticker";
     }
 
+    @Breadcrumb(label="items.modify.title", depth=1, family = {"items"})
     @RequestMapping(value = "/products/modifyitem/sticker", method = RequestMethod.POST)
     public String modifySticker(@Valid @ModelAttribute Item item,
                                    final BindingResult bindingResult, Model model, RedirectAttributes ra){

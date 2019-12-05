@@ -16,7 +16,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 @ApplicationScope
 @Controller
@@ -84,6 +83,7 @@ public class UserController {
         return "redirect:/users";
     }
 
+    @Breadcrumb(label="users.modify.title", depth=1, family = {"user"})
     @RequestMapping(value = "/modifyUser/{id}", method = RequestMethod.GET)
     public String modifyUserForm(@PathVariable Long id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
@@ -92,6 +92,7 @@ public class UserController {
     }
 
 
+    @Breadcrumb(label="users.modify.title", depth=1, family = {"user"})
     @RequestMapping(value = "/modifyUser", method = RequestMethod.POST)
     public String modifyUserForm(@Valid @ModelAttribute User user,
                                  final BindingResult bindingResult,

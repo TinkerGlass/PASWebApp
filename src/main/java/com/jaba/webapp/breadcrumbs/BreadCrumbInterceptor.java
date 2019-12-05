@@ -51,7 +51,6 @@ public class BreadCrumbInterceptor extends HandlerInterceptorAdapter {
             if(breadCrumb.getDepth() >= depth)
                 break;
         }
-
         session.setAttribute("currentBreadCrumb", currentBreadCrumbs);
     }
 
