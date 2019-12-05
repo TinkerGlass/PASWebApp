@@ -33,7 +33,7 @@
                 </div>
                 <div class="form-group">
                     <label for="typeInput" th:text="#{users.fields.type}">Type</label>
-                    <select id="typeInput" class="form-control" th:name="userWithType" name="userWithType">
+                    <select id="typeInput" class="form-control" th:field="*{accountType}">
                         <option th:each="type : ${allAccountTypes}"
                                 th:text="${{type}}" th:value="${type}"
                                 th:selected="${type == user.accountType}">Type</option>

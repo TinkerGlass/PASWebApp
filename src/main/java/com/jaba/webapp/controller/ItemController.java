@@ -43,6 +43,10 @@ public class ItemController {
     @RequestMapping(value = "/products/newitem", method = RequestMethod.GET)
     public String showSubmitForm(@RequestParam(value = "type", defaultValue = "Album") Item item, Model model) {
         model.addAttribute("item", item);
+        if(item instanceof Album)
+            model.addAttribute("allAlbumGenre", Arrays.asList(Album.Genre.values()));
+        else
+            model.addAttribute("allVideoGenre", Arrays.asList(Video.Genre.values()));
         return "addItem";
     }
 
@@ -53,8 +57,10 @@ public class ItemController {
                              Model model,
                              RedirectAttributes ra) {
 
-        model.addAttribute("allAlbumGenre", Arrays.asList(Album.Genre.values()));
-        model.addAttribute("allVideoGenre", Arrays.asList(Video.Genre.values()));
+        if(item instanceof Album)
+            model.addAttribute("allAlbumGenre", Arrays.asList(Album.Genre.values()));
+        else
+            model.addAttribute("allVideoGenre", Arrays.asList(Video.Genre.values()));
 
         if (bindingResult.hasErrors()) {
             if (item.getSticker() != null)
