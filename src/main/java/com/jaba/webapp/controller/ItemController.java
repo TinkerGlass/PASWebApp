@@ -31,7 +31,7 @@ public class ItemController {
         this.itemService = itemService;
     }
 
-    @Breadcrumb(label="items.list.title", depth=0, family = {"items", "loan"})
+    @Breadcrumb(label="items.list.title", depth=0, family = {"items", "loan", "itemsModify"})
     @RequestMapping(value = "/products", method = RequestMethod.GET)
     public String showItems(Model model) {
         List<Item> arrayList = itemService.getAllItems();
@@ -81,7 +81,7 @@ public class ItemController {
 
 
 
-    @Breadcrumb(label="items.modify.title", depth=1, family = {"items"})
+    @Breadcrumb(label="items.modify.title", depth=1, family = {"itemsModify"})
     @RequestMapping(value = "/products/modifyitem/{id}", method = RequestMethod.GET)
     public String showModifyForm(@PathVariable Long id, Model model) {
         Item item = itemService.getItemById(id);
@@ -94,7 +94,7 @@ public class ItemController {
     }
 
 
-    @Breadcrumb(label="items.modify.title", depth=1, family = {"items"})
+    @Breadcrumb(label="items.modify.title", depth=1, family = {"itemsModify"})
     @RequestMapping(value = "/products/modifyitem/{id}", method = RequestMethod.POST)
     public String showModifySubmit(@Valid @ModelAttribute Item item,
                                    final BindingResult bindingResult, Model model){
@@ -110,7 +110,7 @@ public class ItemController {
         return "modifySticker";
     }
 
-    @Breadcrumb(label="items.modify.title", depth=1, family = {"items"})
+    @Breadcrumb(label="items.modify.title", depth=1, family = {"itemModify"})
     @RequestMapping(value = "/products/modifyitem/sticker", method = RequestMethod.POST)
     public String modifySticker(@Valid @ModelAttribute Item item,
                                    final BindingResult bindingResult, Model model, RedirectAttributes ra){

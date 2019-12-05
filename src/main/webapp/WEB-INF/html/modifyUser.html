@@ -4,10 +4,10 @@
       layout:decorate="~{layouts/main-layout}">
 <head>
     <meta charset="UTF-8">
-    <title th:text="#{users.add.title}">Add user</title>
+    <title th:text="#{users.modify.title}">Add user</title>
 </head>
 <body>
-<span layout:fragment="title" th:text="#{users.add.title}">Add users</span>
+<span layout:fragment="title" th:text="#{users.modify.title}">Add users</span>
 <div layout:fragment="content">
     <div class="alert alert-danger" role="alert" th:each="error : ${errors}" th:text="#{*{error.errorMessageProperty}}">
         Error

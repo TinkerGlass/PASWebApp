@@ -28,7 +28,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @Breadcrumb(label="users.title", depth=0, family = {"user"})
+    @Breadcrumb(label="users.title", depth=0, family = {"user", "userModify"})
     @RequestMapping(value = "/users")
     public String showUsers(@RequestParam(name="username", defaultValue = "") String usernameQuery, Model model) {
         model.addAttribute("allUsers", userService.findUsersByUsername(usernameQuery));
@@ -83,7 +83,7 @@ public class UserController {
         return "redirect:/users";
     }
 
-    @Breadcrumb(label="users.modify.title", depth=1, family = {"user"})
+    @Breadcrumb(label="users.modify.title", depth=1, family = {"userModify"})
     @RequestMapping(value = "/modifyUser/{id}", method = RequestMethod.GET)
     public String modifyUserForm(@PathVariable Long id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
@@ -92,7 +92,7 @@ public class UserController {
     }
 
 
-    @Breadcrumb(label="users.modify.title", depth=1, family = {"user"})
+    @Breadcrumb(label="users.modify.title", depth=1, family = {"userModify"})
     @RequestMapping(value = "/modifyUser", method = RequestMethod.POST)
     public String modifyUserForm(@Valid @ModelAttribute User user,
                                  final BindingResult bindingResult,
