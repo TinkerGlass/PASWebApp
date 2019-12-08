@@ -32,6 +32,14 @@ public class UserManagerImpl implements  UserManager{
         return users.size() == 0 ? null : users.get(0);
     }
 
+    public User getUserByName(String userName){
+        List<User> users = userRepository.find(UserSpecification.byUsername(userName));
+        if(users.size() == 0){
+            return null;
+        }
+        return users.get(0);
+    }
+
     @Override
     public void deleteUser(Long id) {
         userRepository.removeUser(id);

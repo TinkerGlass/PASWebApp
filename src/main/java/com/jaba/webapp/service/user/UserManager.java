@@ -15,4 +15,5 @@ public interface UserManager {
     void updateUser(User user) throws ApplicationException;
     void blockUser(Long userId) throws ApplicationException;
     void unblockUser(Long userId) throws ApplicationException;
+    User getUserByName(String userName);
 }
