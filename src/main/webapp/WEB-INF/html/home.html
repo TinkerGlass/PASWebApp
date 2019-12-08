@@ -4,12 +4,24 @@
       layout:decorate="~{layouts/main-layout}">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title th:text="#{home.title}">Home</title>
+    <title th:text="#{home.login.title}">Home</title>
 </head>
 <body>
-    <span layout:fragment="title" th:text="#{home.welcome}">Welcome!</span>
+    <span layout:fragment="title" th:text="#{home.login.title}">Welcome!</span>
     <div layout:fragment="content">
-        <p th:text="#{home.content}">This is our service.</p>
+        <div class="container">
+            <form th:action="@{/addUser}" th:object="${user}" method="post">
+                <div class="form-group">
+                    <label for="usernameInput" th:text="#{users.fields.username}">Username</label>
+                    <input type="text" class="form-control" id="usernameInput" th:placeholder="#{users.fields.enterUsername}" placeholder="Enter username">
+                </div>
+                <div class="form-group">
+                    <label for="passwordInput" th:text="#{users.fields.password}">Password</label>
+                    <input type="text" class="form-control" id="passwordInput" th:placeholder="#{users.fields.enterPassword}" placeholder="Enter password">
+                </div>
+                <button type="submit" class="btn btn-info float-right" th:text="#{home.login.button}">Add</button>
+                <div class="clearfix"></div>
+            </form>
     </div>
 </body>
 </html>
