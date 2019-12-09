@@ -31,12 +31,12 @@ public class LoginController {
         User user = userService.getUserByName(username);
         if(user != null){
             if(user.getPasswordHash().equals(password)){
-                return "items";
+                return "redirect:/products";
             }
             else{
-                return "home";
+                return "redirect:/home";
             }
         }
-        return "home";
+        return "redirect:/home";
     }
 }
