@@ -34,10 +34,7 @@ public class UserManagerImpl implements  UserManager{
 
     public User getUserByName(String userName){
         List<User> users = userRepository.find(UserSpecification.byUsername(userName));
-        if(users.size() == 0){
-            return null;
-        }
-        return users.get(0);
+        return users.size() == 0 ? null : users.get(0);
     }
 
     @Override

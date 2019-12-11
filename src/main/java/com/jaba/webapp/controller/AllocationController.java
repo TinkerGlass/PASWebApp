@@ -2,21 +2,18 @@ package com.jaba.webapp.controller;
 
 import com.jaba.webapp.breadcrumbs.annotation.Breadcrumb;
 import com.jaba.webapp.domain.audit.AllocationInfo;
-import com.jaba.webapp.domain.item.Item;
+import com.jaba.webapp.domain.user.User;
 import com.jaba.webapp.exceptions.ApplicationException;
 import com.jaba.webapp.service.audit.AllocationManager;
-import com.jaba.webapp.service.audit.AllocationManagerImpl;
 import com.jaba.webapp.service.item.ItemManager;
 import com.jaba.webapp.service.user.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -43,6 +40,7 @@ public class AllocationController {
         return "allocations";
     }
 
+    @Secured({User.AccountType.Roles.ADMINISTRATOR_ROLE, User.AccountType.Roles.RESOURCE_MANAGER_ROLE})
     @RequestMapping(value = "/allocation/delete/{id}", method = RequestMethod.GET)
     public String removeItem(@PathVariable Long id, RedirectAttributes ra) {
         allocationService.removeAllocation(id);

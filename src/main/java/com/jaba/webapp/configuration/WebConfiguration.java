@@ -2,9 +2,9 @@ package com.jaba.webapp.configuration;
 
 import com.jaba.webapp.breadcrumbs.BreadCrumbInterceptor;
 import com.jaba.webapp.breadcrumbs.BreadcrumbMap;
-import com.jaba.webapp.converter.AccountTypeConverter;
-import com.jaba.webapp.converter.DateConverter;
-import com.jaba.webapp.converter.ItemStringConverter;
+import com.jaba.webapp.converter.StringToAccountTypeConverter;
+import com.jaba.webapp.converter.StringToDateConverter;
+import com.jaba.webapp.converter.StringToItemConverter;
 import com.jaba.webapp.formatter.*;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -120,13 +120,13 @@ public class WebConfiguration implements WebMvcConfigurer {
     }
 
     @Bean
-    public DateConverter dateConverter() {
-        return new DateConverter();
+    public StringToDateConverter dateConverter() {
+        return new StringToDateConverter();
     }
     @Bean
-    public AccountTypeConverter accountTypeConverter() { return new AccountTypeConverter(); }
+    public StringToAccountTypeConverter accountTypeConverter() { return new StringToAccountTypeConverter(); }
     @Bean
-    public ItemStringConverter itemStringConverter() { return new ItemStringConverter(); }
+    public StringToItemConverter itemStringConverter() { return new StringToItemConverter(); }
 
     @Bean
     public BreadcrumbMap getBreadCrumbMap() {

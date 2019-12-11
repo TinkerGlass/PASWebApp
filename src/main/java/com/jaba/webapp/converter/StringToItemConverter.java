@@ -4,8 +4,10 @@ import com.jaba.webapp.domain.item.Album;
 import com.jaba.webapp.domain.item.Item;
 import com.jaba.webapp.domain.item.Video;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
-public class ItemStringConverter  implements Converter<String, Item> {
+@Component
+public class StringToItemConverter implements Converter<String, Item> {
     @Override
     public Item convert(String source) {
         if(source.equalsIgnoreCase("video")) {

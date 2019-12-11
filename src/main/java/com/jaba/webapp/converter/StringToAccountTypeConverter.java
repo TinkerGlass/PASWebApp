@@ -2,8 +2,10 @@ package com.jaba.webapp.converter;
 
 import com.jaba.webapp.domain.user.User;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
-public class AccountTypeConverter implements Converter<String, User.AccountType> {
+@Component
+public class StringToAccountTypeConverter implements Converter<String, User.AccountType> {
 
     @Override
     public User.AccountType convert(String source) {

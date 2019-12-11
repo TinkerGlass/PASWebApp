@@ -66,6 +66,27 @@ public class User {
     }
 
     public enum AccountType {
-        CLIENT, RESOURCE_MANAGER, ADMINISTRATOR
+        CLIENT(Roles.CLIENT), RESOURCE_MANAGER(Roles.RESOURCE_MANAGER), ADMINISTRATOR(Roles.ADMINISTRATOR);
+
+        private String name;
+        public static final String role_prefix = "ROLE_";
+
+        AccountType(String name) {
+            this.name = name;
+        }
+
+        public String getRoleName() {
+            return role_prefix + name;
+        }
+
+        public static class Roles {
+            public static final String CLIENT = "CLIENT";
+            public static final String RESOURCE_MANAGER = "RESOURCE_MANAGER";
+            public static final String ADMINISTRATOR = "ADMINISTRATOR";
+
+            public static final String CLIENT_ROLE = role_prefix+CLIENT;
+            public static final String RESOURCE_MANAGER_ROLE = role_prefix+RESOURCE_MANAGER;
+            public static final String ADMINISTRATOR_ROLE = role_prefix+ADMINISTRATOR;
+        }
     }
 }

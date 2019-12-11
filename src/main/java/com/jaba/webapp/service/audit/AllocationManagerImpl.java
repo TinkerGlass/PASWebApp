@@ -87,6 +87,7 @@ public class AllocationManagerImpl implements AllocationManager {
             return;
         if(allocation.get(0).getEndTime() != null)
             throw new IllegalArgumentException(String.format("Allocation with id %d is already finished. Removal forbidden.", allocation.get(0).getId()));
+        allocation.get(0).getItem().setAvailable(true);
         auditRepository.removeAllocation(id);
     }
 

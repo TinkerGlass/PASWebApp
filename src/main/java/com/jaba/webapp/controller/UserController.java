@@ -5,6 +5,7 @@ import com.jaba.webapp.domain.user.User;
 import com.jaba.webapp.exceptions.ApplicationException;
 import com.jaba.webapp.service.user.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,6 +36,7 @@ public class UserController {
         return "users";
     }
 
+    @Secured({User.AccountType.Roles.ADMINISTRATOR_ROLE})
     @Breadcrumb(label="users.add.title", depth=1, family = {"user"})
     @RequestMapping(value = "/addUser", method = RequestMethod.GET)
     public String addUser(User user, Model model) {
@@ -43,6 +45,7 @@ public class UserController {
         return "addUser";
     }
 
+    @Secured({User.AccountType.Roles.ADMINISTRATOR_ROLE})
     @Breadcrumb(label="users.add.title", depth=1, family = {"user"})
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     public String addUser(@Valid @ModelAttribute User user,
@@ -62,7 +65,7 @@ public class UserController {
         return "redirect:/users";
     }
 
-
+    @Secured({User.AccountType.Roles.ADMINISTRATOR_ROLE})
     @RequestMapping(value = "/deleteUser/{id}", method = RequestMethod.GET)
     public String shutUser(@PathVariable Long id, RedirectAttributes ra) {
         try {
@@ -73,6 +76,7 @@ public class UserController {
         return "redirect:/users";
     }
 
+    @Secured({User.AccountType.Roles.ADMINISTRATOR_ROLE})
     @RequestMapping(value = "/upUser/{id}", method = RequestMethod.GET)
     public String upUser(@PathVariable Long id, RedirectAttributes ra) {
         try {
@@ -83,6 +87,7 @@ public class UserController {
         return "redirect:/users";
     }
 
+    @Secured({User.AccountType.Roles.ADMINISTRATOR_ROLE})
     @Breadcrumb(label="users.modify.title", depth=1, family = {"userModify"})
     @RequestMapping(value = "/modifyUser/{id}", method = RequestMethod.GET)
     public String modifyUserForm(@PathVariable Long id, Model model) {
@@ -91,7 +96,7 @@ public class UserController {
         return "modifyUser";
     }
 
-
+    @Secured({User.AccountType.Roles.ADMINISTRATOR_ROLE})
     @Breadcrumb(label="users.modify.title", depth=1, family = {"userModify"})
     @RequestMapping(value = "/modifyUser", method = RequestMethod.POST)
     public String modifyUserForm(@Valid @ModelAttribute User user,

@@ -4,8 +4,10 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.jaba.webapp.domain.audit.AllocationInfo;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
-public class AllocationStringConverter implements Converter<String, AllocationInfo> {
+@Component
+public class StringToAllocationConverter implements Converter<String, AllocationInfo> {
     @Override
     public AllocationInfo convert(String source) {
         if(source.equalsIgnoreCase("allocation")) {
