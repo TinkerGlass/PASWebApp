@@ -2,6 +2,7 @@ package com.jaba.webapp.repository.audit;
 
 import com.jaba.webapp.domain.audit.AllocationInfo;
 import com.jaba.webapp.repository.specification.Specification;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 

@@ -10,11 +10,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-
     private UserManager userManager;
     private UserToUserDetailsConverter userDetailsConverter;
 
-    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userManager.getUserByName(username);
         if(user == null)

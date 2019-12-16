@@ -41,7 +41,6 @@ public class ItemController {
         return "items";
     }
 
-    @Secured({User.AccountType.Roles.ADMINISTRATOR_ROLE, "ROLE_"+User.AccountType.Roles.RESOURCE_MANAGER_ROLE})
     @Breadcrumb(label="items.add.title", depth=1, family = {"items"})
     @RequestMapping(value = "/products/newitem", method = RequestMethod.GET)
     public String showSubmitForm(@RequestParam(value = "type", defaultValue = "Album") Item item, Model model) {
@@ -53,7 +52,6 @@ public class ItemController {
         return "addItem";
     }
 
-    @Secured({User.AccountType.Roles.ADMINISTRATOR_ROLE, "ROLE_"+User.AccountType.Roles.RESOURCE_MANAGER_ROLE})
     @Breadcrumb(label="items.add.title", depth=1, family = {"items"})
     @RequestMapping(value = "/products/newitem", method = RequestMethod.POST)
     public String addNewItem(@Valid @ModelAttribute Item item,
@@ -88,7 +86,6 @@ public class ItemController {
         return "redirect:/products";
     }
 
-    @Secured({User.AccountType.Roles.ADMINISTRATOR_ROLE, "ROLE_"+User.AccountType.Roles.RESOURCE_MANAGER_ROLE})
     @Breadcrumb(label="items.modify.title", depth=1, family = {"itemsModify"})
     @RequestMapping(value = "/products/modifyitem/{id}", method = RequestMethod.GET)
     public String showModifyForm(@PathVariable Long id, Model model) {
@@ -101,7 +98,6 @@ public class ItemController {
         return "modifyItem";
     }
 
-    @Secured({User.AccountType.Roles.ADMINISTRATOR_ROLE, "ROLE_"+User.AccountType.Roles.RESOURCE_MANAGER_ROLE})
     @Breadcrumb(label="items.modify.title", depth=1, family = {"itemsModify"})
     @RequestMapping(value = "/products/modifyitem/{id}", method = RequestMethod.POST)
     public String showModifySubmit(@Valid @ModelAttribute Item item,
@@ -118,7 +114,6 @@ public class ItemController {
         return "modifySticker";
     }
 
-    @Secured({User.AccountType.Roles.ADMINISTRATOR_ROLE, "ROLE_"+User.AccountType.Roles.RESOURCE_MANAGER_ROLE})
     @Breadcrumb(label="items.modify.title", depth=1, family = {"itemModify"})
     @RequestMapping(value = "/products/modifyitem/sticker", method = RequestMethod.POST)
     public String modifySticker(@Valid @ModelAttribute Item item,
@@ -145,7 +140,6 @@ public class ItemController {
         return "redirect:/products";
     }
 
-    @Secured({User.AccountType.Roles.ADMINISTRATOR_ROLE, "ROLE_"+User.AccountType.Roles.RESOURCE_MANAGER_ROLE})
     @RequestMapping(value = "/products/delete/{id}", method = RequestMethod.GET)
     public String removeItem(@PathVariable Long id, RedirectAttributes ra) {
         itemService.deleteItem(id);

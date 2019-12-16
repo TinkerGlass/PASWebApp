@@ -1,9 +1,11 @@
 package com.jaba.webapp.service.item;
 
 import com.jaba.webapp.domain.item.Item;
+import com.jaba.webapp.domain.user.User;
 import com.jaba.webapp.repository.item.ItemRepository;
 import com.jaba.webapp.repository.specification.item.ItemSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,16 +30,19 @@ public class ItemManagerImpl implements ItemManager {
         return items.size() == 0 ? null : items.get(0);
     }
 
+    @Secured({User.AccountType.Roles.ADMINISTRATOR_ROLE, User.AccountType.Roles.RESOURCE_MANAGER_ROLE})
     @Override
     public void deleteItem(Long id) {
         itemRepository.removeItem(id);
     }
 
+    @Secured({User.AccountType.Roles.ADMINISTRATOR_ROLE, User.AccountType.Roles.RESOURCE_MANAGER_ROLE})
     @Override
     public void updateItem(Item item) {
         itemRepository.updateItem(item);
     }
 
+    @Secured({User.AccountType.Roles.ADMINISTRATOR_ROLE, User.AccountType.Roles.RESOURCE_MANAGER_ROLE})
     @Override
     public void addItem(Item item) {
         itemRepository.addItem(item);

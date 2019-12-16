@@ -40,7 +40,6 @@ public class AllocationController {
         return "allocations";
     }
 
-    @Secured({User.AccountType.Roles.ADMINISTRATOR_ROLE, User.AccountType.Roles.RESOURCE_MANAGER_ROLE})
     @RequestMapping(value = "/allocation/delete/{id}", method = RequestMethod.GET)
     public String removeItem(@PathVariable Long id, RedirectAttributes ra) {
         allocationService.removeAllocation(id);

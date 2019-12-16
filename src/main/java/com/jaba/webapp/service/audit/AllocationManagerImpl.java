@@ -11,6 +11,8 @@ import com.jaba.webapp.repository.specification.item.ItemSpecification;
 import com.jaba.webapp.repository.specification.user.UserSpecification;
 import com.jaba.webapp.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -33,6 +35,7 @@ public class AllocationManagerImpl implements AllocationManager {
         return list.isEmpty() ? null : list.get(0);
     }
 
+    @Secured({User.AccountType.Roles.ADMINISTRATOR_ROLE, User.AccountType.Roles.RESOURCE_MANAGER_ROLE})
     @Override
     public void updateAllocation(AllocationInfo allocation) { auditRepository.updateAllocation(allocation); }
 
@@ -62,6 +65,9 @@ public class AllocationManagerImpl implements AllocationManager {
         itemRepository.updateItem(items.get(0));
     }
 
+    @PreAuthorize("hasRole(T(com.jaba.webapp.domain.user.User$AccountType$Roles).ADMINISTRATOR_ROLE) " +
+            "or @auditRepositoryImpl.find(T(com.jaba.webapp.repository.specification.audit.AuditSpecification)" +
+            ".byItemIdActive(#itemId)).get(0).getUser().getUsername().equals(principal.username)")
     @Override
     public void finishAllocation(Long itemId) throws ApplicationException {
         List<Item> items = itemRepository.find(ItemSpecification.byId(itemId));
@@ -80,6 +86,7 @@ public class AllocationManagerImpl implements AllocationManager {
         itemRepository.updateItem(items.get(0));
     }
 
+    @Secured({User.AccountType.Roles.ADMINISTRATOR_ROLE, User.AccountType.Roles.RESOURCE_MANAGER_ROLE})
     @Override
     public void removeAllocation(Long id) {
         List<AllocationInfo> allocation = auditRepository.find(AuditSpecification.byId(id));

@@ -9,6 +9,7 @@ import com.jaba.webapp.repository.specification.user.UserSpecification;
 import com.jaba.webapp.repository.user.UserRepository;
 import com.jaba.webapp.service.audit.AllocationManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,22 +33,27 @@ public class UserManagerImpl implements  UserManager{
         return users.size() == 0 ? null : users.get(0);
     }
 
+    @Override
     public User getUserByName(String userName){
         List<User> users = userRepository.find(UserSpecification.byUsername(userName));
         return users.size() == 0 ? null : users.get(0);
     }
 
+    @Secured({User.AccountType.Roles.ADMINISTRATOR_ROLE})
     @Override
     public void deleteUser(Long id) {
         userRepository.removeUser(id);
     }
 
+    @Secured({User.AccountType.Roles.ADMINISTRATOR_ROLE})
     @Override
     public void addUser(User user) throws ApplicationException { userRepository.addUser(user); }
 
+    @Secured({User.AccountType.Roles.ADMINISTRATOR_ROLE})
     @Override
     public void updateUser(User user) throws ApplicationException { userRepository.updateUser(user); }
 
+    @Secured({User.AccountType.Roles.ADMINISTRATOR_ROLE})
     @Override
     public void blockUser(Long userId) throws ApplicationException {
         List<User> users = userRepository.find(UserSpecification.byId(userId));
@@ -58,6 +64,7 @@ public class UserManagerImpl implements  UserManager{
         userRepository.updateUser(users.get(0));
     }
 
+    @Secured({User.AccountType.Roles.ADMINISTRATOR_ROLE})
     @Override
     public void unblockUser(Long userId) throws ApplicationException {
         List<User> users = userRepository.find(UserSpecification.byId(userId));
@@ -72,6 +79,7 @@ public class UserManagerImpl implements  UserManager{
     public List<User> findUsersByUsername(String query) {
         return userRepository.find(user -> user.getUsername().toLowerCase().contains(query.toLowerCase()));
     }
+
 
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
