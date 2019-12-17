@@ -10,6 +10,8 @@ import com.jaba.webapp.repository.user.UserRepository;
 import com.jaba.webapp.service.audit.AllocationManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,9 +47,12 @@ public class UserManagerImpl implements  UserManager{
         userRepository.removeUser(id);
     }
 
-    @Secured({User.AccountType.Roles.ADMINISTRATOR_ROLE})
+    @PreAuthorize("#user.active == false")
     @Override
-    public void addUser(User user) throws ApplicationException { userRepository.addUser(user); }
+    public void addUser(User user) throws ApplicationException {
+        user.setPasswordHash(BCrypt.hashpw(user.getPasswordHash(), BCrypt.gensalt()));
+        userRepository.addUser(user);
+    }
 
     @Secured({User.AccountType.Roles.ADMINISTRATOR_ROLE})
     @Override

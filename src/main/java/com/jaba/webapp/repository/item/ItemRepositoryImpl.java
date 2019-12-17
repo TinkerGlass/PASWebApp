@@ -2,8 +2,10 @@ package com.jaba.webapp.repository.item;
 
 import com.jaba.webapp.datafiller.item.ItemDataFiller;
 import com.jaba.webapp.domain.item.Item;
+import com.jaba.webapp.domain.user.User;
 import com.jaba.webapp.repository.specification.Specification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ public class ItemRepositoryImpl implements ItemRepository {
         }
     }
 
+    @Secured({User.AccountType.Roles.ADMINISTRATOR_ROLE, User.AccountType.Roles.RESOURCE_MANAGER_ROLE})
     @Override
     public void addItem(Item item) {
         synchronized (items) {
@@ -42,13 +45,14 @@ public class ItemRepositoryImpl implements ItemRepository {
         }
     }
 
+    @Secured({User.AccountType.Roles.ADMINISTRATOR_ROLE, User.AccountType.Roles.RESOURCE_MANAGER_ROLE})
     @Override
     public void removeItem(Long id) {
         synchronized (items) {
             items.removeIf(item -> item.getId().equals(id));
         }
     }
-
+    
     @Override
     public void updateItem(Item item) {
         synchronized (items) {

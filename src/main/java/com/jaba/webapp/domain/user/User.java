@@ -10,6 +10,8 @@ public class User {
     @NotBlank(message = "{users.validation.empty}")
     @Length(min = 5, message = "{users.validation.length}")
     private String username;
+    @NotBlank(message = "{general.validation.empty}")
+    @Length(min = 8, message = "{general.validation.minLength}")
     private String passwordHash;
     @NotNull
     protected AccountType accountType;
