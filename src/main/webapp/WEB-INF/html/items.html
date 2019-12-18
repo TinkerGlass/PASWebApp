@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/main-layout}">
+      layout:decorate="~{layouts/main-layout}"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title th:text="#{items.list.title}">Home</title>
@@ -12,7 +13,7 @@
     <div class="alert alert-danger" role="alert" th:each="error : ${errors}" th:text="#{*{error.errorMessageProperty}}">
         Error
     </div>
-    <button type="button" class="btn btn-secondary" th:replace="fragments.html :: sec-button(@{/products/newitem}, #{buttons.add})">Add</button>
+    <button sec:authorize="hasAnyRole('ROLE_ADMINISTRATOR', 'ROLE_RESOURCE_MANAGER')" type="button" class="btn btn-secondary" th:replace="fragments.html :: sec-button(@{/products/newitem}, #{buttons.add})">Add</button>
 
     <table class="table mt-4">
         <thead>
@@ -42,10 +43,10 @@
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item text-primary" th:if="${item.available}" th:text="#{allocations.add.title}" th:href="@{/loans/addLoan/{id}(id=${item.id})}">Lend</a>
                             <a class="dropdown-item text-primary" th:if="${!item.available}" th:text="#{loans.return}" th:href="@{/loans/removeLoan/{id}(id=${item.id})}">Return</a>
-                            <a class="dropdown-item" th:classappend="${item.available} ? 'text-danger' : 'disabled' "
+                            <a sec:authorize="hasAnyRole('ROLE_ADMINISTRATOR', 'ROLE_RESOURCE_MANAGER')" class="dropdown-item" th:classappend="${item.available} ? 'text-danger' : 'disabled' "
                                th:text="#{allocations.add.delete}" th:href="${item.available} ? @{/products/delete/{id}(id=${item.id})} : '#'"
                                data-toggle="modal" data-target="#deleteModal" th:attrappend="data-item-title=${item.title}, data-item-id=${item.id}">Delete</a>
-                            <a class="dropdown-item text-dark" th:text="#{allocations.add.modify}" th:href="@{/products/modifyitem/{id}(id=${item.id})}">Modify</a>
+                            <a sec:authorize="hasAnyRole('ROLE_ADMINISTRATOR', 'ROLE_RESOURCE_MANAGER')" class="dropdown-item text-dark" th:text="#{allocations.add.modify}" th:href="@{/products/modifyitem/{id}(id=${item.id})}">Modify</a>
                         </div>
                     </div>
                 </td>

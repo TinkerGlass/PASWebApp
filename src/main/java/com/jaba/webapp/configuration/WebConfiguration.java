@@ -19,6 +19,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
@@ -71,6 +72,7 @@ public class WebConfiguration implements WebMvcConfigurer {
         templateEngine.setTemplateResolver(templateResolver());
         templateEngine.setEnableSpringELCompiler(true);
         templateEngine.addDialect(new LayoutDialect());
+        templateEngine.addDialect(springSecurityDialect());
         return templateEngine;
     }
 
@@ -98,6 +100,11 @@ public class WebConfiguration implements WebMvcConfigurer {
         return bean;
     }
 
+
+    @Bean
+    public SpringSecurityDialect springSecurityDialect(){
+        return new SpringSecurityDialect();
+    }
     @Bean
     public AccountTypeFormatter accountTypeFormatter() {
         return new AccountTypeFormatter();
