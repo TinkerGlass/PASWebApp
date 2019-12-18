@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">AUVI</title>
@@ -17,11 +18,13 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav">
+                    <div class="navbar-nav" >
                         <a class="nav-item nav-link" href="/" th:href="@{/}" th:text="#{layout.home}">Home</a>
                         <a class="nav-item nav-link" href="/users" th:href="@{/users}" th:text="#{layout.clients}">Clients</a>
                         <a class="nav-item nav-link" href="/products" th:href="@{/products}" th:text="#{layout.products}">Products</a>
                         <a class="nav-item nav-link" href="/allocations" th:href="@{/allocations}" th:text="#{layout.allocations}">Allocations</a>
+                        <a class="btn btn-outline-fail my-2 my-sm-0" href="/logout" th:href="@{/logout}" th:text="#{home.logout.button}">Logout</a>
+
                     </div>
                 </div>
             </nav>

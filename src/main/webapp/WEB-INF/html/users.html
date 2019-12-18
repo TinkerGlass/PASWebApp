@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layouts/main-layout}">
 <head>
     <meta charset="UTF-8">
@@ -33,14 +34,14 @@
             <td th:text="${{user.accountType}}">Admin</td>
             <td th:text="${user.active} ? #{general.yes} : #{general.no}">Yes</td>
             <td>
-                <div class="btn-group">
+                <div class="btn-group" sec:authorize="hasRole('ROLE_ADMINISTRATOR')">
                     <span th:if="${user.active}" th:class="mr-1">
                         <button type="button" th:replace="~{fragments :: del-button(@{/deleteUser/{id}(id=${user.id})}, #{users.block}, ${!user.active})}" >Block</button>
                     </span>
                     <span th:if="${!user.active}" class="mr-2">
                         <button type="button" th:replace="~{fragments :: ack-button(@{/upUser/{id}(id=${user.id})}, #{users.unlock}, ${user.active})}" >Unblock</button>
                     </span>
-                    <button type="button" th:replace="~{fragments :: modify-button(@{/modifyUser/{id}(id=${user.id})}, #{users.modify})}" >Modify</button>
+                    <button  type="button" th:replace="~{fragments :: modify-button(@{/modifyUser/{id}(id=${user.id})}, #{users.modify})}" >Modify</button>
                 </div>
             </td>
         </tr>
