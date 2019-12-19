@@ -27,16 +27,16 @@
             <input type="hidden" th:field="*{director}" th:if="${item instanceof T(com.jaba.webapp.domain.item.Video)}"/>
             <input type="hidden" th:field="*{minutes}" th:if="${item instanceof T(com.jaba.webapp.domain.item.Video)}"/>
             <div class="form-group">
-                <label for="sticker-name" th:text="#{sticker.fields.name}">Item name</label>z
-                <input class="form-control" type="text" id="sticker-name" th:field="*{sticker.stickerName}" th:placeholder="#{sticker.fields.name.input}">
+                <label for="sticker-name" th:text="#{sticker.fields.name}">Item name</label>
+                <input class="form-control" type="text" id="sticker-name" th:field="*{sticker.stickerName}" th:placeholder="#{sticker.fields.name.input}" required>
             </div>
             <div class="form-group">
                 <label for="sticker-content" th:text="#{sticker.fields.content}">Price</label>
-                <input class="form-control"  id="sticker-content" th:field="*{sticker.stickerContent}" th:placeholder="#{sticker.fields.content.input}">
+                <input class="form-control"  id="sticker-content" th:field="*{sticker.stickerContent}" th:placeholder="#{sticker.fields.content.input}" required>
             </div>
             <div class="form-group">
                 <label for="sticker-points" th:text="#{sticker.fields.points}">Release date</label>
-                <input class="form-control" type="number" id="sticker-points" th:field="*{sticker.stickerPoints}" th:placeholder="#{sticker.fields.points.input }">
+                <input class="form-control" type="number" id="sticker-points" min=0 th:field="*{sticker.stickerPoints}" th:placeholder="#{sticker.fields.points.input }" required>
             </div>
             <button type="submit" class="btn btn-primary float-right" th:text="#{allocations.add.modify}"></button>
             <div class="clearfix"></div>

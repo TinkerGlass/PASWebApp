@@ -34,35 +34,35 @@
             </div>
             <div class="form-group">
                 <label for="item-title" th:text="#{allocations.fields.itemName}">Item name</label>
-                <input class="form-control" type="text" id="item-title" th:field="*{title}" th:placeholder="#{allocations.fields.itemName.input}" th:errorclass="is-invalid">
+                <input class="form-control" type="text" id="item-title" th:field="*{title}" th:placeholder="#{allocations.fields.itemName.input}" th:errorclass="is-invalid" required>
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">
                     Validation error
                 </div>
             </div>
             <div class="form-group">
                 <label for="price" th:text="#{allocations.fields.price}">Price</label>
-                <input class="form-control" type="number" min="0.00" max="10000.00" step="0.01" id="price" th:field="*{price}" th:placeholder="#{allocations.fields.price.input}" th:errorclass="is-invalid">
+                <input class="form-control" type="number" min="0.00" max="10000.00" step="0.01" id="price" th:field="*{price}" th:placeholder="#{allocations.fields.price.input}" th:errorclass="is-invalid" required>
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">
                     Validation error
                 </div>
             </div>
             <div class="form-group">
                 <label for="release-date" th:text="#{allocations.fields.releaseDate }">Release date</label>
-                <input class="form-control" type="date" id="release-date" th:field="*{releaseDate}" th:placeholder="#{allocations.fields.releaseDate.input }" th:errorclass="is-invalid">
+                <input class="form-control" type="date" id="release-date" th:field="*{releaseDate}" th:placeholder="#{allocations.fields.releaseDate.input }" th:errorclass="is-invalid" required>
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('releaseDate')}" th:errors="*{releaseDate}">
                     Validation error
                 </div>
             </div>
             <div class="form-group" th:if="${item instanceof T(com.jaba.webapp.domain.item.Album)}">
                 <label for="author" th:text="#{allocations.fields.author }">Author</label>
-                <input class="form-control" type="text" id="author" th:field="*{author}" th:placeholder="#{allocations.fields.author.input}" th:errorclass="is-invalid">
+                <input class="form-control" type="text" id="author" th:field="*{author}" th:placeholder="#{allocations.fields.author.input}" th:errorclass="is-invalid" required>
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('author')}" th:errors="*{author}">
                     Validation error
                 </div>
             </div>
             <div class="form-group" th:if="${item instanceof T(com.jaba.webapp.domain.item.Video)}">
                 <label for="author" th:text="#{items.field.video.director}">Director</label>
-                <input class="form-control" type="text" id="director" th:field="*{director}" th:placeholder="#{items.field.video.director.input}" th:errorclass="is-invalid">
+                <input class="form-control" type="text" id="director" th:field="*{director}" th:placeholder="#{items.field.video.director.input}" th:errorclass="is-invalid" required>
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('director')}" th:errors="*{director}">
                     Validation error
                 </div>
@@ -78,14 +78,14 @@
             </div>
             <div class="form-group" th:if="${item instanceof T(com.jaba.webapp.domain.item.Album)}">
                 <label for="tracks" th:text="#{allocations.fields.track.number }">tracks</label>
-                <input class="form-control" type="text" id="tracks" th:field="*{tracks}" th:placeholder="#{allocations.fields.track.number.input }" th:errorclass="is-invalid">
+                <input class="form-control" type="number" min=1 id="tracks" th:field="*{tracks}" th:placeholder="#{allocations.fields.track.number.input }" th:errorclass="is-invalid" required>
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('tracks')}" th:errors="*{tracks}">
                     Validation error
                 </div>
             </div>
             <div class="form-group" th:if="${item instanceof T(com.jaba.webapp.domain.item.Video)}">
                 <label for="tracks" th:text="#{items.field.video.length}">tracks</label>
-                <input class="form-control" type="text" id="minutes" th:field="*{minutes}" th:placeholder="#{items.field.video.length.input}" th:errorclass="is-invalid">
+                <input class="form-control" type="number" min=1 id="minutes" th:field="*{minutes}" th:placeholder="#{items.field.video.length.input}" th:errorclass="is-invalid" required>
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('minutes')}" th:errors="*{minutes}">
                     Validation error
                 </div>

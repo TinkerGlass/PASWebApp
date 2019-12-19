@@ -42,6 +42,9 @@ public class AllocationManagerImpl implements AllocationManager {
     @Override
     public void addAllocation(AllocationInfo allocation) { auditRepository.addAllocation(allocation); }
 
+    @PreAuthorize("hasRole(T(com.jaba.webapp.domain.user.User$AccountType$Roles).ADMINISTRATOR_ROLE) " +
+            "or @userRepositoryImpl.find(T(com.jaba.webapp.repository.specification.user.UserSpecification)" +
+            ".byId(#userId)).get(0).getUsername().equals(principal.username)")
     @Override
     public void addAllocation(Long userId, Long itemId) throws ApplicationException {
         List<Item> items = itemRepository.find(ItemSpecification.byId(itemId));

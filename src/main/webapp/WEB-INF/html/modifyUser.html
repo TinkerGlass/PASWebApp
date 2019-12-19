@@ -20,7 +20,7 @@
             <div class="form-group">
                 <label for="usernameInput" th:text="#{users.fields.username}">Username</label>
                 <input type="text" class="form-control" id="usernameInput" th:placeholder="#{users.fields.enterUsername}" placeholder="Enter username" th:field="*{username}"
-                       th:errorclass="is-invalid">
+                       th:errorclass="is-invalid" required>
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">
                     Validation error
                 </div>

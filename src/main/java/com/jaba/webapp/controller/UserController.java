@@ -1,6 +1,9 @@
 package com.jaba.webapp.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.jaba.webapp.breadcrumbs.annotation.Breadcrumb;
+import com.jaba.webapp.controller.dto.UserSearchRequest;
+import com.jaba.webapp.controller.jsonviews.JSONViews;
 import com.jaba.webapp.domain.user.User;
 import com.jaba.webapp.exceptions.ApplicationException;
 import com.jaba.webapp.service.user.UserManager;
@@ -17,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @ApplicationScope
 @Controller
@@ -34,6 +38,13 @@ public class UserController {
     public String showUsers(@RequestParam(name="username", defaultValue = "") String usernameQuery, Model model) {
         model.addAttribute("allUsers", userService.findUsersByUsername(usernameQuery));
         return "users";
+    }
+
+    @RequestMapping(value = "/users-ajax", method = RequestMethod.POST)
+    @ResponseBody
+    @JsonView(JSONViews.UserListView.class)
+    public List<User> showUsersAjax(@RequestBody UserSearchRequest searchRequest) {
+        return userService.findUsersByUsername(searchRequest.getUsername());
     }
 
     @Breadcrumb(label="users.add.title", depth=1, family = {"user"})

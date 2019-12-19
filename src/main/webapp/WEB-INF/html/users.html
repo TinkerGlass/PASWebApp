@@ -6,15 +6,72 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="#{users.title}">Users</title>
+    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
 <body>
 <span layout:fragment="title" th:text="#{users.title}">Users</span>
 <div layout:fragment="content">
-    <form class="form-inline mb-4" th:action="@{/users}" method="get">
+    <script>
+        /*<![CDATA[*/
+        var yes = "[[#{general.yes}]]";
+        var no = "[[#{general.no}]]";
+        var block = "[[#{users.block}]]";
+        var unblock = "[[#{users.unlock}]]";
+        var modify = "[[#{users.modify}]]";
+
+        var del = "[[@{/deleteUser}]]";
+        var up = "[[@{/upUser}]]";
+        var mod ="[[@{/modifyUser}]]";
+
+        function search() {
+            var search = {};
+            search["username"] = $("#usernameSearch").val();
+
+            console.log(search);
+
+            var token = $('#_csrf').attr('content');
+            var header = $('#_csrf_header').attr('content');
+
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(search),
+                dataType: 'json',
+                url: "[[@{/users-ajax}]]",
+                dataType: "JSON",
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader(header, token);
+                },
+                success: function (result) {
+                    console.log(result);
+                    var html = "";
+                    for(const [i, user] of result.entries()) {
+                        html += `<tr><th>${i+1}</th><th>${user.username}</th><th>${user.accountType}</th><th>${user.active ? yes : no}</th><th>`;
+                        if(user.active) {
+                            html += `<a href="${del}/${user.id}" class="btn btn-danger btn-sm mr-2">${block}</a>`;
+                        } else {
+                            html += `<a href="${up}/${user.id}" class="btn btn-success btn-sm mr-2">${unblock}</a>`;
+                        }
+
+                        html += `<a href="${mod}/${user.id}" class="btn btn-dark btn-sm">${modify}</a></th></tr>`;
+                    }
+                    $("#user_list").html(html);
+                }
+            });
+        }
+
+        $(document).ready(
+            function() {
+                search();
+            });
+        /*]]>*/
+    </script>
+    <form class="form-inline mb-4">
         <div class="form-group">
             <input type="text" class="form-control" id="usernameSearch" name="username" th:placeholder="#{users.search.username}" placeholder="Search by username">
         </div>
-        <button type="submit" class="btn btn-secondary ml-2" th:text="#{general.tables.search}">Search</button>
+        <button type="submit" class="btn btn-secondary ml-2" th:text="#{general.tables.search}" onclick="search();return false;">Search</button>
     </form>
     <button type="button" class="btn btn-secondary" th:replace="~{fragments :: sec-button(@{/addUser}, #{buttons.add})}">Add</button>
     <table class="table mt-3">
@@ -27,24 +84,24 @@
             <th scope="col" th:text="#{general.tables.action}"></th>
         </tr>
         </thead>
-        <tbody>
-        <tr th:each="user, stat : ${allUsers}">
-            <th th:text="${stat.count}">1</th>
-            <td th:text="${user.username}">Nick</td>
-            <td th:text="${{user.accountType}}">Admin</td>
-            <td th:text="${user.active} ? #{general.yes} : #{general.no}">Yes</td>
-            <td>
-                <div class="btn-group" sec:authorize="hasRole('ROLE_ADMINISTRATOR')">
-                    <span th:if="${user.active}" th:class="mr-1">
-                        <button type="button" th:replace="~{fragments :: del-button(@{/deleteUser/{id}(id=${user.id})}, #{users.block}, ${!user.active})}" >Block</button>
-                    </span>
-                    <span th:if="${!user.active}" class="mr-2">
-                        <button type="button" th:replace="~{fragments :: ack-button(@{/upUser/{id}(id=${user.id})}, #{users.unlock}, ${user.active})}" >Unblock</button>
-                    </span>
-                    <button  type="button" th:replace="~{fragments :: modify-button(@{/modifyUser/{id}(id=${user.id})}, #{users.modify})}" >Modify</button>
-                </div>
-            </td>
-        </tr>
+        <tbody id="user_list">
+<!--        <tr th:each="user, stat : ${allUsers}">-->
+<!--            <th th:text="${stat.count}">1</th>-->
+<!--            <td th:text="${user.username}">Nick</td>-->
+<!--            <td th:text="${{user.accountType}}">Admin</td>-->
+<!--            <td th:text="${user.active} ? #{general.yes} : #{general.no}">Yes</td>-->
+<!--            <td>-->
+<!--                <div class="btn-group" sec:authorize="hasRole('ROLE_ADMINISTRATOR')">-->
+<!--                    <span th:if="${user.active}" th:class="mr-1">-->
+<!--                        <button type="button" th:replace="~{fragments :: del-button(@{/deleteUser/{id}(id=${user.id})}, #{users.block}, ${!user.active})}" >Block</button>-->
+<!--                    </span>-->
+<!--                    <span th:if="${!user.active}" class="mr-2">-->
+<!--                        <button type="button" th:replace="~{fragments :: ack-button(@{/upUser/{id}(id=${user.id})}, #{users.unlock}, ${user.active})}" >Unblock</button>-->
+<!--                    </span>-->
+<!--                    <button  type="button" th:replace="~{fragments :: modify-button(@{/modifyUser/{id}(id=${user.id})}, #{users.modify})}" >Modify</button>-->
+<!--                </div>-->
+<!--            </td>-->
+<!--        </tr>-->
         </tbody>
     </table>
 </div>

@@ -1,5 +1,9 @@
 package com.jaba.webapp.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.jaba.webapp.controller.jsonviews.JSONViews;
+import com.jaba.webapp.formatter.AccountTypeFormatter;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
@@ -12,6 +16,7 @@ public class User {
     private String username;
     @NotBlank(message = "{general.validation.empty}")
     @Length(min = 8, message = "{general.validation.minLength}")
+    @JsonView(JSONViews.UserDetailsView.class)
     private String passwordHash;
     @NotNull
     protected AccountType accountType;

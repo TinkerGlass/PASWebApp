@@ -19,7 +19,7 @@
             <div class="form-group">
                 <label for="usernameInput" th:text="#{users.fields.username}">Username</label>
                 <input type="text" class="form-control" id="usernameInput" th:placeholder="#{users.fields.enterUsername}" placeholder="Enter username" th:field="*{username}"
-                       th:errorclass="is-invalid">
+                       th:errorclass="is-invalid" required>
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">
                     Validation error
                 </div>
@@ -27,7 +27,7 @@
             <div class="form-group">
                 <label for="passwordInput" th:text="#{users.fields.password}">Password</label>
                 <input type="password" class="form-control" id="passwordInput" th:placeholder="#{users.fields.enterPassword}" placeholder="Enter password" th:field="*{passwordHash}"
-                       th:errorclass="is-invalid">
+                       th:errorclass="is-invalid" required minlength=8>
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('passwordHash')}" th:errors="*{passwordHash}">
                     Validation error
                 </div>

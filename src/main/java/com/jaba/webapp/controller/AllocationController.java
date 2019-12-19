@@ -9,6 +9,8 @@ import com.jaba.webapp.service.item.ItemManager;
 import com.jaba.webapp.service.user.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
@@ -50,8 +52,7 @@ public class AllocationController {
     @RequestMapping(value = "/loans/addLoan/{id}", method = RequestMethod.GET)
     public String showLoanForm(@PathVariable Long id,
                                Model model) {
-        model.addAttribute("item", itemService.getItemById(id));
-        model.addAttribute("users", userService.getAllActiveUsers());
+        fillModelForPage(model, id);
         return "loan";
     }
 
@@ -66,12 +67,20 @@ public class AllocationController {
             List<ApplicationException> errors = new ArrayList<ApplicationException>();
             errors.add(e);
             model.addAttribute("errors", errors);
-            model.addAttribute("item", itemService.getItemById(itemId));
-            model.addAttribute("users", userService.getAllActiveUsers());
+            fillModelForPage(model, itemId);
             return "loan";
         }
 
         return "redirect:/products";
+    }
+
+    private void fillModelForPage(Model model, Long itemId) {
+        model.addAttribute("item", itemService.getItemById(itemId));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication.getAuthorities().contains(User.AccountType.Roles.ADMINISTRATOR_ROLE))
+            model.addAttribute("users", userService.getAllActiveUsers());
+        else
+            model.addAttribute("users", Collections.singletonList(userService.getUserByName(authentication.getName())));
     }
 
     @RequestMapping(value = "/loans/removeLoan/{id}", method = RequestMethod.GET)

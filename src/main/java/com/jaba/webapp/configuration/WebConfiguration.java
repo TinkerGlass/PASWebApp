@@ -1,5 +1,6 @@
 package com.jaba.webapp.configuration;
 
+import com.fasterxml.jackson.databind.cfg.HandlerInstantiator;
 import com.jaba.webapp.breadcrumbs.BreadCrumbInterceptor;
 import com.jaba.webapp.breadcrumbs.BreadcrumbMap;
 import com.jaba.webapp.converter.StringToAccountTypeConverter;
@@ -14,6 +15,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.json.SpringHandlerInstantiator;
+import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -24,6 +31,9 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
+
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 @Configuration
 @EnableWebMvc
@@ -100,6 +110,12 @@ public class WebConfiguration implements WebMvcConfigurer {
         return bean;
     }
 
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
+        builder.defaultViewInclusion(true);
+        converters.add(new MappingJackson2HttpMessageConverter(builder.build()));
+    }
 
     @Bean
     public SpringSecurityDialect springSecurityDialect(){
