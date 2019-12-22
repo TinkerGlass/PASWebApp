@@ -1,9 +1,7 @@
 package com.jaba.webapp.domain.user;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.jaba.webapp.controller.jsonviews.JSONViews;
-import com.jaba.webapp.formatter.AccountTypeFormatter;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
@@ -73,17 +71,24 @@ public class User {
     }
 
     public enum AccountType {
-        CLIENT(Roles.CLIENT), RESOURCE_MANAGER(Roles.RESOURCE_MANAGER), ADMINISTRATOR(Roles.ADMINISTRATOR);
+        CLIENT(Roles.CLIENT, "accountTypes.client.description"), RESOURCE_MANAGER(Roles.RESOURCE_MANAGER, "accountTypes.resourceManager.description"),
+        ADMINISTRATOR(Roles.ADMINISTRATOR, "accountTypes.administrator.description");
 
         private String name;
+        private String description;
         public static final String role_prefix = "ROLE_";
 
-        AccountType(String name) {
+        AccountType(String name, String description) {
             this.name = name;
+            this.description = description;
         }
 
         public String getRoleName() {
             return role_prefix + name;
+        }
+
+        public String getDescription() {
+            return description;
         }
 
         public static class Roles {

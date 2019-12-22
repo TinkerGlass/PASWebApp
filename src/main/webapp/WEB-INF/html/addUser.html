@@ -4,7 +4,34 @@
       layout:decorate="~{layouts/main-layout}">
 <head>
     <meta charset="UTF-8">
+    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
     <title th:text="#{users.add.title}">Add user</title>
+    <script type="text/javascript">
+        function onChange()
+        {
+            var token = $('#_csrf').attr('content');
+            var header = $('#_csrf_header').attr('content');
+
+            var req = {};
+            req["type"] = $("#typeInput").val();
+
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(req),
+                url: "[[@{/account-type-ajax}]]",
+                dataType: "json",
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader(header, token);
+                },
+                success: function (result) {
+                    $("#account-description").text(result);
+                    console.log(result);
+                }
+            });
+        }
+    </script>
 </head>
 <body>
     <span layout:fragment="title" th:text="#{users.add.title}">Add users</span>
@@ -33,17 +60,23 @@
                 </div>
                 <div class="form-group">
                     <label for="typeInput" th:text="#{users.fields.type}">Type</label>
-                    <select id="typeInput" class="form-control" th:field="*{accountType}">
+                    <select id="typeInput" class="form-control" th:field="*{accountType}" onchange="onChange()">
                         <option th:each="type : ${allAccountTypes}"
                                 th:text="${{type}}" th:value="${type}"
                                 th:selected="${type == user.accountType}">Type</option>
                     </select>
                 </div>
+                <div class="container"><span id="account-description"></span></div>
+
                 <button type="submit" class="btn btn-primary float-right" th:text="#{buttons.add}">Add</button>
                 <div class="clearfix"></div>
             </form>
 
         </div>
+
+        <script>
+            $( document ).ready(function() {onChange();});
+        </script>
     </div>
 
 </body>

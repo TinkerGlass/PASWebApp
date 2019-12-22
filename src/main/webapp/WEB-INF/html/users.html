@@ -39,7 +39,6 @@
                 data: JSON.stringify(search),
                 dataType: 'json',
                 url: "[[@{/users-ajax}]]",
-                dataType: "JSON",
                 beforeSend: function(xhr) {
                     xhr.setRequestHeader(header, token);
                 },

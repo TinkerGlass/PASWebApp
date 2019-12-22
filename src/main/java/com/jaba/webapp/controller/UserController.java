@@ -2,13 +2,16 @@ package com.jaba.webapp.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.jaba.webapp.breadcrumbs.annotation.Breadcrumb;
+import com.jaba.webapp.controller.dto.AccountTypeRequest;
 import com.jaba.webapp.controller.dto.UserSearchRequest;
 import com.jaba.webapp.controller.jsonviews.JSONViews;
+import com.jaba.webapp.converter.StringToAccountTypeConverter;
 import com.jaba.webapp.domain.user.User;
 import com.jaba.webapp.exceptions.ApplicationException;
 import com.jaba.webapp.service.user.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,10 +30,16 @@ import java.util.List;
 public class UserController {
 
     private UserManager userService;
+    private ResourceBundleMessageSource messageSource;
 
     @Autowired
     public UserController(UserManager userService){
         this.userService = userService;
+    }
+
+    @Autowired
+    public void setMessageSource(ResourceBundleMessageSource messageSource) {
+        this.messageSource = messageSource;
     }
 
     @Breadcrumb(label="users.title", depth=0, family = {"user", "userModify"})
@@ -45,6 +54,13 @@ public class UserController {
     @JsonView(JSONViews.UserListView.class)
     public List<User> showUsersAjax(@RequestBody UserSearchRequest searchRequest) {
         return userService.findUsersByUsername(searchRequest.getUsername());
+    }
+
+    @RequestMapping(value = "/account-type-ajax", method = RequestMethod.POST)
+    @ResponseBody
+    public String getAccountTypeDescription(@RequestBody AccountTypeRequest type) {
+        User.AccountType typeConverted = new StringToAccountTypeConverter().convert(type.getType());
+        return messageSource.getMessage(typeConverted.getDescription(), null, LocaleContextHolder.getLocale());
     }
 
     @Breadcrumb(label="users.add.title", depth=1, family = {"user"})
