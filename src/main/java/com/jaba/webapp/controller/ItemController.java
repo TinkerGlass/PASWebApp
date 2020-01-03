@@ -1,6 +1,8 @@
 package com.jaba.webapp.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.jaba.webapp.breadcrumbs.annotation.Breadcrumb;
+import com.jaba.webapp.controller.dto.UserSearchRequest;
 import com.jaba.webapp.domain.item.Album;
 import com.jaba.webapp.domain.item.Item;
 import com.jaba.webapp.domain.item.Video;
@@ -40,6 +42,38 @@ public class ItemController {
         model.addAttribute("items", arrayList);
         return "items";
     }
+
+    @RequestMapping(value = "/items-json", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Item> showItemsAjax() {
+        return itemService.getAllItems();
+    }
+
+    @RequestMapping(value = "/add-item-album-json", method = RequestMethod.POST)
+    @ResponseBody
+    public String addItemAjax(@RequestBody Item item) {
+        itemService.addItem(item);
+        return "sucess.";
+    }
+
+    @RequestMapping(value = "/update-item-album-json", method = RequestMethod.PUT)
+    @ResponseBody
+    public String updateItemAjax(@RequestBody Item updatedItem,
+                                 @PathVariable("id") long itemId) {
+        Item item = itemService.getItemById(itemId);
+        item = updatedItem;
+        itemService.addItem(item);
+        return "sucess.";
+    }
+
+
+    @RequestMapping(value = "/delete-item-album-json/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public String deleteItemAjax(@PathVariable("id") long itemId) {
+        itemService.deleteItem(itemId);
+        return "sucess.";
+    }
+
 
     @Breadcrumb(label="items.add.title", depth=1, family = {"items"})
     @RequestMapping(value = "/products/newitem", method = RequestMethod.GET)
