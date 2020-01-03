@@ -1,5 +1,7 @@
 package com.jaba.webapp.domain.item;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.Valid;
@@ -9,7 +11,12 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
 
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Album.class, name = "album"),
 
+        @JsonSubTypes.Type(value = Video.class, name = "video") }
+)
 public abstract class Item {
     private Long id;
     @NotNull(message = "{general.validation.empty}")

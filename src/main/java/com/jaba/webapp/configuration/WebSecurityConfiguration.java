@@ -26,8 +26,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.requiresChannel().anyRequest().requiresSecure().and()
-                .authorizeRequests()
+        http.csrf().ignoringAntMatchers("/add-item-album-json")
+                .and().httpBasic()
+                .and().requiresChannel().anyRequest().requiresSecure()
+                .and().authorizeRequests()
                 .antMatchers("/register", "/css/**", "/js/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
