@@ -1,5 +1,6 @@
 package com.jaba.webapp.domain.item;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,21 +15,26 @@ import java.util.Date;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME)
 @JsonSubTypes({
         @JsonSubTypes.Type(value = Album.class, name = "album"),
-
-        @JsonSubTypes.Type(value = Video.class, name = "video") }
-)
+        @JsonSubTypes.Type(value = Video.class, name = "video")
+})
 public abstract class Item {
+    @JsonProperty("id")
     private Long id;
+    @JsonProperty("price")
     @NotNull(message = "{general.validation.empty}")
     @DecimalMin(value="0", message = "{general.validation.minValue}")
     private BigDecimal price;
+    @JsonProperty("title")
     @NotBlank(message = "{general.validation.empty}")
     private String title;
+    @JsonProperty("releaseDate")
     @NotNull(message = "{general.validation.empty}")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date releaseDate;
     @Valid
+    @JsonProperty("Sticker")
     private FanSticker sticker;
+    @JsonProperty("available")
     private boolean available = true;
 
     public Item(String title, BigDecimal price, Date releaseDate, FanSticker sticker) {

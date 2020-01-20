@@ -1,16 +1,24 @@
 package com.jaba.webapp.domain.item;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
 
+
+@JsonTypeName("video")
 public class Video extends Item {
+    @JsonProperty("genre")
     @NotNull(message="{general.validation.empty}")
     private Genre genre;
+    @JsonProperty("director")
     @NotBlank(message="{general.validation.empty}")
     private String director;
+    @JsonProperty("minutes")
     @Min(value = 1, message = "{general.validation.minValue}")
     private int minutes;
 

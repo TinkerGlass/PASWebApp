@@ -43,36 +43,6 @@ public class ItemController {
         return "items";
     }
 
-    @RequestMapping(value = "/items-json", method = RequestMethod.GET)
-    @ResponseBody
-    public List<Item> showItemsAjax() {
-        return itemService.getAllItems();
-    }
-
-    @RequestMapping(value = "/add-item-album-json", method = RequestMethod.POST)
-    @ResponseBody
-    public String addItemAjax(@RequestBody Item item) {
-        itemService.addItem(item);
-        return "sucess.";
-    }
-
-    @RequestMapping(value = "/update-item-album-json", method = RequestMethod.PUT)
-    @ResponseBody
-    public String updateItemAjax(@RequestBody Item updatedItem,
-                                 @PathVariable("id") long itemId) {
-        Item item = itemService.getItemById(itemId);
-        item = updatedItem;
-        itemService.addItem(item);
-        return "sucess.";
-    }
-
-
-    @RequestMapping(value = "/delete-item-album-json/{id}", method = RequestMethod.DELETE)
-    @ResponseBody
-    public String deleteItemAjax(@PathVariable("id") long itemId) {
-        itemService.deleteItem(itemId);
-        return "sucess.";
-    }
 
 
     @Breadcrumb(label="items.add.title", depth=1, family = {"items"})
