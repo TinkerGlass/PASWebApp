@@ -2,7 +2,8 @@ package com.jaba.webapp.exceptions;
 
 public class ApplicationException extends RuntimeException {
     public static enum ErrorCode {
-        USERNAME_NOT_UNIQUE, ITEM_ID_DOESNT_EXIST, USER_ID_DOESNT_EXIST, ITEM_UNAVAILABLE, ITEM_AVAILABLE, USER_INACTIVE
+        USERNAME_NOT_UNIQUE, ITEM_ID_DOESNT_EXIST, USER_ID_DOESNT_EXIST, ITEM_UNAVAILABLE, ITEM_AVAILABLE, USER_INACTIVE,
+        ITEM_ID_ALREADY_EXISTS
     }
 
     protected int errorCode;

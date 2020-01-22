@@ -40,6 +40,8 @@ public class RestApi {
         switch(ex.getReason()) {
             case ITEM_ID_DOESNT_EXIST:
                 return ResponseEntity.notFound().build();
+            case ITEM_ID_ALREADY_EXISTS:
+                return ResponseEntity.status(409).build();
             default:
                 return ResponseEntity.unprocessableEntity().build();
         }

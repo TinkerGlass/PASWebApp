@@ -40,7 +40,7 @@ public class ItemRepositoryImpl implements ItemRepository {
     public void addItem(Item item) {
         synchronized (items) {
             if (item.getId() != null && items.contains(item))
-                throw new IllegalArgumentException(String.format("Item with ID %d already exists", item.getId()));
+                throw new ApplicationException(ApplicationException.ErrorCode.ITEM_ID_ALREADY_EXISTS);
             item.setId(getNextID());
             items.add(item);
         }
