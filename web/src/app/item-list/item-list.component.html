@@ -28,7 +28,7 @@
         <div ngbDropdownMenu>
           <button [disabled]="!item.available" [ngClass]="{'text-danger': item.available, 'disabled': !item.available}"
              (click)="openDeleteModal(content, item)" ngbDropdownItem>Delete</button>
-          <button class="text-dark" [routerLink]="['/item', {id: item.id}]" ngbDropdownItem>Modify</button>
+          <button class="text-dark" [routerLink]="['/item', item.id]" ngbDropdownItem>Modify</button>
         </div>
       </div>
     </td>
