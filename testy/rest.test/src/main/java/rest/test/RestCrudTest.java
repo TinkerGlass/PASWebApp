@@ -15,7 +15,7 @@ import java.util.Map;
 public class RestCrudTest {
 
     public static String url = "https://localhost:8443/pas/api/items";
-    public int size = 0;
+    public static int size;
 
     @Test public void getItemList() throws JSONException {
         Response response = RestAssured.given().
@@ -44,6 +44,26 @@ public class RestCrudTest {
 //        Map<String, String> headers = new HashMap<>();
 //        headers.put("Content-Type", "application/json");
 //
+//        JSONObject bodyFirst = new JSONObject()
+//                .put("type", "album")
+//                .put("Sticker", new JSONObject()
+//                        .put("stickerContent", "content")
+//                        .put("stickerName", "name")
+//                        .put("stickerPoints", 100))
+//                .put("available", true)
+//                .put("price", 12.21)
+//                .put("releaseDate", 4359)
+//                .put("title", "title")
+//                .put("author", "autor")
+//                .put("genre", "POP")
+//                .put("tracks", 20);
+//
+//        Response response = RestAssured.given().
+//                relaxedHTTPSValidation().
+//                auth().
+//                basic("Superuser", "admin").
+//                when().
+//                put(url);
 //    }
 
     @Test public void post_deleteItem() throws JSONException {
@@ -77,9 +97,13 @@ public class RestCrudTest {
                 basic("Superuser", "admin").
                 when().
                 get(url);
+
+
         Assertions.assertEquals(responsePost.getStatusCode(), 200);
         Assertions.assertEquals(response.getStatusCode(), 200);
         Assertions.assertEquals(new JSONArray(response.asString()).length(), size+1);
+
+
         Response responseDelete = RestAssured.given().
                 relaxedHTTPSValidation().
                 auth().
@@ -87,6 +111,9 @@ public class RestCrudTest {
                 when().
                 delete(url + "/" + (new JSONArray(response.asString()).length() - 1));
         Assertions.assertEquals(responseDelete.getStatusCode(), 204);
+
+
+
         response = RestAssured.given().
                 relaxedHTTPSValidation().
                 auth().
