@@ -1,0 +1,68 @@
+<h3 class="mb-5">Object creator</h3>
+
+<div class="container">
+  <form name="form" (submit)="onSubmit()" action="javascript:void(0);" ngNoForm>
+    <div class="form-group">
+      <label for="check-item">Object type</label>
+      <select class="form-control" type="text" id="check-item" name="type" [(ngModel)]="item.type">
+        <option value="video">Video</option>
+        <option value="album">Album</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="item-title">Title</label>
+      <input class="form-control" type="text" id="item-title" placeholder="Enter item title" name="title" [(ngModel)]="item.title"
+             required>
+    </div>
+    <div class="form-group">
+      <label for="price">Price</label>
+      <input class="form-control" type="number" min="0.00" max="10000.00" step="0.01" id="price" name="price" [(ngModel)]="item.price"
+             placeholder="Enter price" required>
+    </div>
+    <div class="form-group">
+      <label for="release-date">Release date</label>
+      <input class="form-control" type="date" id="release-date" name="releaseDate" [ngModel]="item.releaseDate | date:'yyyy-MM-dd'"
+             (ngModelChange)="item.releaseDate = $event" placeholder="Enter date" required>
+    </div>
+    <ng-container *ngIf="item.type == itemType.ALBUM">
+      <div class="form-group">
+        <label for="author">Author</label>
+        <input class="form-control" type="text" id="author" name="author" [(ngModel)]="item.author" placeholder="Enter author" required>
+      </div>
+      <div class="form-group">
+        <label for="albumGenre">Genre</label>
+        <select class="form-control" type="text" id="albumGenre" name="genre" [(ngModel)]="item.genre" required>
+          <option *ngFor="let genre of albumGenres"
+                  [value]="genre" ngDefaultControl>{{genre}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="tracks">Tracks</label>
+        <input class="form-control" type="number" min=1 id="tracks" name="tracks" [(ngModel)]="item.tracks"
+               placeholder="Enter number of tracks" required>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="item.type == itemType.VIDEO">
+      <div class="form-group">
+        <label for="author">Director</label>
+        <input class="form-control" type="text" id="director" name="director" [(ngModel)]="item.director" placeholder="Enter director"
+               required>
+      </div>
+      <div class="form-group">
+        <label for="videoGenre">Genre</label>
+        <select class="form-control" type="text" id="videoGenre" name="genre" [(ngModel)]="item.genre" required>
+          <option *ngFor="let genre of videoGenre"
+                 [value]="genre" ngDefaultControl>{{genre}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="tracks">Duration</label>
+        <input class="form-control" type="number" min=1 id="minutes" name="duration" [(ngModel)]="item.minutes"
+               placeholder="Enter duration" required>
+      </div>
+    </ng-container>
+
+  <button type="submit" class="btn btn-primary float-right">Next</button>
+  <div class="clearfix"></div>
+  </form>
+</div>

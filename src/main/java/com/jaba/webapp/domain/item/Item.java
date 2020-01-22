@@ -32,7 +32,7 @@ public abstract class Item {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date releaseDate;
     @Valid
-    @JsonProperty("Sticker")
+    @JsonProperty("sticker")
     private FanSticker sticker;
     @JsonProperty("available")
     private boolean available = true;
