@@ -3,6 +3,7 @@ package com.jaba.webapp.repository.item;
 import com.jaba.webapp.datafiller.item.ItemDataFiller;
 import com.jaba.webapp.domain.item.Item;
 import com.jaba.webapp.domain.user.User;
+import com.jaba.webapp.exceptions.ApplicationException;
 import com.jaba.webapp.repository.specification.Specification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -58,7 +59,7 @@ public class ItemRepositoryImpl implements ItemRepository {
         synchronized (items) {
             int index = items.indexOf(item);
             if (index == -1)
-                throw new IllegalArgumentException(String.format("Item with ID %d doesn't exist", item.getId()));
+                throw new ApplicationException(ApplicationException.ErrorCode.ITEM_ID_DOESNT_EXIST);
             items.set(index, item);
         }
     }
