@@ -1,0 +1,55 @@
+<button type="button" class="btn btn-secondary" routerLink="item">Add</button>
+
+<table class="table mt-4">
+  <thead>
+  <tr>
+    <th scope="col">No.</th>
+    <th scope="col">Title</th>
+    <th scope="col">Release date</th>
+    <th scope="col">Sticker</th>
+    <th scope="col">Type</th>
+    <th scope="col">Price</th>
+    <th scope="col">Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of items; let i = index">
+    <th>{{i+1}}</th>
+    <td>{{item.title}}</td>
+    <td>{{item.releaseDate.toLocaleDateString()}}</td>
+    <td>{{item.sticker ? item.sticker.stickerName : ''}}</td>
+    <td>{{getItemType(item)}}</td>
+    <td>{{item.price.toFixed(2)}} PLN</td>
+    <td>
+      <div ngbDropdown >
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" ngbDropdownToggle>
+          Action
+        </button>
+        <div ngbDropdownMenu>
+          <button [disabled]="!item.available" [ngClass]="{'text-danger': item.available, 'disabled': !item.available}"
+             (click)="openDeleteModal(content, item)" ngbDropdownItem>Delete</button>
+          <button class="text-dark" [routerLink]="['/item', {id: item.id}]" ngbDropdownItem>Modify</button>
+        </div>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<ng-template #content let-modal>
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete this item?</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="delete-window-body">
+        Are you sure you want to delete {{selectedItem.title}}?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancel</button>
+        <form action="#" id="modal-form-delete">
+          <button type="button" class="btn btn-danger" (click)="modal.close('delete')">Delete</button>
+        </form>
+      </div>
+</ng-template>

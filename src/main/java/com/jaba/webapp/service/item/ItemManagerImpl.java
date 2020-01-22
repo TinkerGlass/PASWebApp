@@ -14,6 +14,7 @@ public class ItemManagerImpl implements ItemManager {
 
     private ItemRepository itemRepository;
 
+    @Secured({User.AccountType.Roles.ADMINISTRATOR_ROLE, User.AccountType.Roles.RESOURCE_MANAGER_ROLE})
     @Override
     public List<Item> getAllItems() {
         return itemRepository.find(ItemSpecification.all());
