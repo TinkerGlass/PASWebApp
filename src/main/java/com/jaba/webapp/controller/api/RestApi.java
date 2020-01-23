@@ -82,9 +82,9 @@ public class RestApi {
 
     @RequestMapping(value = "/api/items/{id}", method = RequestMethod.PUT)
     @ResponseBody
-    public String updateItemRest(@RequestBody @Valid Item item, @PathVariable Long id){
+    public Item updateItemRest(@RequestBody @Valid Item item, @PathVariable Long id){
         item.setId(id);
         itemService.updateItem(item);
-        return "sucess";
+        return item;
     }
 }

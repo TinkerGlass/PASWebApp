@@ -142,18 +142,36 @@ public class RestCrudTest {
                 .put("available", true)
                 .put("price", 12.21)
                 .put("releaseDate", 4359)
-                .put("title", "testowy")
+                .put("title", "tytul zmieniony")
                 .put("author", "autor")
                 .put("genre", "POP")
                 .put("tracks", 20);
 
 
-        Response response = RestAssured.given().
+        Response responsePost = RestAssured.given().
                 relaxedHTTPSValidation().
+                headers(headers).
                 auth().
                 basic("Superuser", "admin").
+                body(bodyFirst.toString()).
                 when().
-                put(url);
+                post(url);
+        JSONObject postBody = new JSONObject(responsePost.asString());
+        Assertions.assertEquals(responsePost.getStatusCode(), 200);
+        int id = (int) postBody.get("id");
+
+
+        Response responsePut = RestAssured.given().
+                relaxedHTTPSValidation().
+                headers(headers).
+                auth().
+                basic("Superuser", "admin").
+                body(bodySecond.toString()).
+                when().
+                put(url + "/" + postBody.get("id"));
+        JSONObject putBody = new JSONObject(responsePut.asString());
+        Assertions.assertEquals(responsePut.getStatusCode(), 200);
+        Assertions.assertNotEquals(postBody.get("title"), putBody.get("title"));
     }
 
     @Test public void postConflict() throws JSONException {
