@@ -69,7 +69,6 @@ public class RestCrudTest {
                 .put("tracks", 20);
 
 
-        System.out.println(body.toString());
         Response responsePost = RestAssured.given().
                 relaxedHTTPSValidation().
                 headers(headers).
@@ -148,8 +147,7 @@ public class RestCrudTest {
                 .put("genre", "POP")
                 .put("tracks", 20);
 
-        System.out.println(bodyFirst.toString());
-        System.out.println(bodySecond.toString());
+
 
         Response responsePost = RestAssured.given().
                 relaxedHTTPSValidation().
