@@ -74,9 +74,9 @@ public class RestApi {
 
     @RequestMapping(value = "/api/items", method = RequestMethod.POST)
     @ResponseBody
-    public String setItemRest(@RequestBody @Valid Item item){
+    public Item setItemRest(@RequestBody @Valid Item item){
         itemService.addItem(item);
-        return "sucess";
+        return item;
     }
 
 
