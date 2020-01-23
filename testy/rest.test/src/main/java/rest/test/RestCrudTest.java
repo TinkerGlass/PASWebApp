@@ -69,6 +69,7 @@ public class RestCrudTest {
                 .put("tracks", 20);
 
 
+        System.out.println(body.toString());
         Response responsePost = RestAssured.given().
                 relaxedHTTPSValidation().
                 headers(headers).
@@ -147,6 +148,8 @@ public class RestCrudTest {
                 .put("genre", "POP")
                 .put("tracks", 20);
 
+        System.out.println(bodyFirst.toString());
+        System.out.println(bodySecond.toString());
 
         Response responsePost = RestAssured.given().
                 relaxedHTTPSValidation().
@@ -172,6 +175,14 @@ public class RestCrudTest {
         JSONObject putBody = new JSONObject(responsePut.asString());
         Assertions.assertEquals(responsePut.getStatusCode(), 200);
         Assertions.assertNotEquals(postBody.get("title"), putBody.get("title"));
+
+        Response responseDelete = RestAssured.given().
+                relaxedHTTPSValidation().
+                auth().
+                basic("Superuser", "admin").
+                when().
+                delete(url + "/" + postBody.get("id"));
+        Assertions.assertEquals(responseDelete.getStatusCode(), 204);
     }
 
     @Test public void postConflict() throws JSONException {
